@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-As a/an **...** i want to be abel to **...** so that i can **...**
+As a/an ** ** i want to be abel to ** ** so that i can ** **
