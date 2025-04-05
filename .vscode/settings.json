@@ -4,6 +4,8 @@
         "asgiref",
         "certifi",
         "cffi",
+        "corecss",
+        "corejs",
         "defusedxml",
         "idna",
         "psku",
