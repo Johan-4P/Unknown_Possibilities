@@ -8,6 +8,7 @@
         "corejs",
         "defusedxml",
         "idna",
+        "postloadjs",
         "psku",
         "pycparser",
         "pytz",
