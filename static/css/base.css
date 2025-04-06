@@ -3,13 +3,25 @@ html {
 }
 
 body {
-    background: url('/media/home-page-img.png') no-repeat center center fixed;
-    background-size: cover;
-    height: calc(100vh - 164px);
+    background: #61313b;
     color: #555;
     font-family: 'Oswald', sans-serif;
 }
 
+.nav-style {
+    background: #490707;
+    justify-content: space-between !important;
+}
+.nav-style-text {
+    color: white;
+}
+
+.index-img {
+    background: url('/static/images/unknown-possibilities-logo-1.png') no-repeat center center;
+    background-size: contain;
+    height: 80vh;
+    width: 100%;
+}
 /* from Bulma */
 .icon {
     align-items: center;
@@ -19,8 +31,8 @@ body {
     width: 1.5rem;
 }
 
-.logo-font {
-    text-transform: uppercase;
+.logo-img {
+    width: 20%;
 }
 
 .main-logo-link {
@@ -28,9 +40,10 @@ body {
 }
 
 .btn-own-style {
-    background: black;
+    background: #ca3131;
     color: white;
-    min-width: 260px;
+    min-width: 200px;
+    border-radius: 10px;
 }
 
 .btn-black {
