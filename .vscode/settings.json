@@ -7,14 +7,20 @@
         "cffi",
         "corecss",
         "corejs",
+        "dcawi",
         "defusedxml",
+        "gunicorn",
+        "herokuapp",
         "idna",
         "postloadjs",
         "psku",
+        "pycache",
         "pycparser",
         "pytz",
         "socialaccount",
         "sqlparse",
-        "urllib"
+        "urllib",
+        "venv",
+        "wsgi"
     ]
 }
