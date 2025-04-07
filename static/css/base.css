@@ -17,7 +17,7 @@ body {
 }
 
 .index-img {
-    background: url('/static/images/unknown-possibilities-logo-1.png') no-repeat center center;
+    background: url('/media/unknown-possibilities-logo-1.png') no-repeat center center;
     background-size: contain;
     height: 80vh;
     width: 100%;
