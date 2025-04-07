@@ -39,7 +39,10 @@ body {
 }
 
 .logo-img {
-    width: 20%;
+    width: 10%;
+}
+.logo-img-two {
+    width: 27%;
 }
 
 .main-logo-link {
