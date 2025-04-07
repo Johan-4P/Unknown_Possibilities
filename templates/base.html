@@ -12,13 +12,12 @@
     {% endblock %}
 
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/media/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/media/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/media/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/media/favicon/site.webmanifest">
-
-    
+  <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        
     
 
     {% block corecss %}
@@ -50,7 +49,7 @@
       <div id="topnav" class="row nav-style pt-lg-2 d-lg-flex">
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
           <a href="{% url 'home' %}" class="nav-link main-logo-link">
-            <img src="/media/logo.png" alt="Logo" class="logo-img">
+            <img src="{{ MEDIA_URL }}logo.png" alt="Logo" class="logo-img">
             <p class="lead text-muted">Explore the Unknown. Embrace the Magic.</p>
           </a>
         </div>
