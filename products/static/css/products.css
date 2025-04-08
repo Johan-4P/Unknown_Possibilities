@@ -1,0 +1,54 @@
+body {
+    background-color: #0e0e0e;
+    color: #f8f8f8;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  .product-card {
+    background: linear-gradient(145deg, #1a1a1a, #121212);
+    border: 1px solid #333;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  }
+  
+  .product-card img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  
+  .btn-outline-light {
+    border-color: #aaa;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .fade-in-section {
+    animation: fadeIn 1.2s ease-in-out both;
+  }
+  
+  .fade-in-card {
+    animation: fadeInUp 0.8s ease-in-out both;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  

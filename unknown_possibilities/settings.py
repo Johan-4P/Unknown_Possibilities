@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'home',  
+    'home',
+    'products',
+
 
     # Other
     'storages',  # For S3 storage
