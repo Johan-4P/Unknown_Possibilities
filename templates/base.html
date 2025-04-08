@@ -1,83 +1,103 @@
 {% load static %}
 
-<!-- Base HTML Template for Unknown Possibilities Website -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <!-- Meta -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block meta %}{% endblock %}
 
-  <!-- Title -->
-  <title>Unknown Possibilities {% block extra_title %}{% endblock %}</title>
+  {% block meta %}
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% endblock %}
 
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
-  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+  {% block extra_meta %}
+  {% endblock %}
 
+  {% block corecss %}
   <!-- Fonts & Core CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% endblock %}
 
-  {% block corecss %}{% endblock %}
-  {% block extra_css %}{% endblock %}
+  {% block extra_css %}
+  {% endblock %}
+
+  {% block corejs %}
+  <!-- JS Scripts -->
+  <script src="https://kit.fontawesome.com/cf468e5aaf.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  {% endblock %}
+
+  {% block extra_js %}
+  {% endblock %}
+
+ <!-- Title -->
+ <title>Unknown Possibilities {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body class="fade-in-body">
-
-  <!-- Header -->
   <header class="container-fluid fixed-top">
-    <div class="row nav-style py-2">
-      <div class="col-12 col-lg-4 text-center text-lg-left">
-        <a href="{% url 'home' %}" class="main-logo-link d-flex align-items-center justify-content-center justify-content-lg-start">
-          <img src="https://unknown-possibilities.s3.amazonaws.com/media/logo.png" alt="Logo" class="logo-img mr-2">
-          <img src="https://unknown-possibilities.s3.eu-north-1.amazonaws.com/media/unknown+possibilities-text.png" alt="Unknown Possibilities" class="logo-img-two">
+    <div class="row nav-style pt-lg-2 d-none d-lg-flex">
+      <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
+        <a href="{% url 'home' %}" class="nav-link main-logo-link">
+          <img src="https://unknown-possibilities.s3.amazonaws.com/media/logo.png" alt="Logo" class="logo-img">
+          <img class="logo-img-two" src="https://unknown-possibilities.s3.eu-north-1.amazonaws.com/media/unknown+possibilities-text.png" alt="">
         </a>
       </div>
-      <div class="col-12 col-lg-4 my-auto">
+      <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
         <form method="GET" action="">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control border-black rounded-0" placeholder="Search the unknown...">
+          <div class="input-group w-100">
+            <input class="form-control border border-black rounded-0" type="text" name="q"
+              placeholder="Search the unknown...">
             <div class="input-group-append">
-              <button class="btn btn-black rounded-0" type="submit">
-                <i class="fas fa-search"></i>
+              <button class="form-control btn btn-mystic border border-black rounded-0" type="submit">
+                <span class="icon">
+                  <i class="fas fa-search"></i>
+                </span>
               </button>
             </div>
           </div>
         </form>
       </div>
-      <div class="col-12 col-lg-4 text-center text-lg-right">
-        <ul class="list-inline mb-0">
+      <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+        <ul class="list-inline text-center text-lg-right my-0">
           <li class="list-inline-item dropdown">
-            <a class="nav-link text-white" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user"></i> My Account
+            <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <div class="text-center">
+                <div><i class="fas fa-user fa-lg"></i></div>
+                <p class="my-0 mystic-text">My Account</p>
+              </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-right border-0">
+            <div class="dropdown-menu dropdown-menu-right border-0" aria-labelledby="user-options">
               {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                <a href="#" class="dropdown-item">Admin Panel</a>
-                {% endif %}
-                <a href="#" class="dropdown-item">My Profile</a>
-                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+              {% if request.user.is_superuser %}
+              <a href="" class="dropdown-item">Product Management</a>
+              {% endif %}
+              <a href="" class="dropdown-item">My Profile</a>
+              <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
               {% else %}
-                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+              <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+              <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
               {% endif %}
             </div>
           </li>
           <li class="list-inline-item">
-            <a class="nav-link text-white" href="#">
-              <i class="fas fa-shopping-bag"></i> 
-              {% if grand_total %}
-                ${{ grand_total|floatformat:2 }}
-              {% else %}
-                $0.00
-              {% endif %}
+            <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+              <div class="text-center">
+                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                <p class="my-0 mystic-text">
+                  {% if grand_total %}
+                  ${{ grand_total|floatformat:2 }}
+                  {% else %}
+                  $0.00
+                  {% endif %}
+                </p>
+              </div>
             </a>
           </li>
         </ul>
@@ -93,37 +113,26 @@
         {% include 'includes/main-nav.html' %}
       </nav>
     </div>
-
-    <!-- Banner -->
-    <div class="row text-center bg-dark text-white py-2">
+    <div id="delivery-banner" class="row text-center bg-dark text-white py-2">
       <div class="col">
         <p class="mb-0">🔮 Explore the Unknown. Embrace the Magic. Free delivery over ${{ free_shipping_threshold }}!</p>
       </div>
     </div>
   </header>
 
-  <!-- Messages -->
   {% if messages %}
-  <div class="message-container">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-  </div>
+  <div class="message-container"></div>
   {% endif %}
 
-  <!-- Page Header & Content -->
-  {% block page_header %}{% endblock %}
-  {% block content %}{% endblock %}
+  {% block page_header %}
+  {% endblock %}
 
-  <!-- JS Scripts -->
-  <script src="https://kit.fontawesome.com/cf468e5aaf.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  {% block content %}
+  {% endblock %}
 
-  {% block corejs %}{% endblock %}
-  {% block extra_js %}{% endblock %}
-  {% block postloadjs %}{% endblock %}
+  {% block postloadjs %}
+  {% endblock %}
+
 </body>
 
 </html>
