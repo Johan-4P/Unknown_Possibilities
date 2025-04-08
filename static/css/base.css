@@ -10,11 +10,9 @@ body {
 
 .nav-style {
     background: #490707;
-    justify-content: space-between !important;
+   
 }
-.nav-style-text {
-    color: white;
-}
+
 .list-inline {
     display: flex;
     justify-content: flex-end !important;
