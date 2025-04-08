@@ -75,7 +75,17 @@
             </div>
           </div>
         </form>
-
+        <div class="links">
+          <nav class=" navbar-expand-lg w-100">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            {% include 'includes/mobile-top-header.html' %}
+            {% include 'includes/main-nav.html' %}
+          </nav>
+        </div>
+        
       </div>
       <div class="col-12 col-lg-4 py-1 py-lg-0">
         <ul class="list-inline list-unstyled text-center">
@@ -116,16 +126,16 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="row">
-      <nav class="navbar navbar-expand-lg w-100">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        {% include 'includes/mobile-top-header.html' %}
-        {% include 'includes/main-nav.html' %}
-      </nav>
+        <!-- <div class="links">
+        <nav class="navbar navbar-expand-lg w-100">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          {% include 'includes/mobile-top-header.html' %}
+          {% include 'includes/main-nav.html' %}
+        </nav>
+      </div> -->
     </div>
   </header>
 

@@ -22,6 +22,9 @@ body {
 .nav-item-img {
     height: 50%;
 }
+.links {
+    display: contents;
+}
 
 .index-img {
     background: url('/media/unknown-possibilities-logo-1.png') no-repeat center center;
