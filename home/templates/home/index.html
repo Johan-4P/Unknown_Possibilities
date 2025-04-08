@@ -2,31 +2,56 @@
 {% load static %}
 
 {% block page_header%}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container h-100">
-        <div class="index-img">
-        </div>
-        <div class="h-100 text-center">
-            <div class="col-7-col-md-6 my-auto">
-                <h1 class="display-4 logo-font text-black">
-                    Welcome to Unknown Possibilities!
-                </h1>
-                    <p class="text-black">Here you can travel between Tarot decks, Runes, Crystals and Readings done by me.</p>
-            </div>
-            <div>
-                <a href="" class="btn btn-own-style btn-lg text-uppercase py-3">Tarot Decks</a>
-                <a href="" class="btn btn-own-style btn-lg text-uppercase py-3">Runes</a>
-                <a href="" class="btn btn-own-style btn-lg text-uppercase py-3">Crystals</a>
-                <a href="" class="btn btn-own-style btn-lg text-uppercase py-3">Readings</a>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+<div class="container h-100">
+    <section class="index-img"></section>
+    <section class="mystic-section fade-in">
+        <h2 class="mystic-heading text-center">Explore the Unknown</h2>
+        <!-- <div class="h-100 text-center"> -->
 
+            <div class="card-row">
+                <div class="mystic-card">
+                    <img src="https://via.placeholder.com/300x180" alt="Mystic Card">
+                    <div class="mystic-content">
+                        <h3 class="mystic-title">TarotCards</h3>
+                        <p class="mystic-text">Discover guidance through classic tarot. Your past, present and future.
+                        </p>
+                        <button class="btn-mystic">Read More</button>
+                    </div>
+                </div>
+                <div class="mystic-card">
+                    <img src="https://via.placeholder.com/300x180" alt="Mystic Card">
+                    <div class="mystic-content">
+                        <h3 class="mystic-title">Runes</h3>
+                        <p class="mystic-text">From ancient Norse wisdom – the runes speak of power, balance and
+                            destiny.</p>
+                        <button class="btn-mystic">Read More</button>
+                    </div>
+                </div>
+                <div class="mystic-card">
+                    <img src="https://via.placeholder.com/300x180" alt="Mystic Card">
+                    <div class="mystic-content">
+                        <h3 class="mystic-title">Crystals</h3>
+                        <p class="mystic-text">Healing and energy. Choose the crystal that calls to you.</p>
+                        <button class="btn-mystic">Read More</button>
+                    </div>
+                </div>
+                <div class="mystic-card">
+                    <img src="https://via.placeholder.com/300x180" alt="Mystic Card">
+                    <div class="mystic-content">
+                        <h3 class="mystic-title">Readings</h3>
+                        <p class="mystic-text">.</p>
+                        <button class="btn-mystic">Read More</button>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </section>
+{% endblock %}
