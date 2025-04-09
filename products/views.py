@@ -20,10 +20,7 @@ def products_detail(request, product_id):
 
 
     
-    category_back_images = {
-        'tarotcards': 'images/card-back-tarot.jpg',
-        'wandering-moon': 'images/card-back-oracle.jpg',
-    }
+
 
     category_texts = {
     'tarotcards': "Let the cards guide your day with ancient Tarot wisdom.",
@@ -31,7 +28,7 @@ def products_detail(request, product_id):
 
     intro_text = category_texts.get(category.name.lower(), "Draw a card and see what the universe holds.")
 
-    card_back = category_back_images.get(category.name.lower(), 'images/card-back-default.jpg')
+    card_back = f'images/card-backs/card-back-{product.sku.lower()}.png'
 
     context = {
         'product': product,

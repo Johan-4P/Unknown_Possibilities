@@ -9,73 +9,67 @@
 
 {% block content %}
 <div class="container mt-5 pt-5 fade-in-section">
-  <div class="row">
-    <div class="col-md-6">
-      <img src="{{ product.image.url }}" class="img-fluid rounded shadow-lg" alt="{{ product.name }}">
-    </div>
-    <div class="col-md-6 text-light">
+
+  <!-- Product info -->
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0 text-md-right">
+      <img src="{{ product.image.url }}" class="img-fluid rounded shadow-lg product-image" alt="{{ product.name }}">
+    </div>    
+    <div class="col-md-6 text-light d-flex flex-column justify-content-center">
       <h2 class="display-5">{{ product.name }}</h2>
       <p class="text-muted">${{ product.price|floatformat:2 }}</p>
       <p>{{ product.description }}</p>
 
-      <form method="POST" action="{% url 'add_to_cart' product.id %}">
+      <form method="POST" action="{% url 'add_to_cart' product.id %}" class="mt-3">
         {% csrf_token %}
-        <div class="form-group">
-          <label for="quantity">Quantity</label>
+        <div class="form-group d-flex align-items-center">
+          <label for="quantity" class="mr-2">Quantity</label>
           <input type="number" name="quantity" value="1" min="1" class="form-control w-25">
         </div>
-        <button type="submit" class="btn btn-own-style mt-3">Add to Cart</button>
+        <button type="submit" class="btn btn-own-style mt-2">Add to Cart</button>
       </form>
     </div>
   </div>
 
+  <!-- Intro text -->
   <hr class="my-5">
-  <p class="text-muted mb-3">{{ intro_text }}</p>
+  <p class="text-muted mb-3 text-center">{{ intro_text }}</p>
 
+  <!-- Card of the Day -->
   {% if user.is_authenticated %}
-    <section class="card-of-the-day-section container my-5 text-center">
-      <h2 class="mb-4 text-light">Card of the Day</h2>
-      <div id="card-row" class="d-flex justify-content-center flex-wrap gap-3">
-        {% for card in tarot_cards %}
-          <div class="tarot-card" data-message="{{ card.message }}" data-name="{{ card.name }}" data-img="{{ card.image.url }}">
-            <img src="{% static card_back %}" alt="Tarot card back">
+  <section class="card-of-the-day-section container my-5 text-center">
+    <h2 class="mb-4 text-light">Card of the Day</h2>
+    <div id="card-row" class="d-flex justify-content-center flex-wrap gap-3">
+      {% for card in tarot_cards|slice:":5" %}
+        <div class="flip-card" data-message="{{ card.message }}" data-name="{{ card.name }}" data-img="{{ card.image.url }}">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="{% static card_back %}" alt="Card back">
+            </div>
+            <div class="flip-card-back">
+              <img src="{{ card.image.url }}" alt="{{ card.name }}">
+            </div>
           </div>
-        {% endfor %}
-      </div>
-  
-      <div id="card-reveal" class="card-reveal mt-4 d-none fade-in">
-        <img id="reveal-img" src="" alt="Revealed card" class="mb-3">
-        <h3 id="reveal-name" class="text-light"></h3>
-        <p id="reveal-message" class="text-muted"></p>
-      </div>
-    </section>
-  {% else %}
-    <section class="card-of-the-day-section container my-5 text-center">
-      <h2 class="mb-4 text-light">Card of the Day</h2>
-      <p class="text-warning">Please <a href="{% url 'account_login' %}">log in</a> to draw your card of the day.</p>
-    </section>
-  {% endif %}
-  <div id="card-container" class="card-row mt-5">
-    {% for card in tarot_cards|slice:":5" %}
-        <div class="mystic-card card-of-the-day" data-card="{{ card.id }}" data-message="{{ card.message }}" data-title="{{ card.name }}">
-            <img src="{% static 'images/card_back_{{ forloop.counter }}.jpg' %}" alt="Mystery card">
         </div>
-    {% endfor %}
-</div>
+      {% endfor %}
+    </div>
 
-<div id="card-reveal" class="text-center mt-4" style="display:none;">
-    <h3 class="mystic-title" id="card-title"></h3>
-    <p class="mystic-text" id="card-message"></p>
-</div>
-
-  
-  
-  
+    <div id="card-reveal" class="text-center mt-4" style="display:none;">
+      <h3 class="mystic-title" id="card-title"></h3>
+      <p class="mystic-text" id="card-message"></p>
+    </div>
+  </section>
+  {% else %}
+  <section class="card-of-the-day-section container my-5 text-center">
+    <h2 class="mb-4 text-light">Card of the Day</h2>
+    <p class="text-warning">Please <a href="{% url 'account_login' %}">log in</a> to draw your card of the day.</p>
+  </section>
+  {% endif %}
 
   {% include 'includes/mystical_pick.html' %}
 </div>
 {% endblock %}
-  
+
 {% block extra_js %}
 <script src="{% static 'js/products.js' %}"></script>
 <script src="{% static 'js/card-of-the-day.js' %}"></script>
