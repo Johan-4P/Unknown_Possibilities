@@ -1,0 +1,206 @@
+/*  */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top, #1c1c2e, #141420 80%);
+    color: #cfcfdc;
+    font-family: 'Georgia', serif;
+    scroll-behavior: smooth;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #d8b4fe;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 6px rgba(216, 180, 254, 0.15);
+}
+
+/* Links */
+a {
+    color: #a58bfc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #d8b4fe;
+}
+
+/* Navbar */
+.nav-style {
+    background: #1a1a2e;
+    border-bottom: 1px solid #383850;
+    padding: 10px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.list-inline {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.list-inline a {
+    color: #eaeaea;
+    font-weight: 500;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Logo */
+.logo-img {
+    width: 10%;
+}
+.logo-img-two {
+    width: 27%;
+}
+
+/* Index image */
+.index-img {
+    background: url('/media/unknown-possibilities-logo-1.png') no-repeat center center;
+    background-size: contain;
+    height: 80vh;
+    width: 100%;
+    position: relative;
+}
+
+.index-img::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(20, 20, 32, 0.6);
+}
+
+/* Buttons */
+.btn-own-style,
+.btn-mystic,
+.btn-black {
+    background: #7f5af0;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-own-style:hover,
+.btn-mystic:hover,
+.btn-black:hover {
+    background: #9f79ff;
+    box-shadow: 0 0 12px rgba(127, 90, 240, 0.5);
+}
+
+/* Footer */
+footer {
+    background: #141420;
+    color: #999;
+    text-align: center;
+    padding: 30px 10px;
+    border-top: 1px solid #383850;
+    font-size: 0.9rem;
+}
+
+footer a:hover {
+    color: #d8b4fe;
+}
+
+/* Mystic section */
+.mystic-section {
+    padding: 60px 20px;
+}
+
+.mystic-heading {
+    text-align: center;
+    color: #d8b4fe;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    font-family: 'Georgia', serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+}
+
+/* Mystic cards */
+.card-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.mystic-card {
+    width: 250px;
+    background: linear-gradient(145deg, #1c1c2e, #141420);
+    border: 1px solid #383850;
+    border-radius: 16px;
+    overflow: hidden;
+    color: #eaeaea;
+    font-family: 'Georgia', serif;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1.5s ease forwards;
+    opacity: 0;
+}
+
+.mystic-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+}
+
+.mystic-card img {
+    width: 100%;
+    height: auto;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.mystic-content {
+    padding: 20px;
+}
+
+.mystic-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #d8b4fe;
+}
+
+.mystic-text {
+    font-size: 0.95rem;
+    color: #cfcfdc;
+    margin-bottom: 16px;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media queries */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 164px;
+    }
+}
