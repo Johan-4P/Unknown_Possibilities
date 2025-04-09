@@ -91,5 +91,14 @@ body {
     cursor: pointer;
 }
 
+
+.card.bg-dark {
+  background: linear-gradient(145deg, #1c1c2e, #141420);
+  border: 1px solid #383850;
+}
+.card-title {
+  color: #d8b4fe;
+}
+
   
   

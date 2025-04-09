@@ -16,7 +16,7 @@
     {% endif %}
   </div>
 
-  <form method="GET" class="mb-4 fade-in-section">
+  <form method="GET" action="{% url 'products' %}" class="mb-4 fade-in-section">
     <div class="row">
       <div class="col-md-6 mb-2">
         <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">

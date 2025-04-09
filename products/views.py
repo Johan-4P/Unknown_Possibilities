@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, TarotCard
+from .models import Product, TarotCard, Category
+from django.db.models import Q
 import random
 
 def all_product(request):
@@ -20,12 +21,12 @@ def products_detail(request, product_id):
 
     
     category_back_images = {
-        'light-seers': 'images/card-back-tarot.jpg',
+        'tarotcards': 'images/card-back-tarot.jpg',
         'wandering-moon': 'images/card-back-oracle.jpg',
     }
 
     category_texts = {
-    'tarot': "Let the cards guide your day with ancient Tarot wisdom.",
+    'tarotcards': "Let the cards guide your day with ancient Tarot wisdom.",
 }
 
     intro_text = category_texts.get(category.name.lower(), "Draw a card and see what the universe holds.")
@@ -39,5 +40,32 @@ def products_detail(request, product_id):
         'intro_text': intro_text,
     }
 
-    return render(request, 'products/product_detail.html', context)
+    return render(request, 'products/products_detail.html', context)
 
+
+def add_to_cart(request, product_id):
+    """Add a product to the cart."""
+    pass
+
+
+def all_tarot_cards(request):
+    query = request.GET.get('q', '')
+    category_id = request.GET.get('category', '')
+
+    cards = TarotCard.objects.all()
+
+    if query:
+        cards = cards.filter(Q(name__icontains=query) | Q(message__icontains=query))
+
+    if category_id:
+        cards = cards.filter(categories__id=category_id)
+
+    categories = Category.objects.all()
+
+    context = {
+        'cards': cards,
+        'categories': categories,
+        'current_query': query,
+        'current_category': category_id,
+    }
+    return render(request, 'products/tarot_cards.html', context)

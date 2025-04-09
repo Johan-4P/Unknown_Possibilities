@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+  <h1 class="text-light mb-4 text-center">All Tarot Cards</h1>
+
+  
+  <form method="GET" action="{% url 'tarotcards' %}" class="mb-4">
+    <div class="form-row justify-content-center">
+      <div class="col-md-4 mb-2">
+        <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ current_query }}">
+      </div>
+      <div class="col-md-3 mb-2">
+        <select name="category" class="form-control" onchange="this.form.submit()">
+          <option value="">All Categories</option>
+          {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if current_category == cat.id|stringformat:"s" %}selected{% endif %}>
+              {{ cat.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 mb-2">
+        <button type="submit" class="btn btn-own-style btn-block">Filter</button>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row">
+    {% for card in cards %}
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+      <div class="card bg-dark text-white h-100 shadow-lg">
+        <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.name }}</h5>
+          <p class="card-text">{{ card.message }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted">
+      <p>No tarot cards found.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
