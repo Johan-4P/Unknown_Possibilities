@@ -31,3 +31,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class TarotCard(models.Model):
+    """A model for picking a tarot card."""
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='tarot_cards/')
+    message = models.TextField()
+    categories = models.ManyToManyField('Category', related_name='tarot_cards')
+
+    def __str__(self):
+        return self.name

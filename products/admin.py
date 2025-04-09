@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Category
+from .models import Product, Category, TarotCard
 
 # Register your models here.
 
@@ -24,5 +24,12 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('friendly_name', 'name')
     search_fields = ('friendly_name', 'name')
 
+
+class TarotCardAdmin(admin.ModelAdmin):
+    """Admin settings for TarotCard model."""
+    list_display = ('name',)
+    filter_horizontal = ('categories',)
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(TarotCard)

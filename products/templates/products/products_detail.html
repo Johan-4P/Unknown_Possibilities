@@ -30,7 +30,53 @@
   </div>
 
   <hr class="my-5">
+  <p class="text-muted mb-3">{{ intro_text }}</p>
+
+  {% if user.is_authenticated %}
+    <section class="card-of-the-day-section container my-5 text-center">
+      <h2 class="mb-4 text-light">Card of the Day</h2>
+      <div id="card-row" class="d-flex justify-content-center flex-wrap gap-3">
+        {% for card in tarot_cards %}
+          <div class="tarot-card" data-message="{{ card.message }}" data-name="{{ card.name }}" data-img="{{ card.image.url }}">
+            <img src="{% static card_back %}" alt="Tarot card back">
+          </div>
+        {% endfor %}
+      </div>
+  
+      <div id="card-reveal" class="card-reveal mt-4 d-none fade-in">
+        <img id="reveal-img" src="" alt="Revealed card" class="mb-3">
+        <h3 id="reveal-name" class="text-light"></h3>
+        <p id="reveal-message" class="text-muted"></p>
+      </div>
+    </section>
+  {% else %}
+    <section class="card-of-the-day-section container my-5 text-center">
+      <h2 class="mb-4 text-light">Card of the Day</h2>
+      <p class="text-warning">Please <a href="{% url 'account_login' %}">log in</a> to draw your card of the day.</p>
+    </section>
+  {% endif %}
+  <div id="card-container" class="card-row mt-5">
+    {% for card in tarot_cards|slice:":5" %}
+        <div class="mystic-card card-of-the-day" data-card="{{ card.id }}" data-message="{{ card.message }}" data-title="{{ card.name }}">
+            <img src="{% static 'images/card_back_{{ forloop.counter }}.jpg' %}" alt="Mystery card">
+        </div>
+    {% endfor %}
+</div>
+
+<div id="card-reveal" class="text-center mt-4" style="display:none;">
+    <h3 class="mystic-title" id="card-title"></h3>
+    <p class="mystic-text" id="card-message"></p>
+</div>
+
+  
+  
+  
 
   {% include 'includes/mystical_pick.html' %}
 </div>
+{% endblock %}
+  
+{% block extra_js %}
+<script src="{% static 'js/products.js' %}"></script>
+<script src="{% static 'js/card-of-the-day.js' %}"></script>
 {% endblock %}
