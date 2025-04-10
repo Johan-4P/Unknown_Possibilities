@@ -12,6 +12,18 @@ def all_product(request):
     }
     return render(request, 'products/products.html', context)
 
+def category_products(request, category_name):
+    """ View to show products in a specific category """
+    category = get_object_or_404(Category, name__iexact=category_name)
+    products = Product.objects.filter(category=category)
+
+    context = {
+        'products': products,
+        'category': category,
+    }
+    return render(request, 'products/products.html', context)
+
+
 
 def products_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)

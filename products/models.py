@@ -39,6 +39,7 @@ class TarotCard(models.Model):
     image = models.ImageField(upload_to='tarot_cards/')
     message = models.TextField()
     categories = models.ManyToManyField('Category', related_name='tarot_cards')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='cards', null=True, blank=True)
 
     def __str__(self):
         return self.name

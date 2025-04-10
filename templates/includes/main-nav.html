@@ -1,74 +1,73 @@
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Products
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                <a href="" class="dropdown-item">By Price</a>
-                <a href="" class="dropdown-item ">By Rating</a>
-                <a href="" class="dropdown-item ">By Category</a>
-                <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="clothing-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                TarotCards
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="tarot-link">
-                <a href="" class="dropdown-item">Tarot 1</a>
-                <a href="" class="dropdown-item">Tarot 2</a>
-                <a href="" class="dropdown-item">Tarot 3</a>
-                <a href="" class="dropdown-item">Tarot 4</a>
-                <a href="" class="dropdown-item">All Tarots</a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="homeware-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Runes
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="rune-link">
-                <a href="" class="dropdown-item">Rune 1</a>
-                <a href="" class="dropdown-item">Rune 2</a>
-                <a href="" class="dropdown-item">Homemade Rune</a>
-                <a href="" class="dropdown-item">All Runes</a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="homeware-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Crystals
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="crystals-link">
-                <a href="" class="dropdown-item">Collections of Crystals</a>
-                <a href="" class="dropdown-item"></a>
-                <a href="" class="dropdown-item"></a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="readings-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Readings
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="rune-link">
-                <a href="" class="dropdown-item">Tarot Readings</a>
-                <a href="" class="dropdown-item">Rune Readings</a>
-                <a href="" class="dropdown-item"></a>
-            </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link" href="#" id="specials-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Specials
-            </a>
-            <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                <a href="" class="dropdown-item">New Arrivals</a>
-                <a href="" class="dropdown-item">Deals</a>
-                <a href="" class="dropdown-item">Clearance</a>
-                <a href="" class="dropdown-item">All Specials</a>
-            </div>
-        </li>
+  
+      <!-- All Products -->
+      <li class="nav-item dropdown {% if not category %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Products
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+          <a href="{% url 'products' %}?sort=price_asc" class="dropdown-item">By Price</a>
+          <a href="{% url 'products' %}?sort=rating_desc" class="dropdown-item">By Rating</a>
+          <a href="{% url 'products' %}" class="dropdown-item">By Category</a>
+          <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
+        </div>
+      </li>
+  
+      <!-- Tarot -->
+      <li class="nav-item dropdown {% if category.name|lower == 'tarotcards' %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="tarot-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tarot Cards
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="tarot-link">
+          <a href="{% url 'category_products' 'tarotcards' %}" class="dropdown-item">All Tarot Cards</a>
+        </div>
+      </li>
+  
+      <!-- Runes -->
+      <li class="nav-item dropdown {% if category.name|lower == 'runes' %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="runes-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Runes
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="runes-link">
+          <a href="{% url 'category_products' 'runes' %}" class="dropdown-item">All Runes</a>
+        </div>
+      </li>
+  
+      <!-- Crystals -->
+      <li class="nav-item dropdown {% if category.name|lower == 'crystals' %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="crystals-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Crystals
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="crystals-link">
+          <a href="{% url 'category_products' 'crystals' %}" class="dropdown-item">All Crystals</a>
+        </div>
+      </li>
+  
+      <!-- Readings -->
+      <li class="nav-item dropdown {% if category.name|lower == 'readings' or category.name|lower == 'rune-readings' %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="readings-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Readings
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="readings-link">
+          <a href="{% url 'category_products' 'readings' %}" class="dropdown-item">Tarot Readings</a>
+          <a href="{% url 'category_products' 'rune-readings' %}" class="dropdown-item">Rune Readings</a>
+        </div>
+      </li>
+  
+      <!-- Specials -->
+      <li class="nav-item dropdown {% if category.name|lower == 'new-arrivals' or category.name|lower == 'deals' or category.name|lower == 'clearance' %}active{% endif %}">
+        <a class="logo-font font-weight-bold nav-link" href="#" id="specials-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Specials
+        </a>
+        <div class="dropdown-menu border-0" aria-labelledby="specials-link">
+          <a href="{% url 'category_products' 'new-arrivals' %}" class="dropdown-item">New Arrivals</a>
+          <a href="{% url 'category_products' 'deals' %}" class="dropdown-item">Deals</a>
+          <a href="{% url 'category_products' 'clearance' %}" class="dropdown-item">Clearance</a>
+          <a href="{% url 'products' %}" class="dropdown-item">All Specials</a>
+        </div>
+      </li>
+  
     </ul>
-</div>
+  </div>
+  
