@@ -35,6 +35,13 @@ a:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
+.nav-item.active > .nav-link {
+    color: #ffd700 !important;
+    font-weight: 700;
+    border-bottom: 2px solid #ffd700;
+  }
+  
+
 .list-inline {
     display: flex;
     justify-content: flex-end;
@@ -132,6 +139,8 @@ footer a:hover {
 }
 
 .mystic-card {
+    display: block;
+    text-align: center;
     width: 250px;
     background: linear-gradient(145deg, #1c1c2e, #141420);
     border: 1px solid #383850;
@@ -143,11 +152,13 @@ footer a:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 1.5s ease forwards;
     opacity: 0;
+    text-decoration: none;
 }
 
 .mystic-card:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    color: #fff;
 }
 
 .mystic-card img {
@@ -155,6 +166,7 @@ footer a:hover {
     height: auto;
     filter: brightness(0.9) contrast(1.1);
 }
+
 
 .mystic-content {
     padding: 20px;
