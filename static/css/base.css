@@ -9,6 +9,10 @@ html, body {
     scroll-behavior: smooth;
 }
 
+.header-container {
+    padding-top: 100px; 
+  }
+  
 /* Headings */
 h1, h2, h3, h4 {
     color: #d8b4fe;

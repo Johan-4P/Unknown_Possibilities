@@ -27,9 +27,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class TarotCardAdmin(admin.ModelAdmin):
     """Admin settings for TarotCard model."""
-    list_display = ('name', 'product')
+    list_display = ('name', 'product', 'categories',)
     list_filter = ('product', 'categories')
-    filter_horizontal = ('categories',)
+    
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)

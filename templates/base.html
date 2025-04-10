@@ -124,12 +124,15 @@
   <div class="message-container"></div>
   {% endif %}
 
-  {% block page_header %}
-  {% endblock %}
+  <div class="header-container">
 
-  {% block content %}
-  {% endblock %}
-
+    {% block page_header %}
+    {% endblock %}
+  
+    {% block content %}
+    {% endblock %}
+  
+  </div>
   {% block postloadjs %}
   {% endblock %}
 
