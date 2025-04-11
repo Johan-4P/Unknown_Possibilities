@@ -166,4 +166,10 @@ body {
   border-radius: 5px;
   z-index: 10;
 }
-  
+
+.modal-backdrop {
+  z-index: 1040 !important;
+}
+.modal {
+  z-index: 1050 !important;
+}

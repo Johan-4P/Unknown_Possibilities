@@ -1,0 +1,29 @@
+{% load static %}
+
+{% if tarot_cards %}
+<section class="card-of-the-day-section container my-5 text-center">
+  <h2 class="mb-4 text-light">Draw Your Daily Card</h2>
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    {% for card in tarot_cards|slice:":5" %}
+      <div class="flip-card" 
+           data-name="{{ card.name }}" 
+           data-message="{{ card.message }}" 
+           data-img="{{ card.image.url }}" 
+           data-category="{{ product.category.name }}" 
+           data-product="{{ product.id }}">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="{% static card_back %}" alt="Card back">
+          </div>
+          <div class="flip-card-back">
+            <img src="{{ card.image.url }}" alt="{{ card.name }}">
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="btn btn-outline-light mt-4" id="reset-card-draw">
+    Reset Card Draw (dev)
+  </button>
+</section>
+{% endif %}

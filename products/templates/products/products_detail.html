@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block extra_title %} | {{ product.name }} {% endblock %}
 
 {% block extra_css %}
@@ -18,7 +17,7 @@
       <div class="badge-out-of-stock">Out of Stock</div>
       {% endif %}
       <img src="{{ product.image.url }}" class="img-fluid rounded shadow-lg product-image" alt="{{ product.name }}">
-    </div>    
+    </div>
     <div class="col-md-6 text-light d-flex flex-column justify-content-center">
       <h2 class="display-5">{{ product.name }}</h2>
       <p class="text-muted">${{ product.price|floatformat:2 }}</p>
@@ -35,51 +34,33 @@
         <button type="submit" class="btn btn-own-style mt-2">Add to Cart</button>
       </form>
       {% else %}
-        <p class="text-danger font-weight-bold mt-3">Out of Stock</p>
+      <p class="text-danger font-weight-bold mt-3">Out of Stock</p>
       {% endif %}
     </div>
   </div>
+  {% if product.category.name|lower == "tarotcards" and user.is_authenticated %}
+  {% include "includes/card_draw.html" %}
+{% endif %}
 
-  <!-- Intro text -->
-  <hr class="my-5">
-  <p class="text-muted mb-3 text-center">{{ intro_text }}</p>
-
-  <!-- Card of the Day -->
-  {% if user.is_authenticated %}
-  <section class="card-of-the-day-section container my-5 text-center">
-    <h2 class="mb-4 text-light">Card of the Day</h2>
-    <div id="card-row" class="d-flex justify-content-center flex-wrap gap-3">
-      {% for card in tarot_cards|slice:":5" %}
-        <div class="flip-card" data-message="{{ card.message }}" data-name="{{ card.name }}" data-img="{{ card.image.url }}">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="{% static card_back %}" alt="Card back">
-            </div>
-            <div class="flip-card-back">
-              <img src="{{ card.image.url }}" alt="{{ card.name }}">
-            </div>
-          </div>
-        </div>
-      {% endfor %}
+<div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark text-light border-0">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modal-card-name">Your Card</h5>
+        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modal-card-img" src="" alt="Card image" class="img-fluid mb-3" style="max-height: 320px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);">
+        <p id="modal-card-message" class="mystic-text"></p>
+      </div>
     </div>
-
-    <div id="card-reveal" class="text-center mt-4" style="display:none;">
-      <h3 class="mystic-title" id="card-title"></h3>
-      <p class="mystic-text" id="card-message"></p>
-    </div>
-  </section>
-  {% else %}
-  <section class="card-of-the-day-section container my-5 text-center">
-    <h2 class="mb-4 text-light">Card of the Day</h2>
-    <p class="text-warning">Please <a href="{% url 'account_login' %}">log in</a> to draw your card of the day.</p>
-  </section>
-  {% endif %}
-
-  {% include 'includes/mystical_pick.html' %}
+  </div>
 </div>
+
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/products.js' %}"></script>
 <script src="{% static 'js/card-of-the-day.js' %}"></script>
 {% endblock %}

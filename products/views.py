@@ -64,35 +64,6 @@ def category_products(request, category_name):
     }
     return render(request, 'products/products.html', context)
 
-
-
-def products_detail(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    category = product.category
-    tarot_cards = TarotCard.objects.filter(categories=category) if request.user.is_authenticated else []
-
-
-    
-
-
-    category_texts = {
-    'tarotcards': "Let the cards guide your day with ancient Tarot wisdom.",
-}
-
-    intro_text = category_texts.get(category.name.lower(), "Draw a card and see what the universe holds.")
-
-    card_back = f'images/card-backs/card-back-{product.sku.lower()}.png'
-
-    context = {
-        'product': product,
-        'tarot_cards': tarot_cards,
-        'card_back': card_back,
-        'intro_text': intro_text,
-    }
-
-    return render(request, 'products/products_detail.html', context)
-
-
 def all_tarot_cards(request):
     query = request.GET.get('q', '')
     category_id = request.GET.get('category', '')
@@ -114,3 +85,30 @@ def all_tarot_cards(request):
         'current_category': category_id,
     }
     return render(request, 'products/tarot_cards.html', context)
+
+
+
+def products_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    category = product.category
+
+    tarot_cards = TarotCard.objects.filter(
+        categories=category, product=product
+    ) if request.user.is_authenticated else []
+
+    category_texts = {
+        'tarotcards': "Let the cards guide your day with ancient Tarot wisdom.",
+    }
+
+    intro_text = category_texts.get(category.name.lower(), "Draw a card and see what the universe holds.")
+
+    card_back = f'images/card-backs/card-back-{product.sku.lower()}.png'
+
+    context = {
+        'product': product,
+        'tarot_cards': tarot_cards,
+        'card_back': card_back,
+        'intro_text': intro_text,
+    }
+
+    return render(request, 'products/products_detail.html', context)

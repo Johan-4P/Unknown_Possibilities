@@ -25,12 +25,19 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('friendly_name', 'name')
 
 
+@admin.register(TarotCard)
 class TarotCardAdmin(admin.ModelAdmin):
     """Admin settings for TarotCard model."""
-    list_display = ('name', 'product', 'categories',)
+    list_display = ('name', 'product', 'get_categories')
     list_filter = ('product', 'categories')
+    search_fields = ('name', 'message')
+    filter_horizontal = ('categories',)
+
+    def get_categories(self, obj):
+        return ", ".join([cat.name for cat in obj.categories.all()])
+    get_categories.short_description = 'Categories'
+
     
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(TarotCard)
