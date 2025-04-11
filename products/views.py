@@ -93,11 +93,6 @@ def products_detail(request, product_id):
     return render(request, 'products/products_detail.html', context)
 
 
-def add_to_cart(request, product_id):
-    """Add a product to the cart."""
-    pass
-
-
 def all_tarot_cards(request):
     query = request.GET.get('q', '')
     category_id = request.GET.get('category', '')
