@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Your Bag {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+<link rel="stylesheet" href="{% static 'css/bag.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 fade-in-section">
+  <h1 class="text-center mb-4 bag-header">Your Bag</h1>
+
+  {% if bag_items %}
+  <table class="table table-dark bag-table">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Subtotal</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in bag_items %}
+      <tr>
+        <td>
+          <a href="{% url 'product_detail' item.product.id %}" class="text-light">
+            {{ item.product.name }}
+          </a>
+        </td>
+        <td>${{ item.product.price|floatformat:2 }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.subtotal|floatformat:2 }}</td>
+        <td>
+          <form action="{% url 'adjust_bag' item.product.id %}" method="POST" class="form-inline">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control mr-2" style="width: 70px;">
+            <button type="submit" class="btn btn-outline-light btn-sm">Update</button>
+          </form>
+          <form action="{% url 'remove_from_bag' item.product.id %}" method="POST" class="mt-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="text-right">
+    <h4 class="text-light">Total: <strong>${{ total|floatformat:2 }}</strong></h4>
+    <a href="{% url 'checkout' %}" class="btn btn-checkout mt-3">Proceed to Checkout</a>
+    <a href="{% url 'products' %}" class="btn btn-outline-light mt-3 ml-2">Continue Shopping</a>
+  </div>
+  {% else %}
+  <div class="empty-bag">
+    <h3>Your bag is empty.</h3>
+    <a href="{% url 'products' %}" class="btn btn-own-style mt-3">Start Exploring</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

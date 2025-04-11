@@ -1,0 +1,30 @@
+.bag-table th, .bag-table td {
+    vertical-align: middle;
+    color: #eaeaea;
+  }
+
+  .bag-header {
+    color: #d8b4fe;
+    font-family: 'Georgia', serif;
+  }
+
+  .btn-checkout {
+    background: #7f5af0;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .btn-checkout:hover {
+    background: #9f79ff;
+    box-shadow: 0 0 12px rgba(127, 90, 240, 0.5);
+  }
+
+  .empty-bag {
+    color: #ccc;
+    text-align: center;
+    padding: 50px 0;
+  }
