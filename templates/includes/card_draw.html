@@ -5,15 +5,14 @@
   <h2 class="mb-4 text-light">Draw Your Daily Card</h2>
   <div class="d-flex justify-content-center flex-wrap gap-3">
     {% for card in tarot_cards|slice:":5" %}
-      <div class="flip-card" 
-           data-name="{{ card.name }}" 
-           data-message="{{ card.message }}" 
-           data-img="{{ card.image.url }}" 
-           data-category="{{ product.category.name }}" 
+      <div class="flip-card"
+           data-name="{{ card.name }}"
+           data-message="{{ card.message }}"
+           data-img="{{ card.image.url }}"
            data-product="{{ product.id }}">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-            <img src="{% static card_back %}" alt="Card back">
+            <img src="{% static card_back|default:'images/card-backs/card-back-default.png' %}" alt="Card back">
           </div>
           <div class="flip-card-back">
             <img src="{{ card.image.url }}" alt="{{ card.name }}">
@@ -22,8 +21,20 @@
       </div>
     {% endfor %}
   </div>
+
   <button class="btn btn-outline-light mt-4" id="reset-card-draw">
     Reset Card Draw (dev)
   </button>
 </section>
+
+<!-- Custom Modal (no Bootstrap) -->
+<div id="customModal" class="hidden">
+  <div class="modal-box">
+    <button class="close-modal" aria-label="Close">&times;</button>
+    <h5 id="modal-card-name">Card Name</h5>
+    <img id="modal-card-img" src="" alt="Card image">
+    <p id="modal-card-message" class="mystic-text"></p>
+  </div>
+</div>
+
 {% endif %}

@@ -148,6 +148,67 @@ body {
   transform: rotateY(180deg);
 }
 
+/* Custom Modal without Bootstrap */
+#customModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#customModal.hidden {
+  display: none;
+}
+
+#customModal .modal-box {
+  background-color: #1e1e2f;
+  color: #e0d4fd;
+  padding: 30px 20px;
+  max-width: 400px;
+  width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  text-align: center;
+  position: relative;
+}
+
+#customModal .modal-box h5 {
+  font-size: 1.4rem;
+  color: #d8b4fe;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#customModal .modal-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#customModal .modal-box p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+#customModal .close-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.2rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 
 @media (max-width: 768px) {
   .product-image {
@@ -171,5 +232,5 @@ body {
   z-index: 1040 !important;
 }
 .modal {
-  z-index: 1050 !important;
+  z-index: 1055 !important;
 }

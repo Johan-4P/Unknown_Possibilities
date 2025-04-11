@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
   const today = new Date().toISOString().split('T')[0];
   const cards = document.querySelectorAll('.flip-card');
-  const modal = document.getElementById('cardModal');
+  const modal = document.getElementById('customModal');
   const modalName = document.getElementById('modal-card-name');
   const modalMessage = document.getElementById('modal-card-message');
   const modalImg = document.getElementById('modal-card-img');
   const resetBtn = document.getElementById('reset-card-draw');
+  const closeModalBtn = document.querySelector('.close-modal');
 
   console.log("Page loaded, found", cards.length, "cards");
 
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const productId = card.dataset.product;
     const drawKey = `cardDrawn_product_${productId}`;
 
+   
     if (localStorage.getItem(drawKey) === today) {
       card.classList.add('flipped');
       card.style.pointerEvents = 'none';
@@ -22,24 +24,33 @@ document.addEventListener('DOMContentLoaded', function () {
     card.addEventListener('click', () => {
       if (localStorage.getItem(drawKey) === today) return;
 
+      
       card.classList.add('flipped');
       localStorage.setItem(drawKey, today);
-      cards.forEach(c => c.style.pointerEvents = 'none');
+      card.style.pointerEvents = 'none';
+      console.log("Card clicked:", drawKey);
 
+     
       modalName.textContent = card.dataset.name;
       modalMessage.textContent = card.dataset.message;
       modalImg.src = card.dataset.img;
-
-      $('#cardModal').modal('show');
-      console.log("Drawing:", card.dataset.name);
+      modal.classList.remove('hidden');
     });
   });
 
-  $('#cardModal').on('hidden.bs.modal', function () {
-    document.body.classList.remove('modal-open');
-    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  
+  closeModalBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
   });
 
+ 
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+
+  
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       cards.forEach(card => {
@@ -48,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         card.classList.remove('flipped');
         card.style.pointerEvents = 'auto';
       });
-      $('#cardModal').modal('hide');
+      modal.classList.add('hidden');
       console.log("Card draw reset");
     });
   }

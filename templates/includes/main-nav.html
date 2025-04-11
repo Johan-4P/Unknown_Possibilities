@@ -3,45 +3,45 @@
 
     <!-- Home -->
     <li class="nav-item {% if request.path == '/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="{% url 'home' %}">Home</a>
+      <a class="logo-font fw-bold nav-link me-5" href="{% url 'home' %}">Home</a>
     </li>
 
     <!-- Products (dropdown) -->
     <li class="nav-item dropdown {% if not category %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="logo-font fw-bold nav-link dropdown-toggle me-5" href="#" id="all-products-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Products
       </a>
-      <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-        <a href="{% url 'products' %}?sort=price_asc" class="dropdown-item">By Price</a>
-        <a href="{% url 'products' %}?sort=rating_desc" class="dropdown-item">By Rating</a>
-        <a href="{% url 'products' %}" class="dropdown-item">By Category</a>
-        <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
-      </div>
+      <ul class="dropdown-menu border-0" aria-labelledby="all-products-link">
+        <li><a href="{% url 'products' %}?sort=price_asc" class="dropdown-item">By Price</a></li>
+        <li><a href="{% url 'products' %}?sort=rating_desc" class="dropdown-item">By Rating</a></li>
+        <li><a href="{% url 'products' %}" class="dropdown-item">By Category</a></li>
+        <li><a href="{% url 'products' %}" class="dropdown-item">All Products</a></li>
+      </ul>
     </li>
 
     <!-- Tarot Cards -->
     <li class="nav-item {% if request.path == '/products/category/tarotcards/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="{% url 'category_products' 'tarotcards' %}">Tarot Cards</a>
+      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'tarotcards' %}">Tarot Cards</a>
     </li>
 
     <!-- Runes -->
     <li class="nav-item {% if request.path == '/products/category/runes/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="{% url 'category_products' 'runes' %}">Runes</a>
+      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'runes' %}">Runes</a>
     </li>
 
     <!-- Crystals -->
     <li class="nav-item {% if request.path == '/products/category/crystals/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="{% url 'category_products' 'crystals' %}">Crystals</a>
+      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'crystals' %}">Crystals</a>
     </li>
 
     <!-- Readings -->
     <li class="nav-item {% if request.path == '/products/category/readings/' or request.path == '/products/category/rune-readings/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link mr-5" href="{% url 'category_products' 'readings' %}">Readings</a>
+      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'readings' %}">Readings</a>
     </li>
 
     <!-- Specials -->
     <li class="nav-item {% if request.path == '/products/category/new-arrivals/' or request.path == '/products/category/deals/' or request.path == '/products/category/clearance/' %}active{% endif %}">
-      <a class="logo-font font-weight-bold nav-link" href="{% url 'category_products' 'new-arrivals' %}">Specials</a>
+      <a class="logo-font fw-bold nav-link" href="{% url 'category_products' 'new-arrivals' %}">Specials</a>
     </li>
 
   </ul>
