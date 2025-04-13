@@ -12,7 +12,7 @@
   <div class="text-center mb-4">
     <h1 class="display-4 text-light">{{ category.name }}</h1>
     {% if category.description %}
-      <p class="text-muted">{{ category.description }}</p>
+      <p>{{ category.description }}</p>
     {% endif %}
   </div>
 
@@ -36,18 +36,18 @@
   <div class="row">
     {% for product in products %}
     <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex align-items-stretch">
-      <div class="card product-card shadow-lg fade-in-card">
+      <div class="product-card shadow-lg fade-in-card">
         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title text-light">{{ product.name }}</h5>
-          <p class="card-text text-muted mb-2">${{ product.price|floatformat:2 }}</p>
+          <p class="card-text mb-2">${{ product.price|floatformat:2 }}</p>
           {% if product.category %}
             <p class="small mt-1 mb-0">
-              <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
+              <a href="{% url 'products' %}?category={{ product.category.name }}">
                 <i class="fas fa-tag mr-1"></i>{{ product.category.friendly_name }}
               </a>
 
-            <p class="card-text text-muted small">Category: {{ product.category.name }}</p>
+            <p class="card-text small">Category: {{ product.category.name }}</p>
           {% endif %}
           {% if product.discount > 0 %}
             <p class="text-danger font-weight-bold">Discount: {{ product.discount }}%</p>
@@ -79,7 +79,7 @@
     {% endfor %}
   </div>
   {% else %}
-    <p class="text-muted text-center">No products found in this category.</p>
+    <p class="text-center">No products found in this category.</p>
   {% endif %}
 </div>
 {% endblock %}

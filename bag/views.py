@@ -8,21 +8,38 @@ def bag_view(request):
 
 
 def add_to_bag(request, item_id):
-    """ Add a quantity of the specified product to the shopping bag """
+    """ Add a product or reading with optional date/time to the shopping bag """
     product = get_object_or_404(Product, pk=item_id)
-    quantity = int(request.POST.get('quantity'))
+    quantity = int(request.POST.get('quantity', 1))
     redirect_url = request.POST.get('redirect_url')
+    date = request.POST.get('date')
+    time = request.POST.get('time')
+
     bag = request.session.get('bag', {})
 
-    if item_id in bag:
-        bag[item_id] += quantity
-        messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+    # Check if the product is a reading and has a date and time
+    if product.category.name.lower() == "readings" and date and time:
+        variant_key = f"{item_id}_{date}_{time}"
+        bag[variant_key] = {
+            'item_id': item_id,
+            'quantity': quantity,
+            'date': date,
+            'time': time,
+            'is_reading': True,
+        }
+        messages.success(request, f"Added {product.name} for {date} at {time} to your bag!")
     else:
-        bag[item_id] = quantity
-        messages.success(request, f'Added {product.name} to your bag')
+        
+        if item_id in bag:
+            bag[item_id]['quantity'] += quantity
+            messages.success(request, f"Updated {product.name} quantity to {bag[item_id]['quantity']}")
+        else:
+            bag[item_id] = {'quantity': quantity, 'is_reading': False}
+            messages.success(request, f"Added {product.name} to your bag")
 
     request.session['bag'] = bag
     return redirect(redirect_url)
+
 
 
 def adjust_bag(request, item_id):

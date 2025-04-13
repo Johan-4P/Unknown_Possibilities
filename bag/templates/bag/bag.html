@@ -30,18 +30,25 @@
           <a href="{% url 'product_detail' item.product.id %}" class="text-light">
             {{ item.product.name }}
           </a>
+          {% if item.is_reading %}
+            <br><small>{{ item.date }} @ {{ item.time }}</small>
+          {% endif %}
         </td>
         <td>${{ item.product.price|floatformat:2 }}</td>
-        <td>{{ item.quantity }}</td>
+        <td>
+          {% if item.is_reading %}
+            1
+          {% else %}
+            <form action="{% url 'adjust_bag' item.product.id %}" method="POST" class="d-flex align-items-center gap-2">
+              {% csrf_token %}
+              <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control input-width">
+              <button type="submit" class="btn btn-outline-light btn-sm">Update</button>
+            </form>
+          {% endif %}
+        </td>
         <td>${{ item.subtotal|floatformat:2 }}</td>
         <td>
-          <form action="{% url 'adjust_bag' item.product.id %}" method="POST" class="d-flex align-items-center gap-2">
-
-            {% csrf_token %}
-            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control mr-2 input-width">
-            <button type="submit" class="btn btn-outline-light btn-sm">Update</button>
-          </form>
-          <form action="{% url 'remove_from_bag' item.product.id %}" method="POST" class="mt-2">
+          <form action="{% url 'remove_from_bag' item.key %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
           </form>
