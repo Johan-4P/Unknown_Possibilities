@@ -31,7 +31,7 @@
             {{ item.product.name }}
           </a>
           {% if item.is_reading %}
-            <br><small>{{ item.date }} @ {{ item.time }}</small>
+            <br><small>{{ item.duration }} min – ${{ item.unit_price }}</small>
           {% endif %}
         </td>
         <td>${{ item.product.price|floatformat:2 }}</td>
