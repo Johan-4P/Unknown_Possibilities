@@ -4,7 +4,23 @@
   <h2 class="mb-4">Book a Live Reading</h2>
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+  
+    <label>Reading type:</label>
+    {{ form.reading_type }}
+  
+    <label>Duration:</label>
+    {{ form.duration }}
+  
+    <label>Date:</label>
+    {{ form.date }}
+  
+    <label>Choose time:</label>
+    {% include "includes/time_options.html" %}
+    
+  
+    <label>Message:</label>
+    {{ form.message }}
+  
     <button type="submit" class="btn btn-own-style mt-3">Confirm Booking</button>
   </form>
 </div>
