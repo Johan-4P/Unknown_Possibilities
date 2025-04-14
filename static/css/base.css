@@ -12,12 +12,20 @@ html, body {
 .header-container {
     padding-top: 100px; 
   }
-  
+
+form label {
+    color: #e0e0e0 !important;
+}
+
 /* Headings */
 h1, h2, h3, h4 {
     color: #d8b4fe;
     font-family: 'Georgia', serif;
     text-shadow: 0 0 6px rgba(216, 180, 254, 0.15);
+}
+
+span {
+    color: #d8b4fe;
 }
 
 /* Links */
@@ -53,7 +61,7 @@ a:hover {
 }
 
 .list-inline a {
-    color: #eaeaea;
+    color: #2c2222;
     font-weight: 500;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 1px;
