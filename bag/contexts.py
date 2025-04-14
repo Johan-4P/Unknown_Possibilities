@@ -8,23 +8,29 @@ def bag_contents(request):
     product_count = 0
 
     DURATION_PRICES = {
-        '20': 15,
-        '30': 25,
-        '60': 40,
+        '20': 30,
+        '30': 45,
+        '60': 80,
     }
 
     for key, item in bag.items():
-        if isinstance(item, int):
-            
-            product = get_object_or_404(Product, pk=key)
-            quantity = item
+       
+        if isinstance(item, dict) and not item.get('is_reading', False):
+            try:
+                product = get_object_or_404(Product, pk=key)
+            except:
+                continue
+
+            quantity = item.get('quantity', 1)
             subtotal = quantity * product.price
             total += subtotal
             product_count += quantity
+
             bag_items.append({
                 'key': key,
                 'product': product,
                 'quantity': quantity,
+                'unit_price': product.price,
                 'subtotal': subtotal,
                 'is_reading': False,
             })
@@ -37,6 +43,8 @@ def bag_contents(request):
 
             quantity = item.get('quantity', 1)
             duration = item.get('duration')
+            date = item.get('date')
+            time = item.get('time')
             price = DURATION_PRICES.get(duration, product.price)
             subtotal = quantity * price
             total += subtotal
@@ -48,10 +56,11 @@ def bag_contents(request):
                 'quantity': quantity,
                 'unit_price': price,
                 'subtotal': subtotal,
-                'date': item.get('date'),
-                'time': item.get('time'),
+                'date': date,
+                'time': time,
                 'duration': duration,
-                'is_reading': item.get('is_reading', True),
+                'is_reading': True,
+                'description': f"{product.name} ({duration} min) on {date} at {time}",
             })
 
     return {
