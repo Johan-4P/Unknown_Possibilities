@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from products.models import Product
+from django.conf import settings
 
 def bag_contents(request):
     bag = request.session.get('bag', {})
@@ -68,4 +69,24 @@ def bag_contents(request):
         'total': total,
         'product_count': product_count,
         'grand_total': total,
+    }
+
+def toast_product_context(request):
+    toast_product = request.session.pop('toast_product', None)
+    free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
+
+    diff_to_free = None
+    if toast_product and 'total' in toast_product:
+        try:
+            cart_total = float(toast_product['total'])
+            remaining = round(free_delivery_threshold - cart_total, 2)
+            if remaining > 0:
+                diff_to_free = remaining
+        except ValueError:
+            pass
+
+    return {
+        'toast_product': toast_product,
+        'free_delivery_threshold': free_delivery_threshold,
+        'diff_to_free': diff_to_free,
     }

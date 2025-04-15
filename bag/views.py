@@ -51,6 +51,23 @@ def add_to_bag(request, item_id):
             bag[str(item_id)] = {'quantity': quantity, 'is_reading': False}
             messages.success(request, f"Added {product.name} to your bag")
 
+        
+    if product.category.name.lower() == "readings" and date and time and duration:
+        toast_price = DURATION_PRICES.get(duration, product.price)
+        toast_qty = 1
+    else:
+        toast_price = product.price * quantity
+        toast_qty = quantity
+
+    
+    request.session['toast_product'] = {
+        'name': product.name,
+        'image_url': product.image.url if product.image else '',
+        'qty': toast_qty,
+        'total': str(toast_price),
+    }
+
+
     request.session['bag'] = bag
     return redirect(redirect_url)
 
