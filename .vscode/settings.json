@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
+        "agat",
         "allauth",
+        "angelite",
         "asgiref",
         "autohide",
         "boto",
@@ -8,6 +10,7 @@
         "Bulma",
         "certifi",
         "cffi",
+        "chatiot",
         "corecss",
         "corejs",
         "dateutil",
@@ -25,11 +28,13 @@
         "psycopg",
         "pycache",
         "pycparser",
+        "pyrit",
         "pytz",
         "socialaccount",
         "sqlparse",
         "STOREAGE",
         "tarotcards",
+        "Temperence",
         "urllib",
         "venv",
         "wsgi"
