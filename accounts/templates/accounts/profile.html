@@ -1,16 +1,25 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | My Profile {% endblock %}
+
 {% block content %}
-<div class="container mt-5 pt-5 text-light fade-in-section">
-  <h2 class="mb-4">Welcome back, {{ user.username }} ✨</h2>
-  
-  <div class="card bg-dark border-light shadow p-4 rounded-4">
+<div class="container mt-5 pt-5 fade-in-section text-light">
+  <h2 class="mb-4">🌙 Welcome, {{ user.first_name|default:user.username }}</h2>
+
+  <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text">
+    <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+    <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
 
     <hr class="border-secondary">
 
-    <a href="{% url 'account_change_password' %}" class="btn btn-outline-light mt-3">Change Password</a>
-    <a href="{% url 'account_logout' %}" class="btn btn-outline-danger mt-3 ms-2">Logout</a>
+    <a href="{% url 'account_change_password' %}" class="btn btn-outline-light mt-2">
+      <i class="fas fa-key me-1"></i> Change Password
+    </a>
+    <a href="{% url 'account_logout' %}" class="btn btn-outline-danger mt-2 ms-2">
+      <i class="fas fa-sign-out-alt me-1"></i> Logout
+    </a>
   </div>
 </div>
 {% endblock %}

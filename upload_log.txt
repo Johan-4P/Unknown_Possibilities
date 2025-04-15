@@ -1,0 +1,76 @@
+=== Updated Items ===
+TarotCard: Star-wandering-moon <- card-back-wandering-moon.png
+TarotCard: The-Chariot-light <- chatiot-light.png
+TarotCard: Death-light <- death-light.png
+TarotCard: Death-wandering-moon <- death-moon.png
+TarotCard: Death-light <- devil-light.png
+TarotCard: Devil-wandering-moon <- devil-moon.png
+TarotCard: The-emperor-light <- emperor-light.png
+TarotCard: The-Empress-light <- empress-light.png
+TarotCard: The-Chariot-light <- hermit-light.png
+TarotCard: The-Hierophant-light <- hierophant-light.png
+TarotCard: The-Hierophant-wandering-moon <- hierophant-moon.png
+TarotCard: High-priestess-light <- high-priestess-light.png
+TarotCard: Death-light <- judgement-light.png
+TarotCard: Judgement-wandering-moon <- judgement-moon.png
+TarotCard: Justice-wandering-moon <- justice-moon.png
+TarotCard: The-Fool-light-seer <- light-seer.png
+TarotCard: The-lovers-light <- lovers-light.png
+TarotCard: The-Magician-wandering-moon <- magician-moon.png
+TarotCard: High priestess-moon <- priestess-moon.png
+TarotCard: The-strength-light <- strength-light.png
+TarotCard: Strength-wandering-moon <- strength-moon.png
+TarotCard: The-Empress-light <- temperance-light.png
+TarotCard: Temperence-wandering-moon <- temperance-moon.png
+TarotCard: The-Fool-light-seer <- the-fool-light.png
+TarotCard: The-Fool-light-seer <- the-light-seers.png
+TarotCard: The-lovers-light <- tower-light.png
+TarotCard: Tower-wandering-moon <- tower-moon.png
+TarotCard: Wheel-wandering-moon <- wheel-moon.png
+TarotCard: World-wandering-moon <- world-moon.png
+
+=== Skipped (No Match) ===
+1.png
+amethyst.png
+angelite-blue.png
+botswana-agat.png
+card-back-tarot.png
+chatiot-moon.png
+crystals.png
+emperor-moon.png
+empress-moon.png
+fool-moon.png
+hanged-man-light.png
+hanged-soul-moon.png
+hermit-moon.png
+home-page-img.png
+justice-light.png
+logo.png
+logo1.png
+lovers-moon.png
+magician-light.png
+moon-light.png
+moon-moon.png
+obsidian.png
+pyrit.png
+pyrite.png
+reading-1.png
+reading.png
+readings-runes.png
+readings-tarot.png
+rune-1.png
+rune.png
+runes.png
+star-light.png
+star-moon.png
+sun-light.png
+sun-moon.png
+unknown possibilities-explore.png
+unknown possibilities-text.png
+unknown possibilities.png
+unknown-possibilities-logo-1.png
+unknown-possibilities-logo.png
+unknown-possibilities3d-1.png
+wandering-with-the-fool.png
+wheel-light.png
+world-light.png
