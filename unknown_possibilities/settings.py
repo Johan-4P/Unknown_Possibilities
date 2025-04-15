@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'checkout',
     'readings',
     'jazzmin', 
+    'accounts',
 
 
 

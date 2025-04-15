@@ -196,6 +196,39 @@ footer a:hover {
     margin-bottom: 16px;
 }
 
+.toast-container {
+    min-width: 280px;
+    animation: dropdownFade 0.4s ease-out;
+  }
+  
+  .toast-arrow {
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: 1.25rem;
+    margin-bottom: -0.5rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(33, 37, 41, 0.95); /* matchar bg-dark */
+  }
+  
+  .toast {
+    border-radius: 1rem;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  @keyframes dropdownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
 /* Fade-in animation */
 @keyframes fadeIn {
     from {
