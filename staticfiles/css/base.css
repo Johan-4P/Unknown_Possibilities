@@ -12,12 +12,20 @@ html, body {
 .header-container {
     padding-top: 100px; 
   }
-  
+
+form label {
+    color: #e0e0e0 !important;
+}
+
 /* Headings */
 h1, h2, h3, h4 {
     color: #d8b4fe;
     font-family: 'Georgia', serif;
     text-shadow: 0 0 6px rgba(216, 180, 254, 0.15);
+}
+
+span {
+    color: #d8b4fe;
 }
 
 /* Links */
@@ -53,7 +61,7 @@ a:hover {
 }
 
 .list-inline a {
-    color: #eaeaea;
+    color: #2c2222;
     font-weight: 500;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 1px;
@@ -187,6 +195,39 @@ footer a:hover {
     color: #cfcfdc;
     margin-bottom: 16px;
 }
+
+.toast-container {
+    min-width: 280px;
+    animation: dropdownFade 0.4s ease-out;
+  }
+  
+  .toast-arrow {
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: 1.25rem;
+    margin-bottom: -0.5rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(33, 37, 41, 0.95); /* matchar bg-dark */
+  }
+  
+  .toast {
+    border-radius: 1rem;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  @keyframes dropdownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
 
 /* Fade-in animation */
 @keyframes fadeIn {
