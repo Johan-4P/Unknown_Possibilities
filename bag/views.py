@@ -1,10 +1,64 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Product
+import pprint
 
 def bag_view(request):
-    """ A view that renders the shopping bag contents """
-    return render(request, 'bag/bag.html')
+    bag = request.session.get('bag', {})
+    bag_items = []
+    total = 0
+
+    for key, item_data in bag.items():
+        try:
+            # Check if item_data is a dictionary or a simple quantity
+            product_id = item_data.get('item_id') if isinstance(item_data, dict) else int(key)
+            if not product_id:
+                product_id = int(key)
+
+            product = get_object_or_404(Product, pk=int(product_id))
+
+            
+            if isinstance(item_data, dict):
+                quantity = item_data.get('quantity', 1)
+                price = item_data.get('price', product.price)
+                is_reading = item_data.get('is_reading', False)
+                date = item_data.get('date')
+                time = item_data.get('time')
+                duration = item_data.get('duration')
+            else:
+                quantity = item_data
+                price = product.price
+                is_reading = False
+                date = time = duration = None
+
+            subtotal = price * quantity
+            total += subtotal
+
+            bag_items.append({
+                'key': key,  # This is the key used in the session
+                'product': product,
+                'quantity': quantity,
+                'price': price,
+                'subtotal': subtotal,
+                'is_reading': is_reading,
+                'date': date,
+                'time': time,
+                'duration': duration,
+            })
+
+        except Exception as e:
+            print(f"[bag_view] Skipping item {key}: {e}")
+            continue
+
+    context = {
+        'bag_items': bag_items,
+        'total': total,
+    }
+
+    return render(request, 'bag/bag.html', context)
+
+
+
 
 
 def add_to_bag(request, item_id):
@@ -44,12 +98,19 @@ def add_to_bag(request, item_id):
             request, f"Added {product.name} ({duration} min) on {date} at {time} to your bag!"
         )
     else:
-        if str(item_id) in bag:
-            bag[str(item_id)]['quantity'] += quantity
-            messages.success(request, f"Updated {product.name} quantity to {bag[str(item_id)]['quantity']}")
+        item_id_str = str(item_id)
+        if item_id_str in bag:
+            if isinstance(bag[item_id_str], dict):
+                bag[item_id_str]['quantity'] += quantity
+            else:
+                
+                bag[item_id_str] = {
+                    'quantity': bag[item_id_str] + quantity,
+                    'is_reading': False
+                }
         else:
-            bag[str(item_id)] = {'quantity': quantity, 'is_reading': False}
-            messages.success(request, f"Added {product.name} to your bag")
+            bag[item_id_str] = {'quantity': quantity, 'is_reading': False}
+
 
         
     if product.category.name.lower() == "readings" and date and time and duration:
@@ -75,16 +136,20 @@ def add_to_bag(request, item_id):
 
 
 def adjust_bag(request, item_id):
-    """ Adjust the quantity of the specified product to the specified amount """
+    bag = request.session.get('bag', {})
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
-    bag = request.session.get('bag', {})
+
+    item_id_str = str(item_id)
 
     if quantity > 0:
-        bag[item_id] = quantity
+        if isinstance(bag.get(item_id_str), dict):
+            bag[item_id_str]['quantity'] = quantity
+        else:
+            bag[item_id_str] = {'quantity': quantity, 'is_reading': False}
         messages.info(request, f'Updated {product.name} quantity to {quantity}')
     else:
-        bag.pop(item_id)
+        bag.pop(item_id_str, None)
         messages.warning(request, f'Removed {product.name} from your bag')
 
     request.session['bag'] = bag
@@ -122,4 +187,10 @@ def remove_from_bag(request, key):
     except Exception as e:
         messages.error(request, f"Error removing item: {e}")
         return redirect('view_bag')
+
+
+def clear_bag(request):
+    request.session['bag'] = {}
+    messages.success(request, "Bag has been cleared.")
+    return redirect('view_bag')
 

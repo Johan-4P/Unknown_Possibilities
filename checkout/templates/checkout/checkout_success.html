@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Order Complete {% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 fade-in-section text-light text-center">
+  <h2 class="display-5">✨ Order Confirmed</h2>
+  <p class="lead">Thank you for your purchase, wanderer.</p>
+  <p>Your order number is:</p>
+
+  <div class="alert alert-success bg-opacity-75 shadow-lg fs-4 fw-bold">
+    {{ order.order_number }}
+  </div>
+
+  <p class="mb-4">A confirmation has been sent to <strong>{{ order.email }}</strong>.</p>
+
+  <a href="{% url 'products' %}" class="btn btn-outline-light">
+    <i class="fas fa-arrow-left me-1"></i> Return to Shop
+  </a>
+</div>
+{% endblock %}
