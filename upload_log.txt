@@ -1,4 +1,7 @@
 === Updated Items ===
+Product: Amethyst <- amethyst.png
+Product: Angelite, blue <- angelite-blue.png
+Product: Botswana Agat <- botswana-agat.png
 TarotCard: Star-wandering-moon <- card-back-wandering-moon.png
 TarotCard: The-Chariot-wandering-moon <- chariot-wandering-moon.png
 TarotCard: The-Chariot-light <- chatiot-light.png
@@ -18,10 +21,15 @@ TarotCard: Death-light <- judgement-light.png
 TarotCard: Judgement-wandering-moon <- judgement-moon.png
 TarotCard: Justice-wandering-moon <- justice-moon.png
 TarotCard: The-Fool-light-seer <- light-seer.png
+Product: Live Rune Reading – Ancient Guidance in Real Time <- live-rune-reading-ancient-guidance-in-real-time.png
+Product: Live Tarot Reading – Real-Time Insight From the Cards <- live-tarot-reading-real-time-insight-from-the-cards.png
 TarotCard: The-lovers-light <- lovers-light.png
 TarotCard: The-Magician-wandering-moon <- magician-moon.png
 TarotCard: Moon-wandering-moon <- moon-wandering-moon.png
+Product: Obsidian <- obsidian.png
 TarotCard: High priestess-moon <- priestess-moon.png
+Product: Pyrite <- pyrit.png
+Product: Pyrite <- pyrite.png
 TarotCard: Star-wandering-moon <- star-wandering-moon.png
 TarotCard: The-strength-light <- strength-light.png
 TarotCard: Strength-wandering-moon <- strength-moon.png
@@ -36,14 +44,13 @@ TarotCard: The-Fool-light-seer <- the-light-seers.png
 TarotCard: The-Lovers-wandering-moon <- the-lovers-wandering-moon.png
 TarotCard: The-lovers-light <- tower-light.png
 TarotCard: Tower-wandering-moon <- tower-moon.png
+TarotCard: Sun-wandering-moon <- wandering-moon.png
+Product: The Light Seers <- wheel-light.png
 TarotCard: Wheel-wandering-moon <- wheel-moon.png
 TarotCard: World-wandering-moon <- world-moon.png
 
 === Skipped (No Match) ===
 1.png
-amethyst.png
-angelite-blue.png
-botswana-agat.png
 card-back-tarot.png
 crystals.png
 hanged-man-light.png
@@ -53,18 +60,11 @@ logo.png
 logo1.png
 magician-light.png
 moon-light.png
-obsidian.png
-pyrit.png
-pyrite.png
 reading-1.png
 reading.png
-readings-runes.png
-readings-tarot.png
 rune-1.png
 rune.png
 runes.png
 star-light.png
 sun-light.png
-wandering-with-the-fool.png
-wheel-light.png
 world-light.png

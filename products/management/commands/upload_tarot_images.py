@@ -43,10 +43,8 @@ class Command(BaseCommand):
                 card = tarot_names[tarot_match[0]]
                 with open(file_path, 'rb') as f:
                     result = upload(f, folder='tarot_cards/')
-                    image_url = result['secure_url']
                     card.image = result['secure_url']
                     card.save()
-
                     self.stdout.write(self.style.SUCCESS(f"🔮 Updated TarotCard {card.name} with image: {filename}"))
                     updated.append(f"TarotCard: {card.name} <- {filename}")
                 continue
@@ -60,9 +58,8 @@ class Command(BaseCommand):
                 product = product_names[product_match[0]]
                 with open(file_path, 'rb') as f:
                     result = upload(f, folder='products/')
-                    image_url = result['secure_url']
-                    image_content = ContentFile(requests.get(image_url).content)
-                    product.image.save(filename, image_content, save=True)
+                    product.image = result['secure_url']
+                    product.save()
                     self.stdout.write(self.style.SUCCESS(f"🛍️ Updated Product {product.name} with image: {filename}"))
                     updated.append(f"Product: {product.name} <- {filename}")
                 continue
