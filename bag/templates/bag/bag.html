@@ -51,7 +51,7 @@
 
   <div class="text-right">
     <h4 class="text-light">Total: <strong>${{ total|floatformat:2 }}</strong></h4>
-    <a href="{% url 'checkout' %}" class="btn btn-checkout mt-3">Proceed to Checkout</a>
+    <a href="{% url 'checkout' %}" class="btn btn-danger mt-3">Proceed to Checkout</a>
     <a href="{% url 'products' %}" class="btn btn-outline-light mt-3 ml-2">Continue Shopping</a>
   </div>
   {% else %}
