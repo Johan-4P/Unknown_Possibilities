@@ -6,16 +6,42 @@
 {% block content %}
 <div class="container mt-5 pt-5 fade-in-section text-light text-center">
   <h2 class="display-5">✨ Order Confirmed</h2>
-  <p class="lead">Thank you for your purchase, wanderer.</p>
-  <p>Your order number is:</p>
+  <p class="lead">Thank you, {{ order.full_name }} – your journey has been received.</p>
 
-  <div class="alert alert-success bg-opacity-75 shadow-lg fs-4 fw-bold">
-    {{ order.order_number }}
+  <div class="alert alert-success bg-opacity-75 shadow-lg fs-5 fw-bold mt-4">
+    Order Number: <span class="text-mystic">{{ order.order_number }}</span>
   </div>
 
-  <p class="mb-4">A confirmation has been sent to <strong>{{ order.email }}</strong>.</p>
+  <p class="mb-4">A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
 
-  <a href="{% url 'products' %}" class="btn btn-outline-light">
+  <!-- Order Details -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card bg-dark border-light shadow-lg text-start">
+        <div class="card-header bg-secondary bg-opacity-25 fw-bold">
+          🧾 Order Summary
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for item in order.lineitems.all %}
+            <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-start">
+              <div>
+                <strong>{{ item.product.name }}</strong><br>
+                Qty: {{ item.quantity }}
+              </div>
+              <div>
+                ${{ item.lineitem_total|floatformat:2 }}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="card-footer text-end fw-bold">
+          Total: ${{ order.grand_total|floatformat:2 }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="{% url 'products' %}" class="btn btn-outline-light mt-4">
     <i class="fas fa-arrow-left me-1"></i> Return to Shop
   </a>
 </div>

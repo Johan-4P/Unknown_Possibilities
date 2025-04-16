@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% load crispy_forms_tags %}
-
-
+  
+  {% load crispy_forms_tags %}
 {% block extra_title %} | Checkout {% endblock %}
 
 {% block content %}
 <div class="container mt-5 pt-5 fade-in-section text-light">
   <h2 class="text-center mb-4">🔮 Secure Your Order</h2>
-  <p class="text-center">Fill in your details and confirm your items...</p>
+  <p class="text-center">Complete your journey into the unknown...</p>
 
   <div class="row">
     <!-- Checkout form -->
     <div class="col-md-6 mb-4">
       <div class="card bg-dark border-light shadow-lg p-4 h-100">
-        <h4 class="mb-3">Your Details</h4>
-        <form method="POST">
+        <h4 class="mb-3">🧙 Your Details</h4>
+        <form method="POST" id="payment-form">
           {% csrf_token %}
           {{ form|crispy }}
 
+          <div class="form-group mb-3">
+            <label for="card-element">💳 Card Details</label>
+            <div id="card-element" class="form-control bg-secondary bg-opacity-25 text-light border-light"></div>
+          </div>
+
+          <!-- Error messages -->
+          <div id="card-errors" role="alert" class="text-danger small mt-2"></div>
+
           <button type="submit" class="btn btn-own-style w-100 mt-3">
-            <i class="fas fa-magic me-1"></i>Place Order
+            <i class="fas fa-magic me-2"></i>Place Order
           </button>
         </form>
       </div>
@@ -30,7 +36,7 @@
     <!-- Order summary -->
     <div class="col-md-6 mb-4">
       <div class="card bg-secondary bg-opacity-10 border-light shadow-lg p-4 h-100">
-        <h4 class="mb-3">🛒 Your Items</h4>
+        <h4 class="mb-3">🛍️ Your Items</h4>
         {% if bag_items %}
           <ul class="list-group list-group-flush">
             {% for item in bag_items %}
@@ -61,4 +67,54 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe('{{ stripe_public_key }}');
+  const elements = stripe.elements();
+  const card = elements.create('card', {
+    style: {
+      base: {
+        color: '#ffffff',
+        fontFamily: '"Oswald", sans-serif',
+        fontSize: '16px',
+      },
+      invalid: {
+        color: '#ff6b6b',
+        iconColor: '#ff6b6b'
+      }
+    }
+  });
+  card.mount('#card-element');
+
+  const form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    card.update({ disabled: true });
+    stripe.confirmCardPayment('{{ client_secret }}', {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: form.full_name.value,
+          email: form.email.value,
+          phone: form.phone_number.value,
+          address: {
+            line1: form.address.value
+          }
+        }
+      }
+    }).then(function(result) {
+      if (result.error) {
+        document.getElementById('card-errors').textContent = result.error.message;
+        card.update({ disabled: false });
+      } else {
+        if (result.paymentIntent.status === 'succeeded') {
+          form.submit();
+        }
+      }
+    });
+  });
+</script>
 {% endblock %}

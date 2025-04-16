@@ -51,3 +51,4 @@ def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
     messages.success(request, f'Order successfully processed! Your order number is {order_number}.')
     return render(request, 'checkout/checkout_success.html', {'order': order})
+

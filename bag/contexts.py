@@ -1,5 +1,7 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from products.models import Product
+
+from django.contrib import messages
 from django.conf import settings
 
 def bag_contents(request):
@@ -70,6 +72,8 @@ def bag_contents(request):
         'product_count': product_count,
         'grand_total': total,
     }
+
+
 
 def toast_product_context(request):
     toast_product = request.session.pop('toast_product', None)
