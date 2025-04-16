@@ -2,69 +2,68 @@
 Product: Amethyst <- amethyst.png
 Product: Angelite, blue <- angelite-blue.png
 Product: Botswana Agat <- botswana-agat.png
-TarotCard: Star-wandering-moon <- card-back-wandering-moon.png
-TarotCard: The-Chariot-wandering-moon <- chariot-wandering-moon.png
-TarotCard: The-Chariot-light <- chatiot-light.png
-TarotCard: Death-light <- death-light.png
-TarotCard: Death-wandering-moon <- death-moon.png
-TarotCard: Death-light <- devil-light.png
-TarotCard: Devil-wandering-moon <- devil-moon.png
-TarotCard: The-emperor-light <- emperor-light.png
-TarotCard: The-Empress-light <- empress-light.png
-TarotCard: The Fool-wandering-moon <- fool-wandering-moon.png
-TarotCard: Hanged-person-wandering-moon <- hanged-person-wandering-moon.png
-TarotCard: The-Chariot-light <- hermit-light.png
-TarotCard: The-Hierophant-light <- hierophant-light.png
-TarotCard: The-Hierophant-wandering-moon <- hierophant-moon.png
-TarotCard: High-priestess-light <- high-priestess-light.png
-TarotCard: Death-light <- judgement-light.png
-TarotCard: Judgement-wandering-moon <- judgement-moon.png
-TarotCard: Justice-wandering-moon <- justice-moon.png
-TarotCard: The-Fool-light-seer <- light-seer.png
+Product: The Light Seers <- death-light.png
+Product: The Light Seers <- head-light-seer.png
 Product: Live Rune Reading – Ancient Guidance in Real Time <- live-rune-reading-ancient-guidance-in-real-time.png
 Product: Live Tarot Reading – Real-Time Insight From the Cards <- live-tarot-reading-real-time-insight-from-the-cards.png
-TarotCard: The-lovers-light <- lovers-light.png
-TarotCard: The-Magician-wandering-moon <- magician-moon.png
-TarotCard: Moon-wandering-moon <- moon-wandering-moon.png
 Product: Obsidian <- obsidian.png
-TarotCard: High priestess-moon <- priestess-moon.png
 Product: Pyrite <- pyrit.png
 Product: Pyrite <- pyrite.png
-TarotCard: Star-wandering-moon <- star-wandering-moon.png
-TarotCard: The-strength-light <- strength-light.png
-TarotCard: Strength-wandering-moon <- strength-moon.png
-TarotCard: Sun-wandering-moon <- sun-wandering-moon.png
-TarotCard: The-Empress-light <- temperance-light.png
-TarotCard: Temperence-wandering-moon <- temperance-moon.png
-TarotCard: The-Emperor-wandering-moon <- the-emperor-wandering-moon.png
-TarotCard: The-Empress-wandering-moon <- the-empress-wandering-moon.png
-TarotCard: The-Fool-light-seer <- the-fool-light.png
-TarotCard: The-Hermit-wandering-moon <- the-hermit-wandering-moon.png
-TarotCard: The-Fool-light-seer <- the-light-seers.png
-TarotCard: The-Lovers-wandering-moon <- the-lovers-wandering-moon.png
-TarotCard: The-lovers-light <- tower-light.png
-TarotCard: Tower-wandering-moon <- tower-moon.png
-TarotCard: Sun-wandering-moon <- wandering-moon.png
+Product: The Light Seers <- the-fool-light.png
+Product: The Light Seers <- the-light-seers.png
+Product: The Light Seers <- tower-light.png
+Product: Wandering With The Fool <- wandering-moon.png
 Product: The Light Seers <- wheel-light.png
-TarotCard: Wheel-wandering-moon <- wheel-moon.png
-TarotCard: World-wandering-moon <- world-moon.png
 
 === Skipped (No Match) ===
 1.png
 card-back-tarot.png
+card-back-wandering-moon.png
+chariot-wandering-moon.png
+chatiot-light.png
 crystals.png
+death-moon.png
+devil-light.png
+devil-moon.png
+emperor-light.png
+empress-light.png
+fool-wandering-moon.png
 hanged-man-light.png
-home-page-img.png
+hanged-person-wandering-moon.png
+hermit-light.png
+hierophant-light.png
+hierophant-moon.png
+high-priestess-light.png
+judgement-light.png
+judgement-moon.png
 justice-light.png
+justice-moon.png
 logo.png
 logo1.png
+lovers-light.png
 magician-light.png
+magician-moon.png
 moon-light.png
+moon-wandering-moon.png
+priestess-moon.png
 reading-1.png
 reading.png
 rune-1.png
 rune.png
 runes.png
 star-light.png
+star-wandering-moon.png
+strength-light.png
+strength-moon.png
 sun-light.png
+sun-wandering-moon.png
+temperance-light.png
+temperance-moon.png
+the-emperor-wandering-moon.png
+the-empress-wandering-moon.png
+the-hermit-wandering-moon.png
+the-lovers-wandering-moon.png
+tower-moon.png
+wheel-moon.png
 world-light.png
+world-moon.png
