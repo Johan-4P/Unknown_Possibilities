@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -23,7 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=254)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    image = models.ImageField(upload_to='products/', null=True, blank=True)
+    image = CloudinaryField('image', blank=True, null=True)
     stock = models.IntegerField(default=0, null=True, blank=True)
     available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,7 +37,7 @@ class Product(models.Model):
 class TarotCard(models.Model):
     """A model for picking a tarot card."""
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='tarot_cards/')
+    image = CloudinaryField('image', blank=True, null=True)
     message = models.TextField()
     categories = models.ManyToManyField('Category', related_name='tarot_cards')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='cards', null=True, blank=True)

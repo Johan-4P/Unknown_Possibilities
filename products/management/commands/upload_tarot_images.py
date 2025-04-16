@@ -44,8 +44,9 @@ class Command(BaseCommand):
                 with open(file_path, 'rb') as f:
                     result = upload(f, folder='tarot_cards/')
                     image_url = result['secure_url']
-                    image_content = ContentFile(requests.get(image_url).content)
-                    card.image.save(filename, image_content, save=True)
+                    card.image = result['secure_url']
+                    card.save()
+
                     self.stdout.write(self.style.SUCCESS(f"🔮 Updated TarotCard {card.name} with image: {filename}"))
                     updated.append(f"TarotCard: {card.name} <- {filename}")
                 continue

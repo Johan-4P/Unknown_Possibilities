@@ -1,5 +1,6 @@
 === Updated Items ===
 TarotCard: Star-wandering-moon <- card-back-wandering-moon.png
+TarotCard: The-Chariot-wandering-moon <- chariot-wandering-moon.png
 TarotCard: The-Chariot-light <- chatiot-light.png
 TarotCard: Death-light <- death-light.png
 TarotCard: Death-wandering-moon <- death-moon.png
@@ -7,6 +8,8 @@ TarotCard: Death-light <- devil-light.png
 TarotCard: Devil-wandering-moon <- devil-moon.png
 TarotCard: The-emperor-light <- emperor-light.png
 TarotCard: The-Empress-light <- empress-light.png
+TarotCard: The Fool-wandering-moon <- fool-wandering-moon.png
+TarotCard: Hanged-person-wandering-moon <- hanged-person-wandering-moon.png
 TarotCard: The-Chariot-light <- hermit-light.png
 TarotCard: The-Hierophant-light <- hierophant-light.png
 TarotCard: The-Hierophant-wandering-moon <- hierophant-moon.png
@@ -17,13 +20,20 @@ TarotCard: Justice-wandering-moon <- justice-moon.png
 TarotCard: The-Fool-light-seer <- light-seer.png
 TarotCard: The-lovers-light <- lovers-light.png
 TarotCard: The-Magician-wandering-moon <- magician-moon.png
+TarotCard: Moon-wandering-moon <- moon-wandering-moon.png
 TarotCard: High priestess-moon <- priestess-moon.png
+TarotCard: Star-wandering-moon <- star-wandering-moon.png
 TarotCard: The-strength-light <- strength-light.png
 TarotCard: Strength-wandering-moon <- strength-moon.png
+TarotCard: Sun-wandering-moon <- sun-wandering-moon.png
 TarotCard: The-Empress-light <- temperance-light.png
 TarotCard: Temperence-wandering-moon <- temperance-moon.png
+TarotCard: The-Emperor-wandering-moon <- the-emperor-wandering-moon.png
+TarotCard: The-Empress-wandering-moon <- the-empress-wandering-moon.png
 TarotCard: The-Fool-light-seer <- the-fool-light.png
+TarotCard: The-Hermit-wandering-moon <- the-hermit-wandering-moon.png
 TarotCard: The-Fool-light-seer <- the-light-seers.png
+TarotCard: The-Lovers-wandering-moon <- the-lovers-wandering-moon.png
 TarotCard: The-lovers-light <- tower-light.png
 TarotCard: Tower-wandering-moon <- tower-moon.png
 TarotCard: Wheel-wandering-moon <- wheel-moon.png
@@ -35,22 +45,14 @@ amethyst.png
 angelite-blue.png
 botswana-agat.png
 card-back-tarot.png
-chatiot-moon.png
 crystals.png
-emperor-moon.png
-empress-moon.png
-fool-moon.png
 hanged-man-light.png
-hanged-soul-moon.png
-hermit-moon.png
 home-page-img.png
 justice-light.png
 logo.png
 logo1.png
-lovers-moon.png
 magician-light.png
 moon-light.png
-moon-moon.png
 obsidian.png
 pyrit.png
 pyrite.png
@@ -62,15 +64,7 @@ rune-1.png
 rune.png
 runes.png
 star-light.png
-star-moon.png
 sun-light.png
-sun-moon.png
-unknown possibilities-explore.png
-unknown possibilities-text.png
-unknown possibilities.png
-unknown-possibilities-logo-1.png
-unknown-possibilities-logo.png
-unknown-possibilities3d-1.png
 wandering-with-the-fool.png
 wheel-light.png
 world-light.png
