@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 text-center fade-in-section">
+
+  <h1 class="text-light mb-4">Your Card of the Day</h1>
+  
+  {% if already_drawn %}
+  <div class="alert alert-info text-center">
+    You already drew your card for today. Come back tomorrow!
+  </div>
+{% endif %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card bg-dark text-white shadow-lg">
+        <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.name }}</h5>
+          <p class="card-text">{{ card.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-8 col-md-6 col-lg-4 mb-4">
+      <div class="card bg-dark text-white h-100 shadow-lg">
+        <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.name }}</h5>
+          <p class="card-text">{{ card.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <a href="{% url 'products' %}" class="btn btn-outline-light mt-4">Back to Products</a>
+
+</div>
+{% endblock %}

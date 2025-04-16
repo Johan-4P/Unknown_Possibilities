@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'accounts',
     'environ',
     'stripe',
+    'daily_card',
 
 
 

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5 text-center fade-in-section">
+  <h1 class="text-light mb-4">Choose Your Tarot Deck</h1>
+  <p class="text-muted mb-4">Pick a deck to draw your daily card from.</p>
+
+  <div class="row justify-content-center">
+    {% for deck in decks %}
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+      <div class="card bg-dark text-white h-100 shadow-lg">
+        <img src="{{ deck.image.url }}" class="card-img-top" alt="{{ deck.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ deck.name }}</h5>
+          <a href="{% url 'card_of_the_day' deck.id %}" class="btn btn-outline-light mt-2">Draw a Card</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
