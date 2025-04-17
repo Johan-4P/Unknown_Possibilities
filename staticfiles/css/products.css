@@ -1,8 +1,4 @@
-body {
-    background-color: #0e0e0e;
-    color: #f8f8f8;
-    font-family: 'Oswald', sans-serif;
-  }
+/* General styles for the product cards */
   
   .product-card {
     background: linear-gradient(145deg, #1a1a1a, #121212);
@@ -107,34 +103,36 @@ body {
 }
 
 .flip-card {
-  background-color: transparent;
   width: 150px;
-  height: 240px;
-  perspective: 1000px;
-  margin: 10px;
+  height: 220px;
+  perspective: 1500px;
   cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  position: relative;
 }
 
 .flip-card-inner {
-  position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s ease;
+  transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
   transform-style: preserve-3d;
+  position: relative;
 }
+
 
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
   border-radius: 12px;
+  backface-visibility: hidden;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .flip-card-front img,
@@ -142,11 +140,109 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 12px;
 }
 
+/* Flip side */
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+/* 🔮 Hover effect before flip */
+.flip-card:hover {
+  box-shadow: 0 0 15px 4px rgba(123, 47, 247, 0.6), 0 0 30px rgba(255, 0, 200, 0.3);
+  transform: scale(1.05);
+}
+
+/* Optional: floating animation */
+@keyframes floatUp {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+.flip-card {
+  animation: floatUp 3s ease-in-out infinite;
+}
+
+.mystic-background {
+  background: linear-gradient(160deg, #1a1a2e 0%, #0f0f1a 100%);
+  position: relative;
+  padding: 4rem 1rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.mystic-background::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+  animation: mysticStars 60s linear infinite;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+@keyframes mysticStars {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(50%, 50%);
+  }
+}
+
+/* Custom button with glow effect */
+
+.btn-glow {
+  position: relative;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #7b2ff7, #f107a3);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.9);
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(45deg, #f107a3, #7b2ff7, #00d4ff, #7b2ff7, #f107a3);
+  background-size: 400%;
+  border-radius: 16px;
+  z-index: -1;
+  filter: blur(12px);
+  opacity: 0.6;
+  animation: glowPulse 6s linear infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
 
 /* Custom Modal without Bootstrap */
 #customModal {
