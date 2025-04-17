@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block extra_title %} | My Profile {% endblock %}
 
 {% block content %}
@@ -12,14 +16,56 @@
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
 
-    <hr class="border-secondary">
+    {% if latest_draw or recent_draws %}
+    <div class="row mt-4">
+      {% if latest_draw %}
+      <div class="col-md-6 mb-4">
+        <div class="card bg-dark border-purple shadow p-4 h-100 text-start mystic-text">
+          <h5 class="text-light mb-3">🔮 Latest Card Draw</h5>
+          <p><strong>Date:</strong> {{ latest_draw.drawn_at|date:"F j, Y" }}</p>
+          <p><strong>Card:</strong> {{ latest_draw.card.name }}</p>
+          <p><strong>Message:</strong><br>{{ latest_draw.card.message }}</p>
+          <div class="text-center mt-3">
+            <img src="{{ latest_draw.card.image.url }}" alt="{{ latest_draw.card.name }}"
+                 style="max-height: 280px; width: auto; border-radius: 12px; box-shadow: 0 0 10px rgba(123,47,247,0.3);">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+  
+      {% if recent_draws %}
+      <div class="col-md-6 mb-4">
+        <div class="card bg-dark border-secondary shadow p-4 h-100 mystic-text">
+          <h5 class="text-light mb-3">📜 Previous Draws</h5>
+          <ul class="list-unstyled">
+            {% for draw in recent_draws %}
+              <li class="d-flex align-items-start mb-3">
+                <img src="{{ draw.card.image.url }}"
+                     alt="{{ draw.card.name }}"
+                     style="height: 60px; width: auto; border-radius: 8px; margin-right: 15px; box-shadow: 0 0 6px rgba(123,47,247,0.4);">
+                <div>
+                  <strong>{{ draw.drawn_at|date:"F j, Y" }}</strong> – {{ draw.card.name }}<br>
+                  <small class="text-muted">{{ draw.card.message|truncatechars:100 }}</small>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  
+    <div class="mt-4 text-center">
+      <a href="{% url 'account_change_password' %}" class="btn btn-outline-light me-2">
+        <i class="fas fa-key me-1"></i> Change Password
+      </a>
+      <a href="{% url 'account_logout' %}" class="btn btn-outline-danger ms-2">
+        <i class="fas fa-sign-out-alt me-1"></i> Logout
+      </a>
+    </div>
 
-    <a href="{% url 'account_change_password' %}" class="btn btn-outline-light mt-2">
-      <i class="fas fa-key me-1"></i> Change Password
-    </a>
-    <a href="{% url 'account_logout' %}" class="btn btn-outline-danger mt-2 ms-2">
-      <i class="fas fa-sign-out-alt me-1"></i> Logout
-    </a>
   </div>
 </div>
 {% endblock %}

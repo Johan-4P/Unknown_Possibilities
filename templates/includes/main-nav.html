@@ -2,15 +2,16 @@
   <ul class="navbar-nav w-auto mx-auto">
 
     <!-- Home -->
-    <li class="nav-item {% if request.path == '/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link me-5" href="{% url 'home' %}">Home</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link me-5 {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
     </li>
 
     <!-- Products (dropdown) -->
-    <li class="nav-item dropdown {% if not category %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link dropdown-toggle me-5" href="#" id="all-products-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <li class="nav-item dropdown">
+      <a class="logo-font fw-bold nav-link dropdown-toggle me-5 {% if not category and request.path != '/' %}active{% endif %}" href="#" id="all-products-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Products
       </a>
+      
       <ul class="dropdown-menu border-0" aria-labelledby="all-products-link">
         <li><a href="{% url 'products' %}?sort=price_asc" class="dropdown-item">By Price</a></li>
         <li><a href="{% url 'products' %}?sort=rating_desc" class="dropdown-item">By Rating</a></li>
@@ -20,28 +21,28 @@
     </li>
 
     <!-- Tarot Cards -->
-    <li class="nav-item {% if request.path == '/products/category/tarotcards/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'tarotcards' %}">Tarot Cards</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link me-5 {% if request.path == '/products/category/tarotcards/' %}active{% endif %}" href="{% url 'category_products' 'tarotcards' %}">Tarot Cards</a>
     </li>
 
     <!-- Runes -->
-    <li class="nav-item {% if request.path == '/products/category/runes/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'runes' %}">Runes</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link me-5 {% if request.path == '/products/category/runes/' %}active{% endif %}" href="{% url 'category_products' 'runes' %}">Runes</a>
     </li>
 
     <!-- Crystals -->
-    <li class="nav-item {% if request.path == '/products/category/crystals/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'crystals' %}">Crystals</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link me-5 {% if request.path == '/products/category/crystals/' %}active{% endif %}" href="{% url 'category_products' 'crystals' %}">Crystals</a>
     </li>
 
     <!-- Readings -->
-    <li class="nav-item {% if request.path == '/products/category/readings/' or request.path == '/products/category/rune-readings/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'readings' %}">Readings</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link me-5 {% if request.path == '/products/category/readings/' or request.path == '/products/category/rune-readings/' %}active{% endif %}" href="{% url 'category_products' 'readings' %}">Readings</a>
     </li>
 
     <!-- Daily Card Draw -->
-    <li class="nav-item {% if request.path == '/products/category/new-arrivals/' or request.path == '/products/category/deals/' or request.path == '/products/category/clearance/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link" href="{% url 'choose_deck' %}">Daily Card Draw</a>
+    <li class="nav-item">
+      <a class="logo-font fw-bold nav-link {% if request.path == '/daily_card/' %}active{% endif %}" href="{% url 'choose_deck' %}">Daily Card Draw</a>
     </li>
 
   </ul>
