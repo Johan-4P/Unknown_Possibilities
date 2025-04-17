@@ -1,27 +1,34 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import DailyCardDraw
-from products.models import TarotCard, Product, Category
+from products.models import TarotCard, Product
 from datetime import date
-import random
 
 def draw_card_of_the_day(request, product_id):
     if not request.user.is_authenticated:
         return redirect('account_login')
 
-    existing = DailyCardDraw.objects.filter(
-    user=request.user,
-    product_id=product_id,
-    drawn_at=date.today()
-).first()
+    product = get_object_or_404(Product, pk=product_id)
 
-    if existing:
-        card = existing.card
-    else:
-        cards = TarotCard.objects.filter(product_id=product_id)
-        card = random.choice(cards)
-        DailyCardDraw.objects.create(user=request.user, card=card)
-    already_drawn = existing is not None
-    return render(request, 'daily_card/card_of_the_day.html', {'card': card, 'already_drawn': already_drawn})
+    already_drawn = False
+    if not request.user.is_superuser:
+        already_drawn = DailyCardDraw.objects.filter(
+            user=request.user,
+            product=product,
+            drawn_at=date.today()
+        ).exists()
+
+    cards = list(TarotCard.objects.filter(product=product).order_by('?')[:5])
+
+    context = {
+        'cards': cards,
+        'product': product,
+        'card_back': f'images/card-backs/card-back-{product.sku.lower()}.png',
+        'already_drawn': already_drawn,
+    }
+
+    return render(request, 'daily_card/card_of_the_day.html', context)
+
+
 
 
 def choose_deck(request):

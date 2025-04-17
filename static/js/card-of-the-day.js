@@ -23,18 +23,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     card.addEventListener('click', () => {
       if (localStorage.getItem(drawKey) === today) return;
-
-      
+    
       card.classList.add('flipped');
       localStorage.setItem(drawKey, today);
       card.style.pointerEvents = 'none';
       console.log("Card clicked:", drawKey);
-
-     
-      modalName.textContent = card.dataset.name;
-      modalMessage.textContent = card.dataset.message;
-      modalImg.src = card.dataset.img;
-      modal.classList.remove('hidden');
+    
+      
+      setTimeout(() => {
+        modalName.textContent = card.dataset.name;
+        modalMessage.textContent = card.dataset.message;
+        modalImg.src = card.dataset.img;
+        modal.classList.remove('hidden');
+      }, 800);
     });
   });
 

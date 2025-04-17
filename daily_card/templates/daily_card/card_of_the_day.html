@@ -7,40 +7,57 @@
 
 {% block content %}
 <div class="container mt-5 pt-5 text-center fade-in-section">
-
   <h1 class="text-light mb-4">Your Card of the Day</h1>
-  
-  {% if already_drawn %}
-  <div class="alert alert-info text-center">
-    You already drew your card for today. Come back tomorrow!
-  </div>
-{% endif %}
 
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-      <div class="card bg-dark text-white shadow-lg">
-        <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.name }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ card.name }}</h5>
-          <p class="card-text">{{ card.message }}</p>
-        </div>
-      </div>
+  {% if already_drawn and not user.is_superuser %}
+    <div class="alert alert-info text-center">
+      You already drew your card for today. Come back tomorrow!
     </div>
-  </div>
+  {% endif %}
 
-  <div class="row justify-content-center">
-    <div class="col-sm-8 col-md-6 col-lg-4 mb-4">
-      <div class="card bg-dark text-white h-100 shadow-lg">
-        <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.name }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ card.name }}</h5>
-          <p class="card-text">{{ card.message }}</p>
-        </div>
-      </div>
+  <section class="card-of-the-day-section container my-5 text-center">
+    <p class="mystic-text">Click one card to reveal your message.</p>
+    <div class="d-flex justify-content-center flex-wrap gap-3">
+      {% for card in cards %}
+      <div class="flip-card"
+      data-name="{{ card.name }}"
+      data-message="{{ card.message }}"
+      data-img="{{ card.image.url }}"
+      data-product="{{ product.id }}">
+   <div class="flip-card-inner">
+     <div class="flip-card-front">
+       <img src="{% static card_back|default:'images/card-backs/card-back-default.png' %}" alt="Card back">
+     </div>
+     <div class="flip-card-back">
+       <img src="{{ card.image.url }}" alt="{{ card.name }}">
+     </div>
+   </div>
+ </div>
+ 
+      {% endfor %}
     </div>
-  </div>
-  
+
+    {% if user.is_superuser %}
+      <button class="btn btn-outline-light mt-4" id="reset-card-draw">
+        Reset Draw (superuser)
+      </button>
+    {% endif %}
+  </section>
+
   <a href="{% url 'products' %}" class="btn btn-outline-light mt-4">Back to Products</a>
-
 </div>
+
+<!-- Modal -->
+<div id="customModal" class="hidden">
+  <div class="modal-box">
+    <button class="close-modal" aria-label="Close">&times;</button>
+    <h5 id="modal-card-name">Card Name</h5>
+    <img id="modal-card-img" src="" alt="Card image">
+    <p id="modal-card-message" class="mystic-text"></p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/card-of-the-day.js' %}"></script>
 {% endblock %}

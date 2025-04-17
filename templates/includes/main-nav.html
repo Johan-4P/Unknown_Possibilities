@@ -39,9 +39,9 @@
       <a class="logo-font fw-bold nav-link me-5" href="{% url 'category_products' 'readings' %}">Readings</a>
     </li>
 
-    <!-- Specials -->
+    <!-- Daily Card Draw -->
     <li class="nav-item {% if request.path == '/products/category/new-arrivals/' or request.path == '/products/category/deals/' or request.path == '/products/category/clearance/' %}active{% endif %}">
-      <a class="logo-font fw-bold nav-link" href="{% url 'category_products' 'new-arrivals' %}">Specials</a>
+      <a class="logo-font fw-bold nav-link" href="{% url 'choose_deck' %}">Daily Card Draw</a>
     </li>
 
   </ul>
