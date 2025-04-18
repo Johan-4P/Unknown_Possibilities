@@ -2,6 +2,13 @@
 {% load static %}
   
   {% load crispy_forms_tags %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+
 {% block extra_title %} | Checkout {% endblock %}
 
 {% block content %}
