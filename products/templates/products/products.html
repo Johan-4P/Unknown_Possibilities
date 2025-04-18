@@ -16,6 +16,17 @@
     {% endif %}
   </div>
 
+  {% if category.name|lower == "readings" %}
+    <div class="text-center mb-5">
+      <img 
+        src="{% static 'images/reading-intro.png' %}" 
+        alt="Reading Table & You" 
+        class="img-fluid rounded shadow-lg"
+        style="max-height: 400px; object-fit: cover;"
+      >
+    </div>
+  {% endif %}
+
   <form method="GET" action="{% url 'products' %}" class="mb-4 fade-in-section">
     <div class="row">
       <div class="col-md-6 mb-2">

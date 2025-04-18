@@ -17,13 +17,13 @@ def checkout(request):
     """Show checkout page."""
     bag = request.session.get('bag', {})
     if not bag:
-        messages.error(request, "Din varukorg är tom.")
+        messages.error(request, "Your bag is empty.")
         return redirect('products')
 
     # calculate total and create PaymentIntent
     current_bag = bag_contents(request)
     total = current_bag['grand_total']
-    stripe_total = round(total * 100)  # i öre
+    stripe_total = round(total * 100)  # Convert to cents
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
