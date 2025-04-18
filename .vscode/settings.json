@@ -44,6 +44,7 @@
         "pytz",
         "socialaccount",
         "sqlparse",
+        "staticfiles",
         "STOREAGE",
         "tarotcards",
         "Temperence",
