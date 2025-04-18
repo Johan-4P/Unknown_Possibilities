@@ -145,6 +145,7 @@ a:hover {
     position: relative;
 }
 
+
 .index-img::after {
     content: "";
     position: absolute;
