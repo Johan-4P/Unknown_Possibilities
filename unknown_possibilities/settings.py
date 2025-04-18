@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-import dj_database_url
 import environ
 
 from pathlib import Path
@@ -201,6 +200,8 @@ CLOUDINARY_STORAGE = {
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WH_SECRET = env('STRIPE_WH_SECRET', default='')
+
+STRIPE_CURRENCY = 'usd'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

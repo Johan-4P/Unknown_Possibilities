@@ -31,3 +31,18 @@ class OrderForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
 
+
+# checkout/forms.py
+from django import forms
+
+class CheckoutForm(forms.Form):
+    full_name    = forms.CharField(max_length=100)
+    email        = forms.EmailField()
+    phone_number = forms.CharField(max_length=20)
+    address      = forms.CharField(widget=forms.Textarea)
+    
+
+    save_info = forms.BooleanField(
+        required=False,
+        label="Save this information for next time",
+    )

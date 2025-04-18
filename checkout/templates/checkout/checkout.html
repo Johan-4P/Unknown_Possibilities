@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-  
-  {% load crispy_forms_tags %}
+{% load crispy_forms_tags %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/products.css' %}">
@@ -23,12 +22,21 @@
           {% csrf_token %}
           {{ form|crispy }}
 
+          {% if user.is_authenticated %}
+            <div class="form-check mb-3">
+              {{ form.save_info }}
+              <label class="form-check-label text-light" for="{{ form.save_info.id_for_label }}">
+                {{ form.save_info.label }}
+              </label>
+            </div>
+          {% endif %}
+
           <div class="form-group mb-3">
             <label for="card-element">💳 Card Details</label>
             <div id="card-element" class="form-control bg-secondary bg-opacity-25 text-light border-light"></div>
           </div>
 
-          <!-- Error messages -->
+          <!-- Show any card errors -->
           <div id="card-errors" role="alert" class="text-danger small mt-2"></div>
 
           <button type="submit" class="btn btn-own-style w-100 mt-3">
@@ -42,12 +50,16 @@
     <div class="col-md-6 mb-4">
       <div class="card bg-secondary bg-opacity-10 border-light shadow-lg p-4 h-100">
         <h4 class="mb-3">🛍️ Your Items</h4>
+
         {% if bag_items %}
           <ul class="list-group list-group-flush">
             {% for item in bag_items %}
               <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-start">
                 <div class="d-flex">
-                  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="me-3 rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                  <img src="{{ item.product.image.url }}"
+                       alt="{{ item.product.name }}"
+                       class="me-3 rounded"
+                       style="width: 60px; height: 60px; object-fit: cover;">
                   <div>
                     <strong>{{ item.product.name }}</strong><br>
                     Qty: {{ item.quantity }}<br>
@@ -62,6 +74,7 @@
               </li>
             {% endfor %}
           </ul>
+
           <div class="text-end mt-3 fs-5 fw-bold">
             Total: ${{ total|floatformat:2 }}
           </div>
@@ -74,6 +87,7 @@
 </div>
 {% endblock %}
 
+<!-- JavaScript -->
 {% block extra_js %}
 <script src="https://js.stripe.com/v3/"></script>
 <script>
@@ -98,6 +112,7 @@
   form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ disabled: true });
+
     stripe.confirmCardPayment('{{ client_secret }}', {
       payment_method: {
         card: card,
@@ -114,10 +129,8 @@
       if (result.error) {
         document.getElementById('card-errors').textContent = result.error.message;
         card.update({ disabled: false });
-      } else {
-        if (result.paymentIntent.status === 'succeeded') {
-          form.submit();
-        }
+      } else if (result.paymentIntent.status === 'succeeded') {
+        form.submit();
       }
     });
   });

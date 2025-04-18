@@ -47,7 +47,7 @@
                      style="height: 60px; width: auto; border-radius: 8px; margin-right: 15px; box-shadow: 0 0 6px rgba(123,47,247,0.4);">
                 <div>
                   <strong>{{ draw.drawn_at|date:"F j, Y" }}</strong> – {{ draw.card.name }}<br>
-                  <small class="text-muted">{{ draw.card.message|truncatechars:100 }}</small>
+                  <small class="mystic-text">{{ draw.card.message|truncatechars:100 }}</small>
                 </div>
               </li>
             {% endfor %}

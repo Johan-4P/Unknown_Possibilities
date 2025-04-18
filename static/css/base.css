@@ -41,6 +41,17 @@ a:hover {
 }
 
 /* Navbar */
+.navbar {
+    background: linear-gradient(145deg, #1c1c2e, #141420) !important;
+    opacity: 1 !important;
+}
+.nav-style {
+    background: linear-gradient(145deg, #1c1c2e, #141420) !important;
+    opacity: 1 !important;
+    
+}
+    
+
 .navbar .nav-link {
     color: #d8b4fe;
     transition: all 0.3s ease;
