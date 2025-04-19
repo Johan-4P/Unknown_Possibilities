@@ -138,12 +138,11 @@ a:hover {
 
 /* Index image */
 .index-img {
-    background: url("../images/unknown‑possibilities‑logo‑1.png") no-repeat center center;
-    background-size: contain;
-    height: 80vh;
-    width: 100%;
-    position: relative;
-  }
+  background: url("../images/unknown-possibilities-logo-1.png") no-repeat center center;
+  background-size: contain;
+  height: 80vh;
+  width: 100%;
+}
   
 
 

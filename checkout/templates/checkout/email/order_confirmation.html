@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %} 
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Hi {{ order.full_name }},</h2>
+    <p>Thank you for your order <strong>#{{ order.order_number }}</strong>!</p>
+    <p><strong>Total:</strong> {{ order.grand_total|floatformat:2 }} {{ order.get_currency_display }}</p>
+    <hr>
+    <p>We’ll notify you when your items are on the way.</p>
+    <p>Best regards,<br>Your Company</p>
+  </body>
+</html>

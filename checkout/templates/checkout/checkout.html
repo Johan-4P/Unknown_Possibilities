@@ -4,6 +4,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/products.css' %}">
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 {% endblock %}
 
 {% block extra_title %} | Checkout {% endblock %}
@@ -20,24 +21,26 @@
         <h4 class="mb-3">🧙 Your Details</h4>
         <form method="POST" id="payment-form">
           {% csrf_token %}
-          {{ form|crispy }}
+          {% crispy form form.helper %}
+
 
           {% if user.is_authenticated %}
-            <div class="form-check mb-3">
-              {{ form.save_info }}
-              <label class="form-check-label text-light" for="{{ form.save_info.id_for_label }}">
-                {{ form.save_info.label }}
-              </label>
-            </div>
-          {% endif %}
-
-          <div class="form-group mb-3">
-            <label for="card-element">💳 Card Details</label>
-            <div id="card-element" class="form-control bg-secondary bg-opacity-25 text-light border-light"></div>
+          <div class="form-check mb-3">
+            {{ form.save_info }}
+            <label class="form-check-label text-light" for="{{ form.save_info.id_for_label }}">
+              {{ form.save_info.label }}
+            </label>
           </div>
+        {% endif %}
 
-          <!-- Show any card errors -->
-          <div id="card-errors" role="alert" class="text-danger small mt-2"></div>
+          <fieldset class="px-3">
+            <legend class="fieldset-label small mystic-text px-2 w-auto">Payment</legend>
+            <!-- A Stripe card element will go here -->
+            <div class="mb-3" id="card-element"></div>
+
+            <!-- Used to display form errors -->
+            <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+        </fieldset>
 
           <button type="submit" class="btn btn-own-style w-100 mt-3">
             <i class="fas fa-magic me-2"></i>Place Order
@@ -89,50 +92,12 @@
 
 <!-- JavaScript -->
 {% block extra_js %}
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-  const stripe = Stripe('{{ stripe_public_key }}');
-  const elements = stripe.elements();
-  const card = elements.create('card', {
-    style: {
-      base: {
-        color: '#ffffff',
-        fontFamily: '"Oswald", sans-serif',
-        fontSize: '16px',
-      },
-      invalid: {
-        color: '#ff6b6b',
-        iconColor: '#ff6b6b'
-      }
-    }
-  });
-  card.mount('#card-element');
-
-  const form = document.getElementById('payment-form');
-  form.addEventListener('submit', function(ev) {
-    ev.preventDefault();
-    card.update({ disabled: true });
-
-    stripe.confirmCardPayment('{{ client_secret }}', {
-      payment_method: {
-        card: card,
-        billing_details: {
-          name: form.full_name.value,
-          email: form.email.value,
-          phone: form.phone_number.value,
-          address: {
-            line1: form.address.value
-          }
-        }
-      }
-    }).then(function(result) {
-      if (result.error) {
-        document.getElementById('card-errors').textContent = result.error.message;
-        card.update({ disabled: false });
-      } else if (result.paymentIntent.status === 'succeeded') {
-        form.submit();
-      }
-    });
-  });
-</script>
+  {{ block.super }}
+  <script src="https://js.stripe.com/v3/"></script>
+  {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+  {{ client_secret|json_script:"id_client_secret" }}
+  <script src="{% static 'js/stripe_elements.js' %}"></script>
 {% endblock %}
+
+
+
