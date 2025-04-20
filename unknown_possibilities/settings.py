@@ -122,7 +122,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 ACCOUNT_AUTHENTICATION_METHODS = ['username', 'email']
 ACCOUNT_EMAIL_REQUIRED = True
@@ -139,10 +139,8 @@ EMAIL_PORT = env('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = env(
-    'DEFAULT_FROM_EMAIL',
-    default='My Company <noreply@example.com>'
-)
+DEFAULT_FROM_EMAIL="Unknown Possibilities <Anteskogen85@gmail.com>"
+
 
 WSGI_APPLICATION = 'unknown_possibilities.wsgi.application'
 

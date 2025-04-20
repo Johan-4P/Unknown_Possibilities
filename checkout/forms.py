@@ -1,13 +1,9 @@
 from django import forms
 from .models import Order
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
+
 
 class OrderForm(forms.ModelForm):
-    save_info = forms.BooleanField(
-        required=False,
-        label="Save this information for next time",
-    )
+    save_info = forms.BooleanField(required=False, label="Save this information for next time")
 
     class Meta:
         model = Order
@@ -15,33 +11,40 @@ class OrderForm(forms.ModelForm):
             'full_name',
             'email',
             'phone_number',
-            'address',
             'country',
             'postcode',
             'town_or_city',
+            'street_address1',
+            'street_address2',
+            'county',
         )
         widgets = {
-            'address': forms.Textarea(attrs={'rows': 3}),
+            'street_address1': forms.TextInput(attrs={'placeholder': 'Street Address 1'}),
+            'street_address2': forms.TextInput(attrs={'placeholder': 'Street Address 2'}),
         }
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            'full_name',
-            'email',
-            'phone_number',
-            'address',
-            'country',
-            'postcode',
-            'town_or_city',
-            
-        )
+        placeholders = {
+            'full_name': 'Full Name',
+            'email': 'Email Address',
+            'phone_number': 'Phone Number',
+            'country': 'Country',
+            'postcode': 'Postal Code',
+            'town_or_city': 'Town or City',
+            'street_address1': 'Street Address 1',
+            'street_address2': 'Street Address 2',
+            'county': 'County',
+        }
 
-        
-        self.fields['save_info'].widget.attrs.update({
-            'class': 'form-check-input me-2',
-        })
+        self.fields['full_name'].widget.attrs['autofocus'] = True
+
+        for field in self.fields:
+            placeholder = placeholders.get(field, '')
+            if self.fields[field].required:
+                placeholder += ' *'
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = 'form-control stripe-style-input'
+            self.fields[field].label = ''

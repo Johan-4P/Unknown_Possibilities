@@ -1,0 +1,85 @@
+/*  Make order summary text readable */
+.text-muted {
+    color: #b0aee0 !important;
+}
+
+/*  Card content in checkout summary */
+.card.bg-dark .list-group-item,
+.card.bg-dark .card-footer,
+.card.bg-dark .card-header {
+    background-color: transparent;
+    color: #eee;
+    border-color: #333;
+}
+
+/*  Stripe card element style */
+#card-element {
+    background: #1a1a2e;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+/*  Submit button */
+#submit-button {
+    background: linear-gradient(135deg, #7b2ff7, #f107a3);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+#submit-button:hover {
+    background: linear-gradient(135deg, #a45af5, #fa37c1);
+    box-shadow: 0 0 10px rgba(255, 0, 200, 0.5);
+}
+
+/*  Stripe error styling */
+#card-errors {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/*  Adjust Bag button */
+.btn-outline-black {
+    color: #ccc;
+    border: 1px solid #666;
+    padding: 10px 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-black:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/*  Summary values */
+.checkout-summary p {
+    margin-bottom: 0.3rem;
+    color: #d1c7f7;
+    font-weight: 500;
+}
+
+/*  Image inside order summary */
+.checkout-summary img {
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(255,255,255,0.2);
+}
+
+/*  Placeholder styles */
+input::placeholder, textarea::placeholder {
+    color: #888 !important;
+    font-style: italic;
+}
+
+/*  Field focus */
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px #a58bfc;
+    border-color: #a58bfc;
+}
