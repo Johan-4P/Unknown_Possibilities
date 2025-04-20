@@ -1,12 +1,39 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+<div class="container mt-5 pt-5 fade-in-section" style="max-width: 700px;">
+  <div class="card bg-dark border-light p-5 shadow-lg rounded-4 text-light">
+    <h2 class="mb-4 text-center mystic-text">
+      📩 {% trans "Verify Your E-mail Address" %}
+    </h2>
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
+    <p class="fs-5 text-center">
+      {% blocktrans %}
+      This part of the site requires us to verify that you are who you claim to be.
+      For this purpose, we require that you verify ownership of your e-mail address.
+      {% endblocktrans %}
+    </p>
 
+    <p class="fs-5 text-center">
+      {% blocktrans %}
+      We've sent a verification link to your inbox. Please click on the link inside that email.
+      If it's not in your inbox, check your spam folder. Otherwise, contact us if it doesn't show up.
+      {% endblocktrans %}
+    </p>
+
+    {% url 'account_email' as email_url %}
+    <p class="text-center mt-3 fs-6">
+      {% trans "Note:" %} <a href="{{ email_url }}" class="text-mystic">{% trans "Change your email address" %}</a>
+    </p>
+
+    <div class="text-center mt-4">
+      <a href="/" class="btn btn-outline-light">
+        🔮 Back to Unknown Possibilities
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock %}

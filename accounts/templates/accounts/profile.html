@@ -56,9 +56,39 @@
       </div>
       {% endif %}
     </div>
-  {% endif %}
-  
-  
+    {% endif %}
+
+    {% if orders %}
+    <hr class="my-5 border-light">
+    <div class="mt-4">
+      <h4 class="mb-3 text-light">🧾 Your Order History</h4>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered border-light rounded-3">
+          <thead>
+            <tr class="text-light">
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Delivery</th>
+              <th>Grand Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ order.order_number }}</td>
+              <td>{{ order.date|date:"Y-m-d H:i" }}</td>
+              <td>${{ order.order_total|floatformat:2 }}</td>
+              <td>${{ order.delivery_cost|floatformat:2 }}</td>
+              <td><strong>${{ order.grand_total|floatformat:2 }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
     <div class="mt-4 text-center">
       <a href="{% url 'account_change_password' %}" class="btn btn-outline-light me-2">
         <i class="fas fa-key me-1"></i> Change Password
@@ -67,7 +97,6 @@
         <i class="fas fa-sign-out-alt me-1"></i> Logout
       </a>
     </div>
-
   </div>
 </div>
 {% endblock %}

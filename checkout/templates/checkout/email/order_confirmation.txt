@@ -1,8 +1,15 @@
 Hi {{ order.full_name }},
 
 Thank you for your order #{{ order.order_number }}!
+
+Order Details:
+{% for item in order.lineitems.all %}
+- {{ item.product.name }} | Qty: {{ item.quantity }} | Price: {{ item.lineitem_total|floatformat:2 }} {{ order.get_currency_display }}
+{% endfor %}
+
 Total: {{ order.grand_total|floatformat:2 }} {{ order.get_currency_display }}
 
-We’ll let you know as soon as your order ships.
+We’ll notify you when your items are on the way.
 
-— Your Company
+Best regards,  
+Unknown Possibilities

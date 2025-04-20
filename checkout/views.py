@@ -8,11 +8,10 @@ from .forms import OrderForm
 from bag.contexts import bag_contents
 from products.models import Product
 from checkout.models import OrderLineItem
+from accounts.models import UserProfile
 
 import json
 import stripe
-
-
 
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -32,14 +31,18 @@ def checkout(request):
         currency=settings.STRIPE_CURRENCY,
     )
 
-    form = None  # säkerhetslinje
-
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
             order.stripe_pid = intent.id
             order.original_bag = json.dumps(bag)
+
+        
+            if request.user.is_authenticated:
+                user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+                order.user_profile = user_profile
+
             order.save()
 
             for item_id, item_data in bag.items():
@@ -75,7 +78,8 @@ def checkout(request):
 
 
 
-
+# Checkout success view
+# This view is called after a successful payment
 
 def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
@@ -93,5 +97,8 @@ def checkout_success(request, order_number):
         html_message=html_body  # HTML version of the email
     )
 
+    # Clear the bag from the session
+    request.session['bag'] = {}
+    # Display success message
     messages.success(request, f'Order {order_number} confirmed! A confirmation email was sent to {order.email}.')
     return render(request, 'checkout/checkout_success.html', {'order': order})

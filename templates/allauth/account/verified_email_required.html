@@ -1,23 +1,42 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Verify Your E-mail Address" %}</h1>
+<div class="container mt-5 pt-5 text-light fade-in-section" style="max-width: 700px;">
+  <div class="card bg-dark border-light p-5 shadow-lg rounded-4">
+    <h2 class="mb-4 text-center mystic-text">🔒 {% trans "Verify Your E-mail Address" %}</h2>
 
-{% url 'account_email' as email_url %}
+    <p class="fs-5 text-center">
+      {% blocktrans %}
+      This part of the site requires us to verify that you are who you claim to be.<br>
+      For this purpose, we require that you verify ownership of your e-mail address.
+      {% endblocktrans %}
+    </p>
 
-<p>{% blocktrans %}This part of the site requires us to verify that
-you are who you claim to be. For this purpose, we require that you
-verify ownership of your e-mail address. {% endblocktrans %}</p>
+    <hr class="border-light">
 
-<p>{% blocktrans %}We have sent an e-mail to you for
-verification. Please click on the link inside that e-mail. If you do not see the verification e-mail in your main inbox, check your spam folder. Otherwise
-contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+    <p class="fs-5 text-center">
+      {% blocktrans %}
+      We've sent a verification link to your inbox. Please click on the link inside that email.<br>
+      If it's not in your inbox, check your <strong>spam folder</strong>.<br>
+      Otherwise, contact us if it doesn't show up within a few minutes.
+      {% endblocktrans %}
+    </p>
 
-<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
+    {% url 'account_email' as email_url %}
+    <p class="text-center mt-3">
+      {% blocktrans %}
+      <strong>Note:</strong> You can still <a href="{{ email_url }}" class="text-mystic">change your e-mail address</a>.
+      {% endblocktrans %}
+    </p>
 
-
+    <div class="text-center mt-4">
+      <a href="/" class="btn btn-glow">
+        🔮 Return to Unknown Possibilities
+      </a>
+    </div>
+  </div>
+</div>
 {% endblock %}
