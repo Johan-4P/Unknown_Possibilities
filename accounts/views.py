@@ -1,6 +1,6 @@
 import random
 from datetime import date
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render
 from products.models import TarotCard, Product
 from .models import DailyCardDraw
@@ -46,3 +46,13 @@ def profile_view(request):
     }
 
     return render(request, 'accounts/profile.html', context)
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+@login_required
+@user_passes_test(is_superuser)
+def product_management_view(request):
+    products = Product.objects.all().order_by('name')
+    return render(request, 'accounts/product_management.html', {'products': products})

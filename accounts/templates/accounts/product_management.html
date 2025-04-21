@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-5 pt-5 text-light">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">🛠️ Product Management</h2>
+    <a href="{% url 'admin:products_product_add' %}" class="btn btn-glow">
+      ➕ Add New Product
+    </a>
+  </div>
+  
+  <table class="table table-dark table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>In Stock</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category.friendly_name }}</td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td><a href="{% url 'admin:products_product_change' product.id %}" class="btn btn-outline-light btn-sm">Edit</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
