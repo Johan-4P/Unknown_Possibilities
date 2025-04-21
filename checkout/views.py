@@ -49,6 +49,11 @@ def checkout(request):
                 try:
                     product = Product.objects.get(id=item_id)
                     quantity = item_data['quantity'] if isinstance(item_data, dict) else item_data
+
+                    if product.stock is not None:
+                        product.stock = max(0, product.stock - quantity)
+                        product.save()
+
                     order_line_item = OrderLineItem(
                         order=order,
                         product=product,

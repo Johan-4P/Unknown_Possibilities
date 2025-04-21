@@ -1,11 +1,15 @@
 import random
 from datetime import date
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render
+from django.views.decorators.http import require_POST
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from products.models import TarotCard, Product
 from .models import DailyCardDraw
 from checkout.models import Order
 from accounts.models import UserProfile
+from products.forms import ProductForm
+
 
 @login_required
 def profile_view(request):
@@ -53,6 +57,59 @@ def is_superuser(user):
 
 @login_required
 @user_passes_test(is_superuser)
-def product_management_view(request):
-    products = Product.objects.all().order_by('name')
-    return render(request, 'accounts/product_management.html', {'products': products})
+def product_management(request):
+    products = Product.objects.all()
+    form = ProductForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "Product added successfully!")
+        return redirect('product_management')
+    return render(request, 'accounts/product_management.html', {
+        'products': products,
+        'form': form
+    })
+
+@require_POST
+@login_required
+@user_passes_test(is_superuser)
+def update_stock(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    try:
+        new_stock = int(request.POST.get('stock'))
+        product.stock = new_stock
+        product.save()
+        messages.success(request, f"Stock for {product.name} updated to {new_stock}.")
+    except (ValueError, TypeError):
+        messages.error(request, "Invalid stock value.")
+    return redirect('product_management')
+
+@login_required
+@user_passes_test(is_superuser)
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    form = ProductForm(request.POST or None, request.FILES or None, instance=product)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "Product updated successfully.")
+        return redirect('product_management')
+    return render(request, 'accounts/edit_product.html', {'form': form, 'product': product})
+
+@require_POST
+@login_required
+@user_passes_test(is_superuser)
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, "Product deleted.")
+    return redirect('product_management')
+
+@login_required
+@user_passes_test(is_superuser)
+def add_product(request):
+    form = ProductForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "New product added!")
+        return redirect('product_management')
+    return render(request, 'accounts/add_product.html', {'form': form})
+
