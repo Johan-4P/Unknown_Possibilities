@@ -25,7 +25,7 @@
     </a>
     <ul class="list-group list-group-flush">
       <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+        <strong>Full Name:</strong> {{ user_profile.full_name }}
       </li>
       <li class="list-group-item bg-dark text-light border-secondary">
         <strong>Email:</strong> {{ user.email }}
@@ -50,7 +50,7 @@
     </ul>
 
     <h3 class="mt-5">💳 Saved Card</h3>
-    <p class="text-muted">We never store your card details – they are saved securely with Stripe.</p>
+    <p class="mystic-text">We never store your card details – they are saved securely with Stripe.</p>
 
     {% if user.userprofile.stripe_customer_id %}
       <p class="text-light">
