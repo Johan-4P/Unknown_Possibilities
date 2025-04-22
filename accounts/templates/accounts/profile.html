@@ -2,7 +2,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 <link rel="stylesheet" href="{% static 'css/products.css' %}">
@@ -15,141 +14,111 @@
 <div class="container mt-5 pt-5 fade-in-section text-light">
   <h2 class="mb-4">🌙 Welcome, {{ user.first_name|default:user.username }}</h2>
 
-  <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text">
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+  <div class="row g-4">
+    <!-- Delivery info -->
+    <div class="col-lg-6">
+      <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text h-100">
+        <h3 class="mb-4">📦 Saved Delivery Information</h3>
+        <a href="{% url 'edit_delivery_info' %}" class="btn btn-outline-light mb-4">
+          <i class="fas fa-edit me-1"></i> Edit Delivery Info
+        </a>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>Full Name:</strong> {{ user_profile.full_name }}</li>
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>Email:</strong> {{ user.email }}</li>
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>Phone:</strong> {{ user_profile.phone_number }}</li>
+          <li class="list-group-item bg-dark text-light border-secondary">
+            <strong>Address:</strong> {{ user_profile.street_address1 }}<br>
+            {% if user_profile.street_address2 %}{{ user_profile.street_address2 }}<br>{% endif %}
+            {% if user_profile.county %}{{ user_profile.county }}<br>{% endif %}
+          </li>
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>City:</strong> {{ user_profile.town_or_city }}</li>
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>Postcode:</strong> {{ user_profile.postcode }}</li>
+          <li class="list-group-item bg-dark text-light border-secondary"><strong>Country:</strong> {{ user_profile.country }}</li>
+        </ul>
 
-    <h3 class="mt-5">📦 Saved Delivery Information</h3>
-    <a href="{% url 'edit_delivery_info' %}" class="btn btn-outline-light mt-3 mb-4">
-      <i class="fas fa-edit me-1"></i> Edit Delivery Info
-    </a>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Full Name:</strong> {{ user_profile.full_name }}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Email:</strong> {{ user.email }}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Phone:</strong> {{ user_profile.phone_number }}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Address:</strong> {{ user_profile.street_address1 }}<br>
-        {% if user_profile.street_address2 %}{{ user_profile.street_address2 }}<br>{% endif %}
-        {% if user_profile.county %}{{ user_profile.county }}<br>{% endif %}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>City:</strong> {{ user_profile.town_or_city }}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Postcode:</strong> {{ user_profile.postcode }}
-      </li>
-      <li class="list-group-item bg-dark text-light border-secondary">
-        <strong>Country:</strong> {{ user_profile.country }}
-      </li>
-    </ul>
-
-    <h3 class="mt-5">💳 Saved Card</h3>
-    <p class="mystic-text">We never store your card details – they are saved securely with Stripe.</p>
-
-    {% if user.userprofile.stripe_customer_id %}
-      <p class="text-light">
-        You have a card saved for future purchases.
-      </p>
-    {% else %}
-      <p class="text-light">
-        No card saved yet.
-      </p>
-    {% endif %}
-    {% if saved_card %}
-    <p class="text-light">
-      Card: {{ saved_card.brand|title }} ending in {{ saved_card.last4 }}<br>
-      Expires: {{ saved_card.exp_month }}/{{ saved_card.exp_year }}
-    </p>
-  {% endif %}
-  
-
-
-    {% if orders %}
-    <hr class="my-5 border-light">
-    <div class="mt-4">
-      <h4 class="mb-3 text-light">🧾 Your Order History</h4>
-      <div class="table-responsive">
-        <table class="table table-dark table-striped table-bordered border-light rounded-3">
-          <thead>
-            <tr class="text-light">
-              <th>Order #</th>
-              <th>Date</th>
-              <th>Total</th>
-              <th>Delivery</th>
-              <th>Grand Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for order in orders %}
-            <tr>
-              <td>{{ order.order_number }}</td>
-              <td>{{ order.date|date:"Y-m-d H:i" }}</td>
-              <td>${{ order.order_total|floatformat:2 }}</td>
-              <td>${{ order.delivery_cost|floatformat:2 }}</td>
-              <td><strong>${{ order.grand_total|floatformat:2 }}</strong></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <h3 class="mt-5">💳 Saved Card</h3>
+        <p class="mystic-text">We never store your card details – they are saved securely with Stripe.</p>
+        {% if saved_card %}
+          <p class="text-light">Card: {{ saved_card.brand|title }} ending in {{ saved_card.last4 }}<br>
+          Expires: {{ saved_card.exp_month }}/{{ saved_card.exp_year }}</p>
+        {% else %}
+          <p class="mystic-text">No card details currently stored.</p>
+        {% endif %}
       </div>
     </div>
-    {% endif %}
-    {% if latest_draw or recent_draws %}
-    <div class="row mt-4">
-      {% if latest_draw %}
-      <div class="col-md-6 mb-4">
-        <div class="card bg-dark border-purple shadow p-4 h-100 text-start mystic-text">
-          <h5 class="text-light mb-3">🔮 Latest Card Draw</h5>
-          <p><strong>Date:</strong> {{ latest_draw.drawn_at|date:"F j, Y" }}</p>
-          <p><strong>Card:</strong> {{ latest_draw.card.name }}</p>
-          <p><strong>Message:</strong><br>{{ latest_draw.card.message }}</p>
-          <div class="text-center mt-3">
-            <img src="{{ latest_draw.card.image.url }}" alt="{{ latest_draw.card.name }}"
-                 style="max-height: 280px; width: auto; border-radius: 12px; box-shadow: 0 0 10px rgba(123,47,247,0.3);">
+
+    <!-- Orders & draws -->
+    <div class="col-lg-6">
+      <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text mb-4">
+        <h4 class="mb-3">🧾 Your Order History</h4>
+        {% if orders %}
+        <div class="table-responsive">
+          <table class="table table-dark table-striped table-bordered border-light rounded-3">
+            <thead>
+              <tr class="text-light">
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>{{ order.order_number }}</td>
+                <td>{{ order.date|date:"Y-m-d H:i" }}</td>
+                <td><strong>${{ order.grand_total|floatformat:2 }}</strong></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <p class="mystic-text">No previous orders.</p>
+        {% endif %}
+      </div>
+
+      <div class="row">
+        {% if latest_draw %}
+        <div class="col-md-6 mb-4">
+          <div class="card bg-dark border-purple shadow p-3 h-100 mystic-text">
+            <h5>🔮 Latest Card Draw</h5>
+            <p><strong>Date:</strong> {{ latest_draw.drawn_at|date:"F j, Y" }}</p>
+            <p><strong>Card:</strong> {{ latest_draw.card.name }}</p>
+            <p><strong>Message:</strong><br>{{ latest_draw.card.message }}</p>
+            <img src="{{ latest_draw.card.image.url }}" class="img-fluid rounded shadow mt-2" alt="{{ latest_draw.card.name }}">
           </div>
         </div>
-      </div>
-      {% endif %}
-  
-      {% if recent_draws %}
-      <div class="col-md-6 mb-4">
-        <div class="card bg-dark border-secondary shadow p-4 h-100 mystic-text">
-          <h5 class="text-light mb-3">📜 Previous Draws</h5>
-          <ul class="list-unstyled">
-            {% for draw in recent_draws %}
-              <li class="d-flex align-items-start mb-3">
-                <img src="{{ draw.card.image.url }}"
-                     alt="{{ draw.card.name }}"
-                     style="height: 60px; width: auto; border-radius: 8px; margin-right: 15px; box-shadow: 0 0 6px rgba(123,47,247,0.4);">
+        {% endif %}
+
+        {% if recent_draws %}
+        <div class="col-md-6 mb-4">
+          <div class="card bg-dark border-secondary shadow p-3 h-100 mystic-text">
+            <h5>📜 Previous Draws</h5>
+            <ul class="list-unstyled">
+              {% for draw in recent_draws %}
+              <li class="d-flex mb-3">
+                <img src="{{ draw.card.image.url }}" alt="{{ draw.card.name }}" class="me-3 rounded" style="height: 60px; width: auto; box-shadow: 0 0 6px rgba(123,47,247,0.4);">
                 <div>
                   <strong>{{ draw.drawn_at|date:"F j, Y" }}</strong> – {{ draw.card.name }}<br>
                   <small class="mystic-text">{{ draw.card.message|truncatechars:100 }}</small>
                 </div>
               </li>
-            {% endfor %}
-          </ul>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
+        {% endif %}
       </div>
-      {% endif %}
     </div>
-    {% endif %}
+  </div>
 
-
-
-    <div class="mt-4 text-center">
-      <a href="{% url 'account_change_password' %}" class="btn btn-outline-light me-2">
-        <i class="fas fa-key me-1"></i> Change Password
-      </a>
-      <a href="{% url 'account_logout' %}" class="btn btn-outline-danger ms-2">
-        <i class="fas fa-sign-out-alt me-1"></i> Logout
-      </a>
-    </div>
+  <div class="text-center mt-4">
+    <a href="{% url 'account_change_password' %}" class="btn btn-outline-light me-2">
+      <i class="fas fa-key me-1"></i> Change Password
+    </a>
+    <a href="{% url 'account_logout' %}" class="btn btn-outline-danger ms-2">
+      <i class="fas fa-sign-out-alt me-1"></i> Logout
+    </a>
   </div>
 </div>
 {% endblock %}

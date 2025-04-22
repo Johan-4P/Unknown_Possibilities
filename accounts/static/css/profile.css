@@ -2,3 +2,19 @@
     border: 1px solid #7b2ff7;
   }
   
+.product-title{
+    margin-top: 10%;
+}
+
+@media screen and (max-width: 768px) {
+    .product-title{
+        margin-top: 50%;
+    }
+  
+}
+@media screen and (min-width: 768px) {
+    .product-title{
+        margin-top: 15%;
+    }
+  
+}
