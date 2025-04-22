@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block extra_title %} | Edit Delivery Info {% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 fade-in-section text-light">
+  <div class="card bg-dark border-light shadow p-4 rounded-4">
+    <h2 class="mb-4">📦 Edit Delivery Info</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-outline-light mt-3">
+        <i class="fas fa-save me-1"></i> Save Changes
+      </button>
+      <a href="{% url 'profile' %}" class="btn btn-outline-secondary mt-3 ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

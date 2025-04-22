@@ -2,6 +2,7 @@
 {% load static %}
 
 {% load crispy_forms_tags %}
+{% crispy form form.helper %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
@@ -89,6 +90,15 @@
                         Save this delivery information to my profile
                     </label>
                 </div>
+                {% if user.is_authenticated %}
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="save-card">
+                    <label class="form-check-label text-light" for="save-card">
+                    Save card for future purchases
+                    </label>
+                </div>
+                {% endif %}
+
                 {% else %}
                 <div class="form-check mb-4">
                     <label class="form-check-label">
@@ -125,5 +135,6 @@
     <script src="https://js.stripe.com/v3/"></script>
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
+    {{ setup_client_secret|json_script:"id_setup_client_secret" }}
     <script src="{% static 'js/stripe_elements.js' %}"></script>
 {% endblock %}

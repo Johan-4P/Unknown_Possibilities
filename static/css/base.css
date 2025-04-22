@@ -9,9 +9,9 @@ html, body {
     scroll-behavior: smooth;
 }
 
-.header-container {
+/* .header-container {
     padding-top: 100px; 
-  }
+  } */
 
 form label {
     color: #e0e0e0 !important;
@@ -148,7 +148,7 @@ a:hover {
 
 .index-img::after {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(20, 20, 32, 0.6);
 }
@@ -190,7 +190,7 @@ footer a:hover {
 
 /* Mystic section */
 .mystic-section {
-    padding: 60px 20px;
+    padding: 0px 20px;
 }
 
 .mystic-heading {
@@ -304,11 +304,6 @@ footer a:hover {
 }
 
 /* Media queries */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 80%;
-    }
-}
 
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
@@ -320,6 +315,12 @@ footer a:hover {
     }
 
     .header-container {
-        padding-top: 164px;
+        padding-top: 70px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
     }
 }

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
@@ -15,9 +17,89 @@
 
   <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text">
     <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
 
+    <h3 class="mt-5">📦 Saved Delivery Information</h3>
+    <a href="{% url 'edit_delivery_info' %}" class="btn btn-outline-light mt-3 mb-4">
+      <i class="fas fa-edit me-1"></i> Edit Delivery Info
+    </a>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Email:</strong> {{ user.email }}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Phone:</strong> {{ user_profile.phone_number }}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Address:</strong> {{ user_profile.street_address1 }}<br>
+        {% if user_profile.street_address2 %}{{ user_profile.street_address2 }}<br>{% endif %}
+        {% if user_profile.county %}{{ user_profile.county }}<br>{% endif %}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>City:</strong> {{ user_profile.town_or_city }}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Postcode:</strong> {{ user_profile.postcode }}
+      </li>
+      <li class="list-group-item bg-dark text-light border-secondary">
+        <strong>Country:</strong> {{ user_profile.country }}
+      </li>
+    </ul>
+
+    <h3 class="mt-5">💳 Saved Card</h3>
+    <p class="text-muted">We never store your card details – they are saved securely with Stripe.</p>
+
+    {% if user.userprofile.stripe_customer_id %}
+      <p class="text-light">
+        You have a card saved for future purchases.
+      </p>
+    {% else %}
+      <p class="text-light">
+        No card saved yet.
+      </p>
+    {% endif %}
+    {% if saved_card %}
+    <p class="text-light">
+      Card: {{ saved_card.brand|title }} ending in {{ saved_card.last4 }}<br>
+      Expires: {{ saved_card.exp_month }}/{{ saved_card.exp_year }}
+    </p>
+  {% endif %}
+  
+
+
+    {% if orders %}
+    <hr class="my-5 border-light">
+    <div class="mt-4">
+      <h4 class="mb-3 text-light">🧾 Your Order History</h4>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered border-light rounded-3">
+          <thead>
+            <tr class="text-light">
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Delivery</th>
+              <th>Grand Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ order.order_number }}</td>
+              <td>{{ order.date|date:"Y-m-d H:i" }}</td>
+              <td>${{ order.order_total|floatformat:2 }}</td>
+              <td>${{ order.delivery_cost|floatformat:2 }}</td>
+              <td><strong>${{ order.grand_total|floatformat:2 }}</strong></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
     {% if latest_draw or recent_draws %}
     <div class="row mt-4">
       {% if latest_draw %}
@@ -58,36 +140,7 @@
     </div>
     {% endif %}
 
-    {% if orders %}
-    <hr class="my-5 border-light">
-    <div class="mt-4">
-      <h4 class="mb-3 text-light">🧾 Your Order History</h4>
-      <div class="table-responsive">
-        <table class="table table-dark table-striped table-bordered border-light rounded-3">
-          <thead>
-            <tr class="text-light">
-              <th>Order #</th>
-              <th>Date</th>
-              <th>Total</th>
-              <th>Delivery</th>
-              <th>Grand Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for order in orders %}
-            <tr>
-              <td>{{ order.order_number }}</td>
-              <td>{{ order.date|date:"Y-m-d H:i" }}</td>
-              <td>${{ order.order_total|floatformat:2 }}</td>
-              <td>${{ order.delivery_cost|floatformat:2 }}</td>
-              <td><strong>${{ order.grand_total|floatformat:2 }}</strong></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    {% endif %}
+
 
     <div class="mt-4 text-center">
       <a href="{% url 'account_change_password' %}" class="btn btn-outline-light me-2">

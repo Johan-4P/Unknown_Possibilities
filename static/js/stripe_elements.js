@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("✅ stripe_elements.js is running!");
-
+  console.log("stripe_elements.js is running!");
+  const setupClientSecret = JSON.parse(document.getElementById('id_setup_client_secret')?.textContent || 'null');
   const publicKey = JSON.parse(document.getElementById('id_stripe_public_key').textContent);
   const clientSecret = JSON.parse(document.getElementById('id_client_secret').textContent);
 
@@ -26,17 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   card.mount('#card-element');
 
-  // 🔍 Feedback vid input
+  // Feedback for card element
   card.on('change', function(event) {
     const cardErrors = document.getElementById('card-errors');
     if (event.complete) {
-      console.log("✅ Card entry complete");
+      console.log(" Card entry complete");
       cardErrors.textContent = '';
     } else if (event.error) {
-      console.log("❌ Stripe error:", event.error.message);
+      console.log("Stripe error:", event.error.message);
       cardErrors.textContent = event.error.message;
     } else {
-      console.log("⌨️ Typing in card field...");
+      console.log(" Typing in card field...");
       cardErrors.textContent = '';
     }
   });
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (error) {
-      console.log("❌ Payment error:", error.message);
+      console.log(" Payment error:", error.message);
       cardErrors.textContent = error.message;
 
       form.classList.remove('loading');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (paymentIntent.status === 'succeeded') {
       console.log("💳 Payment succeeded – submitting form");
 
-      // 🛡 Re-append CSRF token (safety net)
+      // Re-append CSRF token (safety net)
       const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]');
       if (csrfToken) {
         const hiddenInput = document.createElement('input');
@@ -82,8 +82,38 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenInput.setAttribute('value', csrfToken.value);
         form.appendChild(hiddenInput);
       } else {
-        console.warn("⚠️ CSRF token not found in DOM – this may cause a 403 error.");
+        console.warn(" CSRF token not found in DOM – this may cause a 403 error.");
       }
+
+      // Check if the user wants to save the card
+const saveCardCheckbox = document.getElementById('save-card');
+if (saveCardCheckbox && saveCardCheckbox.checked && setupClientSecret) {
+  console.log("💾 Saving card with SetupIntent...");
+
+  const setupResult = await stripe.confirmCardSetup(setupClientSecret, {
+    payment_method: {
+      card: card,
+      billing_details: {
+        name: document.getElementById('id_full_name')?.value || '',
+        email: document.getElementById('id_email')?.value || '',
+      },
+    },
+  });
+
+  if (setupResult.error) {
+    console.log(" SetupIntent error:", setupResult.error.message);
+    cardErrors.textContent = setupResult.error.message;
+
+    form.classList.remove('loading');
+    submitButton.disabled = false;
+    form.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = false);
+    return; 
+  } else {
+    console.log("✅ Card saved! PaymentMethod ID:", setupResult.setupIntent.payment_method);
+    
+  }
+}
+
 
       form.submit();
     }

@@ -11,5 +11,6 @@ class OrderInline(admin.TabularInline):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'default_phone_number', 'default_country', 'default_town_or_city')
+    list_display = ('user', 'phone_number', 'country', 'town_or_city')
+
     inlines = (OrderInline,)

@@ -1,4 +1,5 @@
 import random
+import stripe
 from datetime import date
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.http import require_POST
@@ -9,14 +10,40 @@ from .models import DailyCardDraw
 from checkout.models import Order
 from accounts.models import UserProfile
 from products.forms import ProductForm
-
+from .forms import UserProfileForm
+from django.conf import settings
 
 @login_required
 def profile_view(request):
     today = date.today()
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
-    # User profile
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your delivery information was updated!")
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    saved_card = None
+    if user_profile.stripe_customer_id:
+        payment_methods = stripe.PaymentMethod.list(
+            customer=user_profile.stripe_customer_id,
+            type="card",
+        )
+        if payment_methods.data:
+            card_info = payment_methods.data[0].card
+            saved_card = {
+                'brand': card_info.brand,
+                'last4': card_info.last4,
+                'exp_month': card_info.exp_month,
+                'exp_year': card_info.exp_year,
+            }
+
 
     # Tarot-cards
     tarot_products = Product.objects.filter(category__name__iexact='tarotcards')
@@ -44,12 +71,30 @@ def profile_view(request):
     orders = Order.objects.filter(user_profile=user_profile).order_by('-date')
 
     context = {
-        'latest_draw':  daily_draw,
+        'user_profile': user_profile,
+        'form': form,
+        'orders': orders,
+        'latest_draw': daily_draw,
         'recent_draws': prev_draws,
-        'orders':       orders,
+        'saved_card': saved_card,
     }
 
     return render(request, 'accounts/profile.html', context)
+
+@login_required
+def edit_delivery_info(request):
+    user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your delivery info was updated!")
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'accounts/edit_delivery_info.html', {'form': form})
 
 
 def is_superuser(user):
