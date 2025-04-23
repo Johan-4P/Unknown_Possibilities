@@ -26,6 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
     
       card.classList.add('flipped');
       localStorage.setItem(drawKey, today);
+      fetch('/daily_card/save_daily_card/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          card_name: card.dataset.name,
+          product_id: card.dataset.product
+        }),
+      })
+      
       card.style.pointerEvents = 'none';
       console.log("Card clicked:", drawKey);
     
@@ -65,3 +77,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}

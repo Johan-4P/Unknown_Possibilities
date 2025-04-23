@@ -53,19 +53,23 @@ def profile_view(request):
     card_for_draw = random.choice(all_cards) if all_cards else None
 
     # DailyCardDraw
-    daily_draw, _ = DailyCardDraw.objects.get_or_create(
+    daily_draw = DailyCardDraw.objects.filter(
         user=request.user,
-        drawn_at=today,
-        defaults={'product': product_for_draw, 'card': card_for_draw}
-    )
+        drawn_at=today
+    ).select_related('card', 'product').first()
+
 
     # If the daily draw already exists, we don't need to create a new one
-    prev_draws = (
-        DailyCardDraw.objects
-        .filter(user=request.user)
-        .exclude(pk=daily_draw.pk)
-        .order_by('-drawn_at')[:5]
-    )
+    if daily_draw:
+        prev_draws = (
+            DailyCardDraw.objects
+            .filter(user=request.user)
+            .exclude(pk=daily_draw.pk)
+            .order_by('-drawn_at')[:5]
+        )
+    else:
+        prev_draws = DailyCardDraw.objects.filter(user=request.user).order_by('-drawn_at')[:5]
+
 
     
     orders = Order.objects.filter(user_profile=user_profile).order_by('-date')

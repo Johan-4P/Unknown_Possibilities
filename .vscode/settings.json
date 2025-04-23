@@ -19,6 +19,7 @@
         "corecss",
         "corejs",
         "csrfmiddlewaretoken",
+        "csrftoken",
         "Databas",
         "dateutil",
         "dcawi",

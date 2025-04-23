@@ -314,14 +314,6 @@
   }
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media (min-width: 768px) {
-  .product-image {
-    max-width: 100%;
-  }
-}
-
-
 .badge-out-of-stock {
   position: absolute;
   top: 10px;

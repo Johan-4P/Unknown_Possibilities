@@ -305,6 +305,26 @@ footer a:hover {
 
 /* Media queries */
 
+@media (max-width: 500px) {
+    .header-container {
+        padding-top: 30%;
+    }
+    .index-img {
+        height: 20vh;
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    .header-container {
+        padding-top: 10%;
+    }
+    .index-img {
+      height: 30vh;
+  }
+  
+}
+
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
         position: fixed;
@@ -313,9 +333,12 @@ footer a:hover {
         left: 0;
         z-index: 1030;
     }
+    .index-img {
+      height: 40vh;
+  }
 
     .header-container {
-        padding-top: 70px;
+        padding-top: 10%;
     }
 }
 
@@ -323,4 +346,16 @@ footer a:hover {
     .container {
         max-width: 80%;
     }
+    .index-img {
+      height: 50vh;
+  }
+}
+
+@media (min-width: 2400px) {
+    .header-container {
+        padding-top: 10%
+    }
+    .index-img {
+      height: 60vh;
+  }
 }
