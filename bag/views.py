@@ -121,12 +121,26 @@ def add_to_bag(request, item_id):
         toast_qty = quantity
 
     
-    request.session['toast_product'] = {
-        'name': product.name,
-        'image_url': product.image.url if product.image else '',
-        'qty': toast_qty,
-        'total': str(toast_price),
-    }
+    if product.category.name.lower() == "readings" and date and time and duration:
+        request.session['toast_product'] = {
+            'name': product.name,
+            'image_url': product.image.url if product.image else '',
+            'qty': 1,
+            'total': str(toast_price),
+            'duration': duration,
+            'date': date,
+            'time': time,
+            'is_reading': True,
+        }
+    else:
+        request.session['toast_product'] = {
+            'name': product.name,
+            'image_url': product.image.url if product.image else '',
+            'qty': quantity,
+            'total': str(toast_price),
+            'is_reading': False,
+        }
+
 
 
     request.session['bag'] = bag
