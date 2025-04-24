@@ -100,7 +100,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'bag.contexts.bag_contents',
-                'bag.contexts.toast_product_context',
+                'bag.contexts.toast_product_context', # Custom context processor for toast product
+                'home.context_processors.mystical_footer_quote',  # Custom context processor for footer quote
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -141,7 +142,7 @@ EMAIL_PORT = env('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL="Unknown Possibilities <Anteskogen85@gmail.com>"
+DEFAULT_FROM_EMAIL="Unknown Possibilities <unknown.possibilities.store@gmail.com>"
 
 
 WSGI_APPLICATION = 'unknown_possibilities.wsgi.application'

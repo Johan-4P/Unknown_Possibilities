@@ -96,7 +96,30 @@ def checkout(request):
         else:
             messages.error(request, "There was an error with your form. Please double-check.")
     else:
-        form = OrderForm()
+        initial_data = {}
+        if request.user.is_authenticated:
+            try:
+                profile = request.user.userprofile
+                initial_data = {
+                    'full_name':        request.user.get_full_name(),
+                    'email':            request.user.email,
+                    'phone_number':     profile.phone_number,
+                    'street_address1':  profile.street_address1,
+                    'street_address2':  profile.street_address2,
+                    'town_or_city':     profile.town_or_city,
+                    'postcode':         profile.postcode,
+                    'country':          profile.country,
+                }
+
+                if profile.phone_number or profile.street_address1:
+                    initial_data['save_info'] = True
+
+            except UserProfile.DoesNotExist:
+                pass
+
+        form = OrderForm(initial=initial_data)
+
+
 
     context = {
         'form': form,

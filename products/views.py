@@ -14,27 +14,32 @@ def all_product(request):
     sort = None
 
     if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            sort = sortkey
-            if sortkey == 'name':
-                sortkey = 'lower_name'
-                products = products.annotate(lower_name=Lower('name'))
-            
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sortkey = f'-{sortkey}'
-                    products = products.order_by(sortkey)
-                else:
-                    products = products.order_by(sortkey)
+        sort = request.GET.get('sort', 'name')  # default: name
+        direction = request.GET.get('direction', 'asc')
 
-        if 'q' in request.GET:
-            if 'category' in request.GET:
-                categories = request.GET['category'].split(',')
-                products = products.filter(category__name__in=categories)
-                categories = Category.objects.filter(name__in=categories)
-                
+        if sort == 'name':
+            products = products.annotate(lower_name=Lower('name'))
+            sortkey = 'lower_name'
+        elif sort in ['price', 'created_at']:
+            sortkey = sort
+        else:
+            sortkey = 'name'
+
+        if direction == 'desc':
+            sortkey = f'-{sortkey}'
+
+        products = products.order_by(sortkey)
+        current_sorting = f'{sort}_{direction}'
+
+
+
+
+        query = request.GET.get('q', '')
+
+        if query:
+            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            products = products.filter(queries).distinct()
+        
 
             query = request.GET['q']
             if not query:

@@ -316,6 +316,29 @@ footer a:hover {
     }
 }
 
+/* Footer section */
+.footer-mystic {
+  background: radial-gradient(circle at top, #1c1c2e, #141420);
+  border-top: 1px solid #383850;
+  font-family: 'Oswald', sans-serif;
+}
+
+.footer-mystic a {
+  color: #a58bfc;
+  transition: color 0.3s ease;
+}
+
+.footer-mystic a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(168, 120, 255, 0.6);
+}
+
+.text-glow {
+  color: #d8b4fe;
+  text-shadow: 0 0 12px rgba(216, 180, 254, 0.4);
+}
+
+
 /* Media queries */
 
 @media (max-width: 500px) {
