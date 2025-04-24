@@ -51,10 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  
+  if (closeModalBtn) {
   closeModalBtn.addEventListener('click', () => {
     modal.classList.add('hidden');
   });
+  }
 
  
   window.addEventListener('click', (e) => {
