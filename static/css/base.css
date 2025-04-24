@@ -3,15 +3,17 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
     background: radial-gradient(circle at top, #1c1c2e, #141420 80%);
     color: #cfcfdc;
     font-family: 'Oswald', serif;
     scroll-behavior: smooth;
 }
 
-/* .header-container {
-    padding-top: 100px; 
-  } */
+.header-container {
+    flex: 1 0 auto;
+  }
 
 form label {
     color: #e0e0e0 !important;
@@ -317,7 +319,12 @@ footer a:hover {
 }
 
 /* Footer section */
+.footer {
+  flex-shrink: 0;
+}
 .footer-mystic {
+  position: relative;
+  z-index: 10;
   background: radial-gradient(circle at top, #1c1c2e, #141420);
   border-top: 1px solid #383850;
   font-family: 'Oswald', sans-serif;
