@@ -291,8 +291,9 @@ footer a:hover {
     border-bottom: 1px solid #a98cc4;
   }
   .toast .btn-close {
-    filter: invert(1);
+    z-index: 2;
   }
+  
   
   @keyframes dropdownFade {
     from {
