@@ -16,9 +16,9 @@ class Booking(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reading_type = models.CharField(max_length=20, choices=READING_CHOICES)
-    duration = models.CharField(max_length=3, choices=DURATION_CHOICES)
+    duration = models.IntegerField(choices=DURATION_CHOICES)
     date = models.DateField()
-    time = models.CharField(max_length=5)  # will be '09:00', '09:30', ...
+    time = models.TimeField()
     message = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

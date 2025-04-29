@@ -7,10 +7,14 @@
     <p><strong>Order Details:</strong></p>
     <ul>
       {% for item in order.lineitems.all %}
-        <li>
-          {{ item.product.name }} - Qty: {{ item.quantity }} -
-          Price: {{ item.lineitem_total|floatformat:2 }} {{ order.get_currency_display }}
-        </li>
+      <li>
+        {{ item.product.name }} - Qty: {{ item.quantity }} -
+        Price: {{ item.lineitem_total|floatformat:2 }} {{ order.get_currency_display }}
+        {% if item.booking_date %}
+          <br>📅 {{ item.booking_date }} at 🕒 {{ item.booking_time }} ({{ item.session_length }} mins)
+        {% endif %}
+      </li>
+      
       {% endfor %}
     </ul>
 

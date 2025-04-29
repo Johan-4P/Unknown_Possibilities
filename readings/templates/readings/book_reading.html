@@ -5,23 +5,102 @@
   <form method="POST">
     {% csrf_token %}
   
-    <label>Reading type:</label>
+    <label for="id_reading_type">Reading type:</label>
     {{ form.reading_type }}
   
-    <label>Duration:</label>
+    <label for="id_duration">Duration:</label>
     {{ form.duration }}
   
-    <label>Date:</label>
+    <label for="id_date">Date:</label>
     {{ form.date }}
   
-    <label>Choose time:</label>
-    {% include "includes/time_options.html" %}
-    
+    <label for="booking-time">Choose time:</label>
+    <select id="booking-time" name="time" class="form-control" required>
+      <option value="">Select a time</option>
+      
+    </select>
   
-    <label>Message:</label>
+    <label for="id_message">Message:</label>
     {{ form.message }}
   
     <button type="submit" class="btn btn-own-style mt-3">Confirm Booking</button>
   </form>
 </div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const dateInput = document.getElementById('id_date');
+  const typeInput = document.getElementById('id_reading_type');
+  const durationInput = document.getElementById('id_duration');
+  const timeSelect = document.getElementById('booking-time');
+
+  function updateTimes() {
+    const date = dateInput.value;
+    const readingType = typeInput.value;
+    const duration = parseInt(durationInput.value);
+
+    if (!date || !readingType || !duration) return;
+
+    fetch(`/readings/api/booked-times/?date=${date}&reading_type=${readingType}`)
+      .then(res => res.json())
+      .then(data => {
+        const booked = data.booked_times;
+        timeSelect.innerHTML = '';
+
+        const startHour = 9;
+        const endHour = 17;
+
+        for (let h = startHour; h < endHour; h++) {
+          for (let m of [0, 30]) {
+            let isBlocked = false;
+            let blockTimeList = [];
+
+            for (let i = 0; i < duration / 30; i++) {
+              let hour = h;
+              let minute = m + i * 30;
+
+              if (minute >= 60) {
+                hour += Math.floor(minute / 60);
+                minute = minute % 60;
+              }
+
+              if (hour >= endHour) {
+                isBlocked = true;
+                break;
+              }
+
+              const timeStr = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+              blockTimeList.push(timeStr);
+
+              if (booked.includes(timeStr)) {
+                isBlocked = true;
+              }
+            }
+
+            const optionTime = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+            const option = document.createElement('option');
+            option.value = optionTime;
+            option.textContent = optionTime;
+
+            if (isBlocked) {
+              option.disabled = true;
+              option.textContent += ' (Blocked)';
+            }
+
+            timeSelect.appendChild(option);
+          }
+        }
+      });
+  }
+
+  dateInput.addEventListener('change', updateTimes);
+  typeInput.addEventListener('change', updateTimes);
+  durationInput.addEventListener('change', updateTimes);
+});
+</script>
+
+{% endblock %}
+
+
 {% endblock %}

@@ -10,8 +10,10 @@ from products.models import Product
 from checkout.models import OrderLineItem
 from accounts.models import UserProfile
 
+
 import json
 import stripe
+import datetime
 
 
 def checkout(request):
@@ -50,6 +52,7 @@ def checkout(request):
 
         setup_intent = stripe.SetupIntent.create(customer=customer.id)
 
+
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -62,7 +65,6 @@ def checkout(request):
 
             order.save()
 
-            # Save delivery info to profile if checkbox is selected
             if form.cleaned_data.get('save_info') and request.user.is_authenticated:
                 user_profile.phone_number = form.cleaned_data['phone_number']
                 user_profile.address = form.cleaned_data['street_address1']
@@ -74,18 +76,53 @@ def checkout(request):
 
             for item_id, item_data in bag.items():
                 try:
-                    product = Product.objects.get(id=item_id)
+                    parts = item_id.split('_')
+                    product_id = parts[0]
+                    booking_date = parts[1] if len(parts) > 1 else None
+                    booking_time = parts[2] if len(parts) > 2 else None
+                    session_length = parts[3] if len(parts) > 3 else None
+
+                    product = Product.objects.get(id=product_id)
                     quantity = item_data['quantity'] if isinstance(item_data, dict) else item_data
+
+                    
+                    if booking_date:
+                        booking_date = datetime.datetime.strptime(booking_date, "%Y-%m-%d").date()
+                    if booking_time:
+                        booking_time = datetime.datetime.strptime(booking_time, "%H:%M").time()
+                    if session_length:
+                        session_length = int(session_length)
+
+                    
+                    if product.category.name.lower() == 'readings' and booking_date and booking_time:
+                        conflict = OrderLineItem.objects.filter(
+                            product=product,
+                            booking_date=booking_date,
+                            booking_time=booking_time
+                        ).exists()
+
+                        if conflict:
+                            messages.error(
+                                request,
+                                f"{product.name} is already booked for {booking_date} at {booking_time}."
+                            )
+                            order.delete()
+                            return redirect(reverse('view_bag'))
 
                     if product.stock is not None:
                         product.stock = max(0, product.stock - quantity)
                         product.save()
 
-                    OrderLineItem.objects.create(
+                    line_item = OrderLineItem(
                         order=order,
                         product=product,
                         quantity=quantity,
+                        booking_date=booking_date,
+                        booking_time=booking_time,
+                        session_length=session_length,
                     )
+                    line_item.save()
+
                 except Product.DoesNotExist:
                     messages.error(request, "One of the products wasn't found.")
                     order.delete()
@@ -95,6 +132,7 @@ def checkout(request):
             return redirect('checkout_success', order_number=order.order_number)
         else:
             messages.error(request, "There was an error with your form. Please double-check.")
+
     else:
         initial_data = {}
         if request.user.is_authenticated:
@@ -118,16 +156,15 @@ def checkout(request):
                 pass
 
         form = OrderForm(initial=initial_data)
+        
 
-
-
-    context = {
-        'form': form,
-        'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,
-        'setup_client_secret': setup_intent.client_secret if setup_intent else None,
-        **current_bag,
-    }
+        context = {
+            'form': form,
+            'stripe_public_key': stripe_public_key,
+            'client_secret': intent.client_secret,
+            'setup_client_secret': setup_intent.client_secret if setup_intent else None,
+            **current_bag,
+        }
 
     return render(request, 'checkout/checkout.html', context)
 
