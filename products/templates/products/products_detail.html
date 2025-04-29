@@ -33,18 +33,21 @@
           <input type="date" name="date" class="form-control" required>
         </div>
 
-        <div class="form-group">
-          <label>Choose time:</label>
-          {% include "includes/time_options.html" %}
-        </div>
 
         <div class="form-group">
           <label for="id_duration">Choose duration:</label>
           <select name="duration" id="id_duration" class="form-control" required>
             <option value="">-- Select duration --</option>
-            <option value="20">20 min</option>
-            <option value="30">30 min</option>
-            <option value="60">60 min</option>
+            <option value="15">15 min : 30 $</option>
+            <option value="30">30 min : 45 $</option>
+            <option value="60">60 min : 80 $</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="booking-time">Choose time:</label>
+          <select id="booking-time" name="time" class="form-control" required>
+            <option value="">-- Select time --</option>
+            <!-- This will be populated by JavaScript based on the selected date and reading type -->
           </select>
         </div>
         {% endif %}
@@ -72,4 +75,66 @@
 
 {% block extra_js %}
 <script src="{% static 'js/card-of-the-day.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const dateInput = document.querySelector('input[name="date"]');
+      const durationSelect = document.getElementById('id_duration');
+      const timeSelect = document.getElementById('booking-time');
+      const readingType = "{{ product.name|escapejs }}";
+  
+      function updateAvailableTimes() {
+          const date = dateInput.value;
+          const duration = parseInt(durationSelect.value);
+  
+          if (!date || !duration) return;
+  
+          const apiUrl = `/readings/api/booked-times/?date=${date}&reading_type=${encodeURIComponent(readingType)}`;
+  
+          fetch(apiUrl)
+              .then(response => response.json())
+              .then(data => {
+                  const booked = data.booked_times;
+                  timeSelect.innerHTML = '<option value="">-- Select time --</option>';
+  
+                  const startHour = 9;
+                  const endHour = 17;
+  
+                  for (let h = startHour; h < endHour; h++) {
+                      for (let m of [0, 30]) {
+                          let isBlocked = false;
+  
+                          for (let i = 0; i < duration / 30; i++) {
+                              let totalMinutes = h * 60 + m + (i * 30);
+                              let blockHour = Math.floor(totalMinutes / 60);
+                              let blockMinute = totalMinutes % 60;
+                              const blockTime = `${blockHour.toString().padStart(2, '0')}:${blockMinute.toString().padStart(2, '0')}`;
+  
+                              if (booked.includes(blockTime)) {
+                                  isBlocked = true;
+                                  break;
+                              }
+                          }
+  
+                          const hourStr = h.toString().padStart(2, '0');
+                          const minStr = m.toString().padStart(2, '0');
+                          const optionTime = `${hourStr}:${minStr}`;
+                          const option = document.createElement('option');
+                          option.value = optionTime;
+                          option.textContent = isBlocked ? `${optionTime} (Booked)` : optionTime;
+                          option.disabled = isBlocked;
+  
+                          timeSelect.appendChild(option);
+                      }
+                  }
+              })
+              .catch(error => {
+                  console.error('Error fetching available times:', error);
+              });
+      }
+  
+      dateInput.addEventListener('change', updateAvailableTimes);
+      durationSelect.addEventListener('change', updateAvailableTimes);
+  });
+  </script>
+  
 {% endblock %}

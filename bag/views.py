@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
 from products.models import Product
+from readings.models import Booking 
 import pprint
 
 def bag_view(request):
@@ -73,7 +74,7 @@ def add_to_bag(request, item_id):
     bag = request.session.get('bag', {})
 
     DURATION_PRICES = {
-        '20': 30,
+        '15': 30,
         '30': 45,
         '60': 80,
     }
@@ -93,9 +94,42 @@ def add_to_bag(request, item_id):
             'is_reading': True,
         }
 
-        messages.success(
-            request, f"Added {product.name} ({duration} min) on {date} at {time} to your bag!"
-        )
+        if request.user.is_authenticated:
+            from datetime import datetime, time as time_module
+
+            try:
+                booking_time_obj = time_module.fromisoformat(time)
+                booking_date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+
+                # Check if the booking already exists
+                if not Booking.objects.filter(
+                    date=booking_date_obj,
+                    time=booking_time_obj,
+                    reading_type=product.name,
+                    user=request.user
+                ).exists():
+                    Booking.objects.create(
+                        user=request.user,
+                        reading_type=product.name,
+                        duration=int(duration),
+                        date=booking_date_obj,
+                        time=booking_time_obj,
+                        price=price,
+                        message=f"Auto-booked from product '{product.name}'",
+                    )
+                    messages.success(request, f"Booking for {product.name} at {time} on {date} created!")
+                else:
+                    messages.info(request, f"You already have a booking for {product.name} at {time} on {date}.")
+
+            except Exception as e:
+                messages.error(request, f"Error creating booking: {e}")
+
+        else:
+            messages.warning(request, "You must be logged in to create a booking!")
+
+            messages.success(
+                request, f"Added {product.name} ({duration} min) on {date} at {time} to your bag!"
+            )
 
         request.session['toast_product'] = {
             'name': product.name,
