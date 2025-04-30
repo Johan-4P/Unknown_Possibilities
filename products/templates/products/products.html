@@ -87,6 +87,7 @@
             <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-light mt-auto">View Details</a>
           {% else %}
             <p class="text-danger font-weight-bold">Out of Stock</p>
+            <p class="text-warning">Coming Soon</p>
             <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-light mt-auto">View Details</a>
           {% endif %}
 
