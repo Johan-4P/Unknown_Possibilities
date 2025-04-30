@@ -66,6 +66,7 @@
         "sqlparse",
         "staticfiles",
         "STOREAGE",
+        "swal",
         "tarotcards",
         "Temperence",
         "uppgifter",

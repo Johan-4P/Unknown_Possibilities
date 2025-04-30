@@ -19,6 +19,10 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('sku', 'name', 'description')
     ordering = ('category',)
 
+    def save_model(self, request, obj, form, change):
+        obj.full_clean()  # Validate the model before saving
+        super().save_model(request, obj, form, change)
+
 class CategoryAdmin(admin.ModelAdmin):
     """Admin settings for Category model."""
     list_display = ('friendly_name', 'name')
