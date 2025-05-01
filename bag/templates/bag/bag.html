@@ -62,13 +62,32 @@
           </tr>
           {% endfor %}
         </tbody>
-        <tfoot class="border-top">
-          <tr>
-            <td colspan="4" class="text-end fw-bold">Total:</td>
-            <td class="fw-bold">${{ total|floatformat:2 }}</td>
-            <td></td>
-          </tr>
-        </tfoot>
+          <tfoot class="border-top">
+            <tr>
+              <td colspan="6" class="text-end fw-bold">Subtotal : <span>${{ total|floatformat:2 }}</span> </td>
+            </tr>
+            <tr>
+              <td colspan="6" class="text-end fw-bold">Shipping :
+                {% if delivery == 0 %}
+                  <span class="text-success">Free</span>
+                {% else %}
+                  ${{ delivery|floatformat:2 }}
+                {% endif %}
+              </td>
+            </tr>
+            {% if diff_to_free %}
+            <tr>
+              <td colspan="6" class="text-end text-warning">
+                Spend ${{ diff_to_free|floatformat:2 }} more to get free shipping!
+              </td>
+            </tr>
+            {% endif %}
+            <tr>
+              <td colspan="6" class="text-end fw-bold">Total (incl. shipping) : <span>${{ grand_total|floatformat:2 }}</span></td>
+            </tr>
+          </tfoot>
+          
+        
       </table>
     </div>
 

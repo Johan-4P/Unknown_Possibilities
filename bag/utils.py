@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from products.models import Product
+from django.conf import settings
 
 
 
@@ -65,9 +66,19 @@ def bag_contents(request):
                 'description': f"{product.name} ({duration} min) on {date} at {time}",
             })
 
+        free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
+    if total < free_delivery_threshold:
+        delivery = round(total * settings.STANDARD_DELIVERY_PERCENTAGE / 100, 2)
+    else:
+        delivery = 0
+
+    grand_total = total + delivery
+
     return {
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
-        'grand_total': total,
+        'delivery': delivery,
+        'free_delivery_threshold': free_delivery_threshold,
+        'grand_total': grand_total,
     }
