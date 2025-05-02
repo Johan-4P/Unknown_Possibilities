@@ -58,6 +58,9 @@
         </div>
 
         <button type="submit" class="btn btn-own-style mt-2">Add to Cart</button>
+        <a href="{% url 'products' %}" class="btn btn-own-style mt-2 ms-2">
+          ← Back to All Products
+        </a>
       </form>
         
       {% elif product.stock == 0 and product.category.name|lower != "readings" %}
