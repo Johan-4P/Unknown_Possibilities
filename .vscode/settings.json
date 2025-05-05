@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "aasls",
+        "adminpass",
         "agat",
         "allauth",
         "angelite",
@@ -29,6 +30,7 @@
         "dateutil",
         "dcawi",
         "defusedxml",
+        "denna",
         "dggv",
         "Formuläret",
         "gunicorn",
@@ -52,6 +54,7 @@
         "Ndsz",
         "neondb",
         "Neue",
+        "normaluser",
         "oaicite",
         "Orderbekräftelse",
         "postloadjs",
@@ -70,6 +73,7 @@
         "swal",
         "tarotcards",
         "Temperence",
+        "testpass",
         "uppgifter",
         "urllib",
         "userprofile",

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from products.models import TarotCard, Product
 from .models import DailyCardDraw
 from checkout.models import Order
@@ -104,9 +105,12 @@ def edit_delivery_info(request):
 def is_superuser(user):
     return user.is_superuser
 
+
 @login_required
-@user_passes_test(is_superuser)
 def product_management(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied 
+
     products = Product.objects.all()
     form = ProductForm(request.POST or None, request.FILES or None)
     if request.method == 'POST' and form.is_valid():
@@ -120,8 +124,10 @@ def product_management(request):
 
 @require_POST
 @login_required
-@user_passes_test(is_superuser)
 def update_stock(request, product_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     product = get_object_or_404(Product, pk=product_id)
     try:
         new_stock = int(request.POST.get('stock'))
@@ -133,8 +139,10 @@ def update_stock(request, product_id):
     return redirect('product_management')
 
 @login_required
-@user_passes_test(is_superuser)
 def edit_product(request, product_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     product = get_object_or_404(Product, pk=product_id)
     form = ProductForm(request.POST or None, request.FILES or None, instance=product)
     if request.method == 'POST' and form.is_valid():
@@ -145,16 +153,20 @@ def edit_product(request, product_id):
 
 @require_POST
 @login_required
-@user_passes_test(is_superuser)
 def delete_product(request, product_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
     messages.success(request, "Product deleted.")
     return redirect('product_management')
 
 @login_required
-@user_passes_test(is_superuser)
 def add_product(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
     form = ProductForm(request.POST or None, request.FILES or None)
     if request.method == 'POST' and form.is_valid():
         form.save()

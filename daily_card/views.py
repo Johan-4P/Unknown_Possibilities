@@ -7,9 +7,9 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import json
 
+@login_required
 def draw_card_of_the_day(request, product_id):
-    if not request.user.is_authenticated:
-        return redirect('account_login')
+
 
     product = get_object_or_404(Product, pk=product_id)
 
