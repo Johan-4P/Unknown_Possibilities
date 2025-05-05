@@ -55,13 +55,13 @@
       <div class="col-12 col-lg-4 my-auto position-relative text-center text-lg-end">
         <ul class="list-inline mb-0">
           <li class="list-inline-item dropdown">
-            <a class="nav-link text-white" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link text-white" href="#" id="user-options-account" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="text-center">
                 <i class="fas fa-user fa-lg"></i>
                 <p class="m-0 mystic-text">My Account</p>
               </div>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="user-options">
+            <ul class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="user-options-account">
               {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
                 <li><a class="dropdown-item" href="{% url 'product_management' %}">Product Management</a></li>
@@ -131,10 +131,10 @@
   </header>
 
   <!-- Page content -->
-  <div class="header-container">
-    {% block page_header %}{% endblock %}
+  
+    {% block page_header %}<div class="container"></div>{% endblock %}
     {% block content %}{% endblock %}
-  </div>
+  
 
   <!-- Footer -->
   <footer class="footer-mystic mt-auto py-4 text-light">
@@ -178,6 +178,6 @@
   </script>
   {% endblock %}
   {% block extra_js %}{% endblock %}
-</body>
 
+</body>
 </html>

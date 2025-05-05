@@ -7,7 +7,7 @@
 {% endblock %}
 
 
-{% block page_header%}
+{% block page_header %}
 <div class="container header-container">
     <div class="row">
         <div class="col"></div>
@@ -16,11 +16,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="container h-100">
-    <section class="index-img"></section>
-    <section class="mystic-section fade-in">
+<div class="container h-100 ">
+    <div class="index-img"></div>
+    
         <h2 class="mystic-heading text-center">Explore the Unknown</h2>
-
+</div>
+    
 <div class="card-row">
     <a href="{% url 'category_products' 'tarotcards' %}" class="mystic-card text-decoration-none">
         <img src="https://unknown-possibilities.s3.eu-north-1.amazonaws.com/media/light-seer.png" alt="Tarot">
@@ -54,6 +55,4 @@
         </div>
     </a>
 </div>
-
-    </section>
 {% endblock %}

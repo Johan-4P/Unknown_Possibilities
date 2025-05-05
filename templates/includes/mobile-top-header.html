@@ -1,10 +1,13 @@
-<li class="list-inline-item">
-    <a class="mystic-text nav-link d-block d-lg-none" href="#" id="mobile-search" data-bs-toggle="dropdown" aria-expanded="false">
+<ul class="list-inline">
+  <li class="list-inline-item">
+    <a class="mystic-text nav-link d-block d-lg-none" href="#" id="mobile-search" data-bs-toggle="dropdown"
+      aria-expanded="false">
       <div class="text-center">
         <div><i class="fas fa-search fa-lg"></i></div>
         <p class="my-0">Search</p>
       </div>
     </a>
+
     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" aria-labelledby="mobile-search">
       <form class="form" method="GET" action="{% url 'products' %}">
         <div class="input-group w-100">
@@ -16,7 +19,8 @@
       </form>
     </div>
   </li>
-  
+</ul>
+<ul class="list-inline">
   <li class="list-inline-item dropdown">
     <a class=" nav-link d-block d-lg-none" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
       <div class="text-center">
@@ -24,32 +28,35 @@
         <p class="my-0">My Account</p>
       </div>
     </a>
-    <ul class="dropdown-menu border-0" aria-labelledby="user-options">
-      {% if request.user.is_authenticated %}
-        {% if request.user.is_superuser %}
-        <li><a href="{% url 'product_management' %}" class="dropdown-item">Product Management</a></li>
-        {% endif %}
-        <li><a href="{% url 'profile' %}" class="dropdown-item">My Profile</a></li>
-        <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
-      {% else %}
-        <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
-        <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
-      {% endif %}
-    </ul>
   </li>
-  
+</ul>
+<ul class="dropdown-menu border-0" aria-labelledby="user-options">
+  {% if request.user.is_authenticated %}
+  {% if request.user.is_superuser %}
+  <li><a href="{% url 'product_management' %}" class="dropdown-item">Product Management</a></li>
+  {% endif %}
+  <li><a href="{% url 'profile' %}" class="dropdown-item">My Profile</a></li>
+  <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
+  {% else %}
+  <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
+  <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
+  {% endif %}
+</ul>
+
+<ul class="list-inline">
   <li class="list-inline-item">
-    <a class="{% if grand_total %}text-primary fw-bold{% else %}mystic-text{% endif %} nav-link d-block d-lg-none" href="{% url 'view_bag' %}">
+    <a class="{% if grand_total %}text-primary fw-bold{% else %}mystic-text{% endif %} nav-link d-block d-lg-none"
+      href="{% url 'view_bag' %}">
       <div class="text-center">
         <div><i class="fas fa-shopping-bag fa-lg"></i></div>
         <p class="my-0">
           {% if grand_total %}
-            ${{ grand_total|floatformat:2 }}
+          ${{ grand_total|floatformat:2 }}
           {% else %}
-            $0.00
+          $0.00
           {% endif %}
         </p>
       </div>
     </a>
   </li>
-  
+</ul>
