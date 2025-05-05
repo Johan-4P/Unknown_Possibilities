@@ -1,13 +1,14 @@
 import stripe
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.conf import settings
 
 @csrf_exempt
 def stripe_webhook(request):
     """Listen for webhooks from Stripe."""
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    endpoint_secret = 'your_endpoint_secret'  # Replace with your actual endpoint secret
+    endpoint_secret = settings.STRIPE_WH_SECRET
 
     try:
         event = stripe.Webhook.construct_event(
