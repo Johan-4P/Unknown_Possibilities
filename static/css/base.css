@@ -356,6 +356,10 @@ footer a:hover {
     .header-container {
         padding-top: 30%;
     }
+    .container {
+      padding-top: 20%;
+      padding-bottom: 20%;
+  }
     .index-img {
         height: 20vh;
     }
@@ -366,6 +370,9 @@ footer a:hover {
     .header-container {
         padding-top: 10%;
     }
+    .container {
+      padding-bottom: 20%;
+  }
     .index-img {
       height: 30vh;
   }
@@ -387,6 +394,9 @@ footer a:hover {
     .header-container {
         padding-top: 10%;
     }
+    .container {
+      padding-bottom: 20%;
+  }
 }
 
 @media (min-width: 1200px) {
