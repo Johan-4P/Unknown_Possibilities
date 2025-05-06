@@ -122,7 +122,19 @@ I have used Googles Lighthouse testing to test the performance, accessibility, b
 
 | Page | Result |
 | :--- | :--- |
-
+| Home Page | ![Home Desktop Lighthouse Testing](documentation/testing/lighthouse/home-desktop.png) |
+| Products Page | ![Products Desktop Lighthouse Testing](documentation/testing/lighthouse/products-desktop.png) |
+| Product Details Page | ![Product Detail Desktop Lighthouse Testing](documentation/testing/lighthouse/products-detail-desktop.png) |
+| Add Product Page | ![Add Product Desktop Lighthouse Testing](documentation/testing/lighthouse/add-product-desktop.png) |
+| Edit Product Page | ![Edit Product Desktop Lighthouse Testing](documentation/testing/lighthouse/edit-product-desktop.png) |
+| Bag Page | ![Bag Desktop Lighthouse Testing](documentation/testing/lighthouse/bag-desktop.png) |
+| Checkout Page | ![Checkout Desktop Lighthouse Testing](documentation/testing/lighthouse/checkout-desktop.png) |
+| Checkout Success Page | ![Checkout Success Desktop Lighthouse Testing](documentation/testing/lighthouse/success-desktop.png) |
+| Profile Page | ![Profile Desktop Lighthouse Testing](documentation/testing/lighthouse1) |
+| Contact Us Page | ![Contact Us Desktop Lighthouse Testing](documentation/testing/lighthouse/) |
+| Privacy Policy Page| ![Privacy Desktop Lighthouse Testing](documentation/testing/lighthouse/)  |
+| Terms & Conditions Page | ![Terms Desktop Lighthouse Testing](documentation/testing/lighthouse/) |
+| Delivery Policy Page | ![Delivery Desktop Lighthouse Testing](documentation/testing/lighthouse/)  |
 
 #### Mobile Results
 
