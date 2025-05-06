@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 document.addEventListener('DOMContentLoaded', function () {
   const today = new Date().toISOString().split('T')[0];
   const cards = document.querySelectorAll('.flip-card');
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
           card_name: card.dataset.name,
           product_id: card.dataset.product
         }),
-      })
+      });
       
       card.style.pointerEvents = 'none';
       console.log("Card clicked:", drawKey);

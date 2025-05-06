@@ -14,6 +14,7 @@ from products.forms import ProductForm
 from .forms import UserProfileForm
 from django.conf import settings
 
+
 @login_required
 def profile_view(request):
     today = date.today()
@@ -45,10 +46,11 @@ def profile_view(request):
                 'exp_year': card_info.exp_year,
             }
 
-
     # Tarot-cards
-    tarot_products = Product.objects.filter(category__name__iexact='tarotcards')
-    product_for_draw = random.choice(list(tarot_products)) if tarot_products.exists() else None
+    tarot_products = Product.objects.filter(
+        category__name__iexact='tarotcards')
+    product_for_draw = random.choice
+    (list(tarot_products)) if tarot_products.exists() else None
 
     all_cards = list(TarotCard.objects.all())
     card_for_draw = random.choice(all_cards) if all_cards else None
@@ -59,7 +61,6 @@ def profile_view(request):
         drawn_at=today
     ).select_related('card', 'product').first()
 
-
     # If the daily draw already exists, we don't need to create a new one
     if daily_draw:
         prev_draws = (
@@ -69,10 +70,9 @@ def profile_view(request):
             .order_by('-drawn_at')[:5]
         )
     else:
-        prev_draws = DailyCardDraw.objects.filter(user=request.user).order_by('-drawn_at')[:5]
+        prev_draws = DailyCardDraw.objects.filter(
+            user=request.user).order_by('-drawn_at')[:5]
 
-
-    
     orders = Order.objects.filter(user_profile=user_profile).order_by('-date')
 
     context = {
@@ -85,6 +85,7 @@ def profile_view(request):
     }
 
     return render(request, 'accounts/profile.html', context)
+
 
 @login_required
 def edit_delivery_info(request):
@@ -109,7 +110,7 @@ def is_superuser(user):
 @login_required
 def product_management(request):
     if not request.user.is_superuser:
-        raise PermissionDenied 
+        raise PermissionDenied
 
     products = Product.objects.all()
     form = ProductForm(request.POST or None, request.FILES or None)
@@ -122,6 +123,7 @@ def product_management(request):
         'form': form
     })
 
+
 @require_POST
 @login_required
 def update_stock(request, product_id):
@@ -133,10 +135,12 @@ def update_stock(request, product_id):
         new_stock = int(request.POST.get('stock'))
         product.stock = new_stock
         product.save()
-        messages.success(request, f"Stock for {product.name} updated to {new_stock}.")
+        messages.success(
+            request, f"Stock for {product.name} updated to {new_stock}.")
     except (ValueError, TypeError):
         messages.error(request, "Invalid stock value.")
     return redirect('product_management')
+
 
 @login_required
 def edit_product(request, product_id):
@@ -144,12 +148,16 @@ def edit_product(request, product_id):
         raise PermissionDenied
 
     product = get_object_or_404(Product, pk=product_id)
-    form = ProductForm(request.POST or None, request.FILES or None, instance=product)
+    form = ProductForm(
+        request.POST or None, request.FILES or None, instance=product)
     if request.method == 'POST' and form.is_valid():
         form.save()
         messages.success(request, "Product updated successfully.")
         return redirect('product_management')
-    return render(request, 'accounts/edit_product.html', {'form': form, 'product': product})
+    return render(
+        request,
+        'accounts/edit_product.html', {'form': form, 'product': product})
+
 
 @require_POST
 @login_required
@@ -162,6 +170,7 @@ def delete_product(request, product_id):
     messages.success(request, "Product deleted.")
     return redirect('product_management')
 
+
 @login_required
 def add_product(request):
     if not request.user.is_superuser:
@@ -173,4 +182,3 @@ def add_product(request):
         messages.success(request, "New product added!")
         return redirect('product_management')
     return render(request, 'accounts/add_product.html', {'form': form})
-

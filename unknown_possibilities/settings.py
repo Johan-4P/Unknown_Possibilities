@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'bag',
     'checkout',
     'readings',
-    'jazzmin', 
+    'jazzmin',
     'accounts',
     'environ',
     'stripe',
@@ -88,20 +88,20 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),  # Directory for custom templates
-            os.path.join(BASE_DIR, 'templates', 'allauth'),  # Directory for allauth templates
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'bag.contexts.bag_contents',
-                'bag.contexts.toast_product_context', # Custom context processor for toast product
-                'home.context_processors.mystical_footer_quote',  # Custom context processor for footer quote
+                'bag.contexts.toast_product_context',
+                'home.context_processors.mystical_footer_quote',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -123,8 +123,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 1 
-
+SITE_ID = 1
 
 
 ACCOUNT_AUTHENTICATION_METHODS = ['username', 'email']
@@ -133,7 +132,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/' 
+LOGIN_REDIRECT_URL = '/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -142,7 +141,9 @@ EMAIL_PORT = env('EMAIL_PORT', default=587)
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL="Unknown Possibilities <unknown.possibilities.store@gmail.com>"
+DEFAULT_FROM_EMAIL = (
+    "Unknown Possibilities <unknown.possibilities.store@gmail.com>"
+    )
 
 
 WSGI_APPLICATION = 'unknown_possibilities.wsgi.application'
@@ -154,7 +155,6 @@ WSGI_APPLICATION = 'unknown_possibilities.wsgi.application'
 DATABASES = {
     'default': env.db(),
 }
-  
 
 
 # Password validation
@@ -162,16 +162,24 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator',
     },
 ]
 
@@ -202,7 +210,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),

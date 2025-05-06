@@ -5,7 +5,6 @@ from daily_card.models import DailyCardDraw
 from django_countries.fields import CountryField
 
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=80, null=True, blank=True)
@@ -16,9 +15,8 @@ class UserProfile(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country', null=True, blank=True)
-    stripe_customer_id = models.CharField(max_length=255, null=True, blank=True)
-
-
+    stripe_customer_id = models.CharField(
+        max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

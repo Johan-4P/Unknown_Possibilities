@@ -15,9 +15,12 @@ class UserProfileForm(forms.ModelForm):
             'country',
         )
         widgets = {
-            'street_address1': forms.TextInput(attrs={'placeholder': 'Street Address 1'}),
-            'street_address2': forms.TextInput(attrs={'placeholder': 'Street Address 2'}),
-            'town_or_city': forms.TextInput(attrs={'placeholder': 'Town or City'}),
+            'street_address1': forms.TextInput(
+                attrs={'placeholder': 'Street Address 1'}),
+            'street_address2': forms.TextInput(
+                attrs={'placeholder': 'Street Address 2'}),
+            'town_or_city': forms.TextInput(
+                attrs={'placeholder': 'Town or City'}),
             'county': forms.TextInput(attrs={'placeholder': 'County'}),
             'postcode': forms.TextInput(attrs={'placeholder': 'Postcode'}),
             'country': forms.TextInput(attrs={'placeholder': 'Country'}),

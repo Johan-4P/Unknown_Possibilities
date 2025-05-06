@@ -1,3 +1,8 @@
+/*jshint esversion: 6 */
+/*jshint esversion: 8 */
+/*jshint esversion: 11 */
+/* global Stripe */
+// This script is for handling Stripe Elements in a payment form.
 document.addEventListener('DOMContentLoaded', () => {
   console.log("stripe_elements.js is running!");
   const setupClientSecret = JSON.parse(document.getElementById('id_setup_client_secret')?.textContent || 'null');
