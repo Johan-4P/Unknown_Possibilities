@@ -5,10 +5,10 @@ from .models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-    fields = [
-        'sku', 'name', 'description', 'price',
-        'stock', 'image', 'category'
-    ]
+        fields = [
+            'sku', 'name', 'description', 'price',
+            'stock', 'image', 'category'
+        ]
 
     def clean_stock(self):
         stock = self.cleaned_data['stock']
