@@ -4,6 +4,7 @@ from django.contrib.messages import get_messages
 from products.models import Product, Category
 from checkout.models import Order
 
+
 class CheckoutViewTests(TestCase):
 
     def setUp(self):
@@ -21,10 +22,11 @@ class CheckoutViewTests(TestCase):
         response = self.client.get(self.bag_url)
         self.assertRedirects(response, reverse('products'))
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("nothing in your bag" in msg.message.lower() for msg in messages))
+        self.assertTrue(any(
+            "nothing in your bag" in msg.message.lower() for msg in messages))
 
     def test_checkout_view_loads_with_items(self):
-        
+
         session = self.client.session
         session['bag'] = {
             str(self.product.id): {'quantity': 1, 'is_reading': False}
@@ -36,7 +38,7 @@ class CheckoutViewTests(TestCase):
         self.assertTemplateUsed(response, 'checkout/checkout.html')
 
     def test_checkout_success_view(self):
-        
+
         order = Order.objects.create(
             full_name='John Doe',
             email='john@example.com',

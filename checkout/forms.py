@@ -3,7 +3,8 @@ from .models import Order
 
 
 class OrderForm(forms.ModelForm):
-    save_info = forms.BooleanField(required=False, label="Save this information for next time")
+    save_info = forms.BooleanField(
+        required=False, label="Save this information for next time")
 
     class Meta:
         model = Order
@@ -19,10 +20,11 @@ class OrderForm(forms.ModelForm):
             'county',
         )
         widgets = {
-            'street_address1': forms.TextInput(attrs={'placeholder': 'Street Address 1'}),
-            'street_address2': forms.TextInput(attrs={'placeholder': 'Street Address 2'}),
+            'street_address1': forms.TextInput(attrs={
+                'placeholder': 'Street Address 1'}),
+            'street_address2': forms.TextInput(attrs={
+                'placeholder': 'Street Address 2'}),
         }
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,5 +48,6 @@ class OrderForm(forms.ModelForm):
             if self.fields[field].required:
                 placeholder += ' *'
             self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'form-control stripe-style-input'
+            self.fields[field].widget.attrs[
+                'class'] = 'form-control stripe-style-input'
             self.fields[field].label = ''

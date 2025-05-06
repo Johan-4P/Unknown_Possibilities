@@ -48,10 +48,10 @@ def checkout(request):
             user_profile.stripe_customer_id = customer.id
             user_profile.save()
         else:
-            customer = stripe.Customer.retrieve(user_profile.stripe_customer_id)
+            customer = stripe.Customer.retrieve(
+                user_profile.stripe_customer_id)
 
         setup_intent = stripe.SetupIntent.create(customer=customer.id)
-
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -65,10 +65,12 @@ def checkout(request):
 
             order.save()
 
-            if form.cleaned_data.get('save_info') and request.user.is_authenticated:
+            if form.cleaned_data.get(
+                    'save_info') and request.user.is_authenticated:
                 user_profile.phone_number = form.cleaned_data['phone_number']
                 user_profile.address = form.cleaned_data['street_address1']
-                user_profile.street_address2 = form.cleaned_data['street_address2']
+                user_profile.street_address2 = form.cleaned_data[
+                    'street_address2']
                 user_profile.town_or_city = form.cleaned_data['town_or_city']
                 user_profile.postcode = form.cleaned_data['postcode']
                 user_profile.country = form.cleaned_data['country']
@@ -83,18 +85,21 @@ def checkout(request):
                     session_length = parts[3] if len(parts) > 3 else None
 
                     product = Product.objects.get(id=product_id)
-                    quantity = item_data['quantity'] if isinstance(item_data, dict) else item_data
+                    quantity = item_data[
+                        'quantity'] if isinstance(
+                        item_data, dict) else item_data
 
-                    
                     if booking_date:
-                        booking_date = datetime.datetime.strptime(booking_date, "%Y-%m-%d").date()
+                        booking_date = datetime.datetime.strptime(
+                            booking_date, "%Y-%m-%d").date()
                     if booking_time:
-                        booking_time = datetime.datetime.strptime(booking_time, "%H:%M").time()
+                        booking_time = datetime.datetime.strptime(
+                            booking_time, "%H:%M").time()
                     if session_length:
                         session_length = int(session_length)
 
-                    
-                    if product.category.name.lower() == 'readings' and booking_date and booking_time:
+                    if product.category.name.lower(
+                    ) == 'readings' and booking_date and booking_time:
                         conflict = OrderLineItem.objects.filter(
                             product=product,
                             booking_date=booking_date,
@@ -104,7 +109,8 @@ def checkout(request):
                         if conflict:
                             messages.error(
                                 request,
-                                f"{product.name} is already booked for {booking_date} at {booking_time}."
+                                f"{product.name} is already booked for {
+                                    booking_date} at {booking_time}."
                             )
                             order.delete()
                             return redirect(reverse('view_bag'))
@@ -124,14 +130,18 @@ def checkout(request):
                     line_item.save()
 
                 except Product.DoesNotExist:
-                    messages.error(request, "One of the products wasn't found.")
+                    messages.error(
+                        request, "One of the products wasn't found.")
                     order.delete()
                     return redirect(reverse('view_bag'))
 
             order.update_total()
-            return redirect('checkout_success', order_number=order.order_number)
+            return redirect(
+                'checkout_success', order_number=order.order_number)
         else:
-            messages.error(request, "There was an error with your form. Please double-check.")
+            messages.error(
+                request, "There was an error with your form. "
+                         "Please double-check.")
 
     else:
         initial_data = {}
@@ -156,13 +166,13 @@ def checkout(request):
                 pass
 
         form = OrderForm(initial=initial_data)
-        
 
         context = {
             'form': form,
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
-            'setup_client_secret': setup_intent.client_secret if setup_intent else None,
+            'setup_client_secret':
+                setup_intent.client_secret if setup_intent else None,
             **current_bag,
         }
 
@@ -174,8 +184,10 @@ def checkout_success(request, order_number):
 
     # Send confirmation email
     subject = f"Order Confirmation - {order.order_number}"
-    body = render_to_string('checkout/email/order_confirmation.txt', {'order': order})
-    html_body = render_to_string('checkout/email/order_confirmation.html', {'order': order})
+    body = render_to_string(
+        'checkout/email/order_confirmation.txt', {'order': order})
+    html_body = render_to_string(
+        'checkout/email/order_confirmation.html', {'order': order})
 
     send_mail(
         subject,
@@ -186,5 +198,8 @@ def checkout_success(request, order_number):
     )
 
     request.session['bag'] = {}
-    messages.success(request, f'Order {order_number} confirmed! A confirmation email was sent to {order.email}.')
+    messages.success(
+        request, f'Order {
+            order_number} confirmed! A confirmation email was sent to {
+                order.email}.')
     return render(request, 'checkout/checkout_success.html', {'order': order})

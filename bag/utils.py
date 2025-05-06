@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404
 from products.models import Product
 from django.conf import settings
+from django.http import Http404
+
 
 def bag_contents(request):
     bag = request.session.get('bag', {})
@@ -22,7 +24,7 @@ def bag_contents(request):
         if isinstance(item, dict) and not item.get('is_reading', False):
             try:
                 product = get_object_or_404(Product, pk=key)
-            except:
+            except Http404:
                 continue
 
             quantity = item.get('quantity', 1)
@@ -42,7 +44,7 @@ def bag_contents(request):
         elif isinstance(item, dict) and 'item_id' in item:
             try:
                 product = get_object_or_404(Product, pk=item['item_id'])
-            except:
+            except Http404:
                 continue
 
             quantity = item.get('quantity', 1)
@@ -64,7 +66,8 @@ def bag_contents(request):
                 'time': time,
                 'duration': duration,
                 'is_reading': True,
-                'description': f"{product.name} ({duration} min) on {date} at {time}",
+                'description': f"{product.name}({
+                    duration} min) on {date} at {time}",
             })
 
     if total < free_delivery_threshold:

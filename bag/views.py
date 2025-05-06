@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
 from products.models import Product
-from readings.models import Booking 
+from readings.models import Booking
 import pprint
+
 
 def bag_view(request):
     bag = request.session.get('bag', {})
@@ -13,13 +14,13 @@ def bag_view(request):
     for key, item_data in bag.items():
         try:
             # Check if item_data is a dictionary or a simple quantity
-            product_id = item_data.get('item_id') if isinstance(item_data, dict) else int(key)
+            product_id = item_data.get(
+                'item_id') if isinstance(item_data, dict) else int(key)
             if not product_id:
                 product_id = int(key)
 
             product = get_object_or_404(Product, pk=int(product_id))
 
-            
             if isinstance(item_data, dict):
                 quantity = item_data.get('quantity', 1)
                 price = item_data.get('price', product.price)
@@ -60,9 +61,6 @@ def bag_view(request):
     return render(request, 'bag/bag.html', context)
 
 
-
-
-
 def add_to_bag(request, item_id):
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity', 1))
@@ -80,7 +78,8 @@ def add_to_bag(request, item_id):
     }
 
     # === READINGS ===
-    if product.category.name.lower() == "readings" and date and time and duration:
+    if product.category.name.lower(
+    ) == "readings" and date and time and duration:
         variant_key = f"{item_id}_{date}_{time}_{duration}"
         price = DURATION_PRICES.get(duration, product.price)
 
@@ -117,18 +116,25 @@ def add_to_bag(request, item_id):
                         price=price,
                         message=f"Auto-booked from product '{product.name}'",
                     )
-                    messages.success(request, f"Booking for {product.name} at {time} on {date} created!")
+                    messages.success(
+                        request,
+                        f"Booking for {
+                            product.name} at {time} on {date} created!")
                 else:
-                    messages.info(request, f"You already have a booking for {product.name} at {time} on {date}.")
+                    messages.info(
+                        request, f"You already have a booking for {
+                            product.name} at {time} on {date}.")
 
             except Exception as e:
                 messages.error(request, f"Error creating booking: {e}")
 
         else:
-            messages.warning(request, "You must be logged in to create a booking!")
+            messages.warning(
+                request, "You must be logged in to create a booking!")
 
             messages.success(
-                request, f"Added {product.name} ({duration} min) on {date} at {time} to your bag!"
+                request, f"Added {product.name}({
+                    duration} min) on {date} at {time} to your bag!"
             )
 
         request.session['toast_product'] = {
@@ -185,7 +191,8 @@ def adjust_bag(request, item_id):
             bag[item_id_str]['quantity'] = quantity
         else:
             bag[item_id_str] = {'quantity': quantity, 'is_reading': False}
-        messages.info(request, f'Updated {product.name} quantity to {quantity}')
+        messages.info(
+            request, f'Updated {product.name} quantity to {quantity}')
     else:
         bag.pop(item_id_str, None)
         messages.warning(request, f'Removed {product.name} from your bag')
@@ -211,10 +218,11 @@ def remove_from_bag(request, key):
         if key in bag:
             del bag[key]
             request.session['bag'] = bag
-            request.session.pop('toast_product', None) 
+            request.session.pop('toast_product', None)
 
             if product:
-                messages.success(request, f"Removed {product.name} from your bag.")
+                messages.success(
+                    request, f"Removed {product.name} from your bag.")
             else:
                 messages.success(request, "Item removed from your bag.")
         else:
@@ -227,9 +235,7 @@ def remove_from_bag(request, key):
         return redirect('view_bag')
 
 
-
 def clear_bag(request):
     request.session['bag'] = {}
     messages.success(request, "Bag has been cleared.")
     return redirect('view_bag')
-
