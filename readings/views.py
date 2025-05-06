@@ -9,6 +9,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @login_required
 def book_reading(request):
     if request.method == 'POST':
@@ -27,27 +28,30 @@ def book_reading(request):
 
             date = form.cleaned_data['date']
             reading_type = form.cleaned_data['reading_type']
-            duration = int(form.cleaned_data['duration']) 
+            duration = int(form.cleaned_data['duration'])
 
-            
             start_dt = datetime.combine(date, booking_time)
             end_dt = start_dt + timedelta(minutes=duration)
 
-            bookings = Booking.objects.filter(date=date, reading_type=reading_type)
+            bookings = Booking.objects.filter(
+                date=date, reading_type=reading_type)
             for existing in bookings:
                 existing_start = datetime.combine(existing.date, existing.time)
-                existing_end = existing_start + timedelta(minutes=existing.duration)
+                existing_end = existing_start + timedelta(
+                    minutes=existing.duration)
 
                 if start_dt < existing_end and end_dt > existing_start:
                     logger.warning("Time %s", existing)
-                    messages.error(request, "This time slot overlaps with an existing booking.")
+                    messages.error(
+                        request, "This time slot overlaps,"
+                        "with an existing booking.")
                     return redirect('book_reading')
 
             booking = form.save(commit=False)
             booking.time = booking_time
             booking.user = request.user
 
-            ## Set the price based on duration
+            # Set the price based on duration
             price_map = {15: 30.00, 30: 45.00, 60: 80.00}
             booking.price = price_map.get(duration, 0)
 
@@ -63,7 +67,6 @@ def book_reading(request):
         form = BookingForm()
 
     return render(request, 'readings/book_reading.html', {'form': form})
-
 
 
 def get_booked_times(request):

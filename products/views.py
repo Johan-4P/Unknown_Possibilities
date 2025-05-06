@@ -5,6 +5,7 @@ from django.db.models import Q
 import random
 from django.db.models.functions import Lower
 
+
 def all_product(request):
     """ A view to return all products """
     products = Product.objects.all()
@@ -31,21 +32,20 @@ def all_product(request):
         products = products.order_by(sortkey)
         current_sorting = f'{sort}_{direction}'
 
-
-
-
         query = request.GET.get('q', '')
 
         if query:
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(
+                name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries).distinct()
-        
 
             query = request.GET['q']
             if not query:
-                messages.error(request, "You didn't enter any search criteria!")
+                messages.error(
+                    request, "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(
+                name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries).distinct()
     current_sorting = f'{sort}_{direction}'
 
@@ -58,6 +58,7 @@ def all_product(request):
 
     return render(request, 'products/products.html', context)
 
+
 def category_products(request, category_name):
     """ View to show products in a specific category """
     category = get_object_or_404(Category, name__iexact=category_name)
@@ -69,6 +70,7 @@ def category_products(request, category_name):
     }
     return render(request, 'products/products.html', context)
 
+
 def all_tarot_cards(request):
     query = request.GET.get('q', '')
     category_id = request.GET.get('category', '')
@@ -76,7 +78,8 @@ def all_tarot_cards(request):
     cards = TarotCard.objects.all()
 
     if query:
-        cards = cards.filter(Q(name__icontains=query) | Q(message__icontains=query))
+        cards = cards.filter(
+            Q(name__icontains=query) | Q(message__icontains=query))
 
     if category_id:
         cards = cards.filter(categories__id=category_id)
@@ -92,7 +95,6 @@ def all_tarot_cards(request):
     return render(request, 'products/tarot_cards.html', context)
 
 
-
 def products_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     category = product.category
@@ -102,10 +104,12 @@ def products_detail(request, product_id):
     ) if request.user.is_authenticated else []
 
     category_texts = {
-        'tarotcards': "Let the cards guide your day with ancient Tarot wisdom.",
+        'tarotcards':
+            "Let the cards guide your day with ancient Tarot wisdom.",
     }
 
-    intro_text = category_texts.get(category.name.lower(), "Draw a card and see what the universe holds.")
+    intro_text = category_texts.get(category.name.lower(
+        ), "Draw a card and see what the universe holds.")
 
     card_back = f'images/card-backs/card-back-{product.sku.lower()}.png'
 

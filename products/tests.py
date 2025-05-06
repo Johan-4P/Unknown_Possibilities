@@ -10,8 +10,6 @@ class ProductModelTest(TestCase):
         self.assertEqual(str(product), 'Test Crystal')
 
 
-
-
 class ProductListViewTest(TestCase):
 
     def setUp(self):
@@ -19,7 +17,7 @@ class ProductListViewTest(TestCase):
         Product.objects.create(name='Test Tarot Deck', price=200)
 
     def test_products_page_status_code(self):
-        response = self.client.get(reverse('products'))  
+        response = self.client.get(reverse('products'))
         self.assertEqual(response.status_code, 200)
 
     def test_products_page_template(self):
