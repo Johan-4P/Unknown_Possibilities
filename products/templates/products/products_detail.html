@@ -30,7 +30,7 @@
         {% if product.category.name|lower == "readings" %}
         <div class="form-group">
           <label for="date">Choose date:</label>
-          <input type="date" name="date" class="form-control" required>
+          <input type="date" id="date" name="date" class="form-control" required>
         </div>
 
 
@@ -54,7 +54,7 @@
 
         <div class="form-group d-flex align-items-center">
           <label for="quantity" class="me-2">Quantity</label>
-          <input type="number" name="quantity" value="1" min="1" class="form-control w-25">
+          <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control w-25">
         </div>
 
         <button type="submit" class="btn btn-own-style mt-2">Add to Cart</button>

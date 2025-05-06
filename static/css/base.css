@@ -11,6 +11,9 @@ html, body {
     scroll-behavior: smooth;
 }
 
+.container {
+  margin-top: 10%;
+}
 .header-container {
     flex: 1 0 auto;
   }

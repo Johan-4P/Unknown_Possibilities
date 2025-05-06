@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container mt-5 pt-5 fade-in-section">
   <div class="text-center mb-4">
-    <h1 class="display-4 text-light">{{ category.name }}</h1>
+    <h1 class="display-4 text-light">{{ category.name|default:"Products" }}</h1>
     {% if category.description %}
       <p>{{ category.description }}</p>
     {% endif %}
