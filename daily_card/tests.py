@@ -7,6 +7,7 @@ import json
 
 User = get_user_model()
 
+
 class DailyCardTests(TestCase):
 
     def setUp(self):
@@ -24,7 +25,8 @@ class DailyCardTests(TestCase):
             product=self.product,
             message='A new beginning'
         )
-        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.user = User.objects.create_user(
+            username='testuser', password='testpass')
 
     def test_choose_deck_view(self):
         response = self.client.get(reverse('choose_deck'))
@@ -50,7 +52,9 @@ class DailyCardTests(TestCase):
             'card_name': self.card.name,
             'product_id': self.product.id
         }
-        response = self.client.post(url, data=json.dumps(data), content_type='application/json')
+        response = self.client.post(url, data=json.dumps(
+            data), content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'status': 'success'})
-        self.assertTrue(DailyCardDraw.objects.filter(user=self.user, product=self.product).exists())
+        self.assertTrue(DailyCardDraw.objects.filter(
+            user=self.user, product=self.product).exists())

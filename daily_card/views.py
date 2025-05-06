@@ -7,9 +7,9 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import json
 
+
 @login_required
 def draw_card_of_the_day(request, product_id):
-
 
     product = get_object_or_404(Product, pk=product_id)
 
@@ -33,8 +33,6 @@ def draw_card_of_the_day(request, product_id):
     return render(request, 'daily_card/card_of_the_day.html', context)
 
 
-
-
 def choose_deck(request):
     decks = Product.objects.filter(category__name__iexact='tarotcards')
     return render(request, 'daily_card/choose_deck.html', {'decks': decks})
@@ -47,7 +45,8 @@ def save_daily_card(request):
         data = json.loads(request.body)
         card_name = data.get('card_name')
         product_id = data.get('product_id')
-        card = TarotCard.objects.filter(name=card_name, product__id=product_id).first()
+        card = TarotCard.objects.filter(
+            name=card_name, product__id=product_id).first()
         product = Product.objects.filter(id=product_id).first()
 
         if card and product:

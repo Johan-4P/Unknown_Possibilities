@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import DailyCardDraw
 
+
 @admin.register(DailyCardDraw)
 class DailyCardDrawAdmin(admin.ModelAdmin):
     list_display = ('user', 'card', 'drawn_at')
