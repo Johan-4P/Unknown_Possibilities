@@ -9,6 +9,8 @@ from bag.contexts import bag_contents
 from products.models import Product
 from checkout.models import OrderLineItem
 from accounts.models import UserProfile
+from django.contrib.auth.decorators import login_required
+
 
 
 import json
@@ -136,8 +138,9 @@ def checkout(request):
                     return redirect(reverse('view_bag'))
 
             order.update_total()
-            return redirect(
-                'checkout_success', order_number=order.order_number)
+            request.session['order_number'] = order.order_number
+            return redirect('checkout_success')
+
         else:
             messages.error(
                 request, "There was an error with your form. "
@@ -178,9 +181,21 @@ def checkout(request):
 
     return render(request, 'checkout/checkout.html', context)
 
+@login_required
+def checkout_success(request):
+    # Get order number from session
+    order_number = request.session.get('order_number')
 
-def checkout_success(request, order_number):
+    if not order_number:
+        messages.error(request, "There was an error with your order.")
+        return redirect('home')
+
     order = get_object_or_404(Order, order_number=order_number)
+
+    # Check if the order belongs to the logged-in user
+    if order.user_profile and order.user_profile.user != request.user:
+        messages.error(request, "You do not have permission to view this order.")
+        return redirect('home')
 
     # Send confirmation email
     subject = f"Order Confirmation - {order.order_number}"
@@ -197,9 +212,13 @@ def checkout_success(request, order_number):
         html_message=html_body
     )
 
+    # Clear the bag from the session
     request.session['bag'] = {}
+    del request.session['order_number']
+
     messages.success(
-        request, f'Order {
-            order_number} confirmed! A confirmation email was sent to {
-                order.email}.')
+        request,
+        f'Order {order.order_number} confirmed! A confirmation email was sent to {order.email}.'
+    )
+
     return render(request, 'checkout/checkout_success.html', {'order': order})
