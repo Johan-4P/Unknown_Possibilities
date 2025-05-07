@@ -130,17 +130,27 @@ I have used Googles Lighthouse testing to test the performance, accessibility, b
 | Bag Page | ![Bag Desktop Lighthouse Testing](documentation/testing/lighthouse/bag-desktop.png) |
 | Checkout Page | ![Checkout Desktop Lighthouse Testing](documentation/testing/lighthouse/checkout-desktop.png) |
 | Checkout Success Page | ![Checkout Success Desktop Lighthouse Testing](documentation/testing/lighthouse/success-desktop.png) |
-| Profile Page | ![Profile Desktop Lighthouse Testing](documentation/testing/lighthouse1) |
-| Contact Us Page | ![Contact Us Desktop Lighthouse Testing](documentation/testing/lighthouse/) |
-| Privacy Policy Page| ![Privacy Desktop Lighthouse Testing](documentation/testing/lighthouse/)  |
-| Terms & Conditions Page | ![Terms Desktop Lighthouse Testing](documentation/testing/lighthouse/) |
-| Delivery Policy Page | ![Delivery Desktop Lighthouse Testing](documentation/testing/lighthouse/)  |
+| Profile Page | ![Profile Desktop Lighthouse Testing](documentation/testing/lighthouse/profile-desktop.png) |
+| Daily-Card Page | ![Daily Card Desktop Lighthouse Testing](documentation/testing/lighthouse/daily-card-desktop.png) |
+| Daily-Card Pick Page| ![Daily Card Pick Desktop Lighthouse Testing](documentation/testing/lighthouse/daily-cards-pick-desktop.png)  |
+---
 
 #### Mobile Results
 
 | Page | Result |
 | :--- | :--- |
-
+| Home Page | ![Home Mobile Lighthouse Testing](documentation/testing/lighthouse/home-mobile.png)|
+| Products Page | ![Products Mobile Lighthouse Testing](documentation/testing/lighthouse/products-mobile.png) |
+| Product Details Page | ![Product Detail Mobile Lighthouse Testing](documentation/testing/lighthouse/products-detail-mobil.png) |
+| Add Product Page | ![Add Product Mobile Lighthouse Testing](documentation/testing/lighthouse/add-product-mobile.png) |
+| Edit Product Page | ![Edit Product Mobile Lighthouse Testing](documentation/testing/lighthouse/edit-product-mobile.png) |
+| Bag Page | ![Bag Mobile Lighthouse Testing](documentation/testing/lighthouse/bag-mobile.png) |
+| Checkout Page | ![Checkout Mobile Lighthouse Testing](documentation/testing/lighthouse/checkout-mobile.png) |
+| Checkout Success Page | ![Checkout Success Mobile Lighthouse Testing](documentation/testing/lighthouse/checkout-success-mobile.png) |
+| Profile Page | ![Profile Mobile Lighthouse Testing](documentation/testing/lighthouse/profile-mobile.png) |
+| Daily-Card Page | ![Daily Card Mobile Lighthouse Testing](documentation/testing/lighthouse/daily-card-mobile.png) |
+| Daily-Card Pick Page| ![Daily Card Pick Mobile Lighthouse Testing](documentation/testing/lighthouse/daily-card-pick-mobile.png)  |
+---
 
 ## Manual Testing
 
@@ -153,6 +163,13 @@ I have used Googles Lighthouse testing to test the performance, accessibility, b
 
 Full testing was performed on the following devices:
 | Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
 | :--- | :--- | :--- | :--- | :--- |
 
 
