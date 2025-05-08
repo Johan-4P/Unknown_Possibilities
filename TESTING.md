@@ -179,6 +179,21 @@ Automated testing for this project was carried out with [Django TestCase](https:
 
 | User Story ID | As a/an | I want to be able to ... | So that I can... | How is this achieved? | Evidence |
 | :--- | :--- | :--- | :---| :--- | :---: |
+| #5                | New user                 | register an account          | create a profile and access site features | Django Allauth registration form        | Register form tested, confirmation email received  |
+| #6                | Registered user          | log in and log out           | access my personal account securely       | Login/logout via Django Allauth         | Successful login and logout tested                 |
+| #7                | User who forgot password | reset my password            | regain access to my account               | "Forgot Password" form with email input | Email received and password changed successfully   |
+| #8                | New user                 | confirm my email address     | verify my account and login               | Django Allauth email verification       | Confirmation email sent and verified               |
+| #9                | Logged in user           | view my profile              | see my order history and personal info    | Profile page accessible when logged in  | Profile page shows correct user data               |
+| #10               | User                     | sort products                | find what I want faster                   | Sorting options on product list         | Sorting tested with price and name                 |
+| #11               | User                     | filter products by category  | browse products I'm interested in         | Category menu and links                 | Filtered category pages show correct products      |
+| #12               | Admin                    | create multiple categories   | organize products better                  | Admin panel category creation           | Categories display correctly on site               |
+| #13               | User                     | search for products          | quickly find what I'm looking for         | Search bar in navigation                | Searches return correct results                    |
+| #14               | User                     | view search results          | browse items that match my keywords       | Results page with product list          | Search results page shows expected matches         |
+| #15               | New visitor              | browse the site              | explore offerings before registering      | Navigation and public product pages     | Home, product and category pages browsable         |
+| #16               | User                     | see a nice front page        | get a good first impression               | Custom designed home page               | Home page loads with key features                  |
+| #4                | User                     | view my basket               | check my selected items before checkout   | Basket page with summary                | Items correctly listed in basket                   |
+| #2                | User                     | view product details         | learn more about each product             | Product detail pages                    | Product info (image, price, description) displayed |
+| #1                | User                     | view products                | browse what's available                   | Product listing page                    | Grid of products with pagination                   |
 
 ### Full Testing
 
