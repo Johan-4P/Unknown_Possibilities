@@ -1,6 +1,6 @@
 # Unknown_Possibilities
 
-![Unknown_Possibilities](documentation/readme/mockup-up.png/mockup-up.png)
+![Unknown_Possibilities](documentation/readme/mockup-up.png)
 
 [Visit Unknown Possibilities Here](https://unknown-possibilities-846f26e3e4d7.herokuapp.com/)
 
