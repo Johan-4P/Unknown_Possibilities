@@ -40,6 +40,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +59,6 @@ INSTALLED_APPS = [
     'bag',
     'checkout',
     'readings',
-    'jazzmin',
     'accounts',
     'environ',
     'stripe',
@@ -196,6 +196,37 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Unknown Possibilities Admin",
+    "site_header": "Unknown Possibilities",
+    "welcome_sign": "Welcome to the Admin Site!",
+    "site_brand": "Unknown Possibilities",
+    "site_logo": "images/logo.png",
+    "site_logo_classes": "img-circle",
+    "site_icon": "images/logo.png",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+}
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly", 
+    "navbar_small_text": False,
+    "footer_small_text": True,
+    "body_small_text": False,
+    "brand_colour": "navbar-dark",
+    "accent": "accent-purple",
+    "sidebar_nav_small_text": False,
+    "sidebar_dark": True,
+    "navbar": "navbar-dark bg-dark",
+    "sidebar": "sidebar-dark-primary",
+    "button_classes": {
+        "primary": "btn-outline-light",
+    },
+}
+
+
 
 
 # Static files (CSS, JavaScript, Images)

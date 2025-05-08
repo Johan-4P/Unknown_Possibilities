@@ -73,6 +73,7 @@
         "sqlparse",
         "staticfiles",
         "STOREAGE",
+        "Sundin",
         "swal",
         "tarotcards",
         "Temperence",
