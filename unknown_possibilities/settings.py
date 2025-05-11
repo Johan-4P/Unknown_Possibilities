@@ -209,7 +209,13 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": True,
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
+    
+    "topmenu_links": [
+        {"name": "View site", "url": "/", "new_window": True},
+        {"name": "Log out", "url": "account_logout"},
+    ],
 }
+
 JAZZMIN_UI_TWEAKS = {
     "theme": "darkly", 
     "navbar_small_text": False,
