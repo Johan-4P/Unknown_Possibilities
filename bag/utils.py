@@ -11,7 +11,7 @@ def bag_contents(request):
     product_count = 0
 
     DURATION_PRICES = {
-        '20': 30,
+        '15': 30,
         '30': 45,
         '60': 80,
     }
