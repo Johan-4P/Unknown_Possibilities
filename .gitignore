@@ -7,3 +7,14 @@ __pycache__/
 node_modules/
 docs/
 /staticfiles/
+.DS_Store
+*.pyo
+*.pyd
+*.pdb
+*.log
+coverage/
+htmlcov/
+.pytest_cache/
+.idea/
+*.code-workspace
+accounts/migrations/
