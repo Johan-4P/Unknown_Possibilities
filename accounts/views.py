@@ -10,6 +10,7 @@ from products.models import TarotCard, Product
 from .models import DailyCardDraw
 from checkout.models import Order
 from accounts.models import UserProfile
+from accounts.forms import UserProfileForm, UsernameForm
 from products.forms import ProductForm
 from .forms import UserProfileForm
 from django.conf import settings
@@ -19,17 +20,21 @@ from django.conf import settings
 def profile_view(request):
     today = date.today()
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Your delivery information was updated!")
+        profile_form = UserProfileForm(request.POST, instance=user_profile)
+        username_form = UsernameForm(request.POST, instance=request.user)
+        if profile_form.is_valid() and username_form.is_valid():
+            profile_form.save()
+            username_form.save()
+            messages.success(request, "Profile and username updated!")
             return redirect('profile')
     else:
-        form = UserProfileForm(instance=user_profile)
+        profile_form = UserProfileForm(instance=user_profile)
+        username_form = UsernameForm(instance=request.user)
+
+
 
     saved_card = None
     if user_profile.stripe_customer_id:
@@ -77,7 +82,8 @@ def profile_view(request):
 
     context = {
         'user_profile': user_profile,
-        'form': form,
+        'form': profile_form,
+        'username_form': username_form,
         'orders': orders,
         'latest_draw': daily_draw,
         'recent_draws': prev_draws,

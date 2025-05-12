@@ -13,15 +13,29 @@
 {% block content %}
 <div class="container container-detail mt-5 pt-5 fade-in-section text-light">
   <h2 class="mb-4">🌙 Welcome, {{ user.first_name|default:user.username }}</h2>
-
+          <button class="btn btn-outline-light mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#usernameForm">
+          <i class="fas fa-user-edit me-1"></i> Edit Username
+        </button>
+        <div class="collapse" id="usernameForm">
+          <form method="POST">
+            {% csrf_token %}
+            {{ username_form|crispy }}
+            <button type="submit" class="btn btn-success mt-2">
+              <i class="fas fa-save me-1"></i> Save Username
+            </button>
+          </form>
+        </div>
   <div class="row g-4">
-    <!-- Delivery info -->
+    
     <div class="col-lg-6">
+      <!-- User info -->
+        <!-- Delivery info -->
       <div class="card bg-dark border-light shadow p-4 rounded-4 mystic-text h-100">
         <h3 class="mb-4">📦 Saved Delivery Information</h3>
         <a href="{% url 'edit_delivery_info' %}" class="btn btn-outline-light mb-4">
           <i class="fas fa-edit me-1"></i> Edit Delivery Info
         </a>
+        
         <ul class="list-group list-group-flush">
           <li class="list-group-item bg-dark text-light border-secondary"><strong>Full Name:</strong> {{ user_profile.full_name }}</li>
           <li class="list-group-item bg-dark text-light border-secondary"><strong>Email:</strong> {{ user.email }}</li>
