@@ -198,9 +198,10 @@ Automated testing for this project was carried out with [Django TestCase](https:
 ### Full Testing
 
 Full testing was performed on the following devices:
+* Samsung Galaxy 22 ultra
+* Asus TUF Gaming F15 Laptop
 
 Testing was also performed using the following browsers:
-
 * Chrome
 * FireFox
 
