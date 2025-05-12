@@ -25,7 +25,7 @@ class Product(models.Model):
     """Model representing a product."""
     category = models.ForeignKey(
         'Category', null=True, blank=True, on_delete=models.SET_NULL)
-    sku = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    sku = models.CharField(max_length=200, unique=True, null=False, blank=False)
     name = models.CharField(max_length=200, null=False, blank=False)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
