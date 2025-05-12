@@ -60,6 +60,8 @@ I have gone through each page of the site using the Chrome Developer Tools to en
 | Base.CSS | Pass | [Base.css Validation](documentation/testing/validation/css/base-css-w3c.png) |
 | Checkout.CSS | Pass | [Checkout.css Validation](documentation/testing/validation/css/checkout-css.png) |
 | Bag.CSS | Pass | [Bag.css Validation](documentation/testing/validation/css/bag-css.png) |
+| Products.CSS | Pass | [product.css Validation](documentation/testing/validation/css/products-w3c-css.png) |
+| Profile.CSS | Pass | [profile.css Validation](documentation/testing/validation/css/profile-w3c-css.png) |
 ---
 
 ### JavaScript
