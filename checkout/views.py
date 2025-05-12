@@ -32,11 +32,27 @@ def checkout(request):
     stripe_total = round(total * 100)
     stripe.api_key = stripe_secret_key
 
-    # Create PaymentIntent
-    intent = stripe.PaymentIntent.create(
-        amount=stripe_total,
-        currency=settings.STRIPE_CURRENCY,
-    )
+    
+    # Create PaymentIntent with error handling
+    try:
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
+    except stripe.error.CardError as e:
+        err = e.error
+        if err.code == "card_declined":
+            if err.decline_code == "insufficient_funds":
+                messages.error(request, "Your card was declined due to insufficient funds.")
+            else:
+                messages.error(request, f"Your card was declined: {err.decline_code}")
+        else:
+            messages.error(request, "There was a payment error. Please try another card.")
+        return redirect(reverse('view_bag'))
+    except stripe.error.StripeError:
+        messages.error(request, "Stripe error occurred. Try again later.")
+        return redirect(reverse('view_bag'))
+
 
     # SetupIntent if logged in
     setup_intent = None
